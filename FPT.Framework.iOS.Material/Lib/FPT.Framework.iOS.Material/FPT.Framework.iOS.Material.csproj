@@ -45,10 +45,22 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Animation\" />
+    <Folder Include="Layer\" />
+    <Folder Include="Type\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Animation\MaterialTransitionAnimation.cs" />
+    <Compile Include="Animation\MaterialAnimation.cs" />
+    <Compile Include="Layer\MaterialLayer.cs" />
+    <Compile Include="Type\MaterialShape.cs" />
+    <Compile Include="Type\MaterialRadius.cs" />
+    <Compile Include="Type\MaterialBorder.cs" />
+    <Compile Include="Type\MaterialSpacing.cs" />
+    <Compile Include="Type\MaterialDepth.cs" />
+    <Compile Include="Type\MaterialEdgeInset.cs" />
+    <Compile Include="Type\MaterialGravity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

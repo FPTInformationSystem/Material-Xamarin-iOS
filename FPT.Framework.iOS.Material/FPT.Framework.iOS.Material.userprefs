@@ -1,7 +1,14 @@
-﻿<Properties StartupConfiguration="{26C75516-374F-487F-8014-3B57C463C87A}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Demo/MaterialDemo/AppDelegate.cs">
+﻿<Properties StartupConfiguration="{26C75516-374F-487F-8014-3B57C463C87A}|Default" GitUserInfo="UsingGIT">
+  <MonoDevelop.Ide.Workbench ActiveDocument="FPT.Framework.iOS.Material Status">
     <Files>
-      <File FileName="Demo/MaterialDemo/AppDelegate.cs" Line="1" Column="1" />
+      <File FileName="Lib/FPT.Framework.iOS.Material/Type/MaterialBorder.cs" Line="14" Column="34" />
+      <File FileName="Lib/FPT.Framework.iOS.Material/Type/MaterialDepth.cs" Line="21" Column="32" />
+      <File FileName="Lib/FPT.Framework.iOS.Material/Type/MaterialEdgeInset.cs" Line="40" Column="87" />
+      <File FileName="Lib/FPT.Framework.iOS.Material/Type/MaterialGravity.cs" Line="18" Column="85" />
+      <File FileName="Lib/FPT.Framework.iOS.Material/Type/MaterialRadius.cs" Line="4" Column="36" />
+      <File FileName="Lib/FPT.Framework.iOS.Material/Type/MaterialShape.cs" Line="7" Column="10" />
+      <File FileName="Lib/FPT.Framework.iOS.Material/Type/MaterialSpacing.cs" Line="15" Column="30" />
+      <File FileName="FPT.Framework.iOS.Material Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
