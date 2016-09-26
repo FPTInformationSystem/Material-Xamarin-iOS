@@ -61,6 +61,7 @@
     <Compile Include="Type\MaterialDepth.cs" />
     <Compile Include="Type\MaterialEdgeInset.cs" />
     <Compile Include="Type\MaterialGravity.cs" />
+    <Compile Include="Animation\MaterialBasicAnimation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
