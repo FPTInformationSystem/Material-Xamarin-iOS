@@ -2,41 +2,86 @@
 using UIKit;
 namespace FPT.Framework.iOS.Material
 {
-	public static class MaterialEdgeInset
+	public enum MaterialEdgeInset
 	{
-		public static readonly UIEdgeInsets None = UIEdgeInsets.Zero;
+		None,
+		Square1, Square2, Square3, Square4, Square5, Square6, Square7, Square8, Square9,
+		WideRectangle1, WideRectangle2, WideRectangle3, WideRectangle4, WideRectangle5, WideRectangle6, WideRectangle7, WideRectangle8, WideRectangle9,
+		TallRectangle1, TallRectangle2, TallRectangle3, TallRectangle4, TallRectangle5, TallRectangle6, TallRectangle7, TallRectangle8, TallRectangle9
+	}
 
-		// Square
-		public static readonly UIEdgeInsets Square1 = new UIEdgeInsets(4, 4, 4, 4);
-		public static readonly UIEdgeInsets Square2 = new UIEdgeInsets(8, 8, 8, 8);
-		public static readonly UIEdgeInsets Square3 = new UIEdgeInsets(16, 16, 16, 16);
-		public static readonly UIEdgeInsets Square4 = new UIEdgeInsets(24, 24, 24, 24);
-		public static readonly UIEdgeInsets Square5 = new UIEdgeInsets(32, 32, 32, 32);
-		public static readonly UIEdgeInsets Square6 = new UIEdgeInsets(40, 40, 40, 40);
-		public static readonly UIEdgeInsets Square7 = new UIEdgeInsets(48, 48, 48, 48);
-		public static readonly UIEdgeInsets Square8 = new UIEdgeInsets(56, 56, 56, 56);
-		public static readonly UIEdgeInsets Square9 = new UIEdgeInsets(64, 64, 64, 64);
+	public static partial class Convert
+	{
+		public static UIEdgeInsets MaterialEdgeInsetToValue(MaterialEdgeInset inset)
+		{
+			switch (inset)
+			{
+				case MaterialEdgeInset.None:
+					return UIEdgeInsets.Zero;
 
-		// Rectangle
-		public static readonly UIEdgeInsets WideRectangle1 = new UIEdgeInsets(2, 4, 2, 4);
-		public static readonly UIEdgeInsets WideRectangle2 = new UIEdgeInsets(4, 8, 4, 8);
-		public static readonly UIEdgeInsets WideRectangle3 = new UIEdgeInsets(8, 16, 8, 16);
-		public static readonly UIEdgeInsets WideRectangle4 = new UIEdgeInsets(12, 24, 12, 24);
-		public static readonly UIEdgeInsets WideRectangle5 = new UIEdgeInsets(16, 32, 16, 32);
-		public static readonly UIEdgeInsets WideRectangle6 = new UIEdgeInsets(20, 40, 20, 40);
-		public static readonly UIEdgeInsets WideRectangle7 = new UIEdgeInsets(48, 48, 48, 48);
-		public static readonly UIEdgeInsets WideRectangle8 = new UIEdgeInsets(56, 56, 56, 56);
-		public static readonly UIEdgeInsets WideRectangle9 = new UIEdgeInsets(64, 64, 64, 64);
+				//TallRectangle
+				case MaterialEdgeInset.Square1:
+					return new UIEdgeInsets(2, 4, 2, 4);
+				case MaterialEdgeInset.Square2:
+					return new UIEdgeInsets(8, 8, 8, 8);
+				case MaterialEdgeInset.Square3:
+					return new UIEdgeInsets(16, 16, 16, 16);
+				case MaterialEdgeInset.Square4:
+					return new UIEdgeInsets(24, 24, 24, 24);
+				case MaterialEdgeInset.Square5:
+					return new UIEdgeInsets(32, 32, 32, 32);
+				case MaterialEdgeInset.Square6:
+					return new UIEdgeInsets(40, 40, 40, 40);
+				case MaterialEdgeInset.Square7:
+					return new UIEdgeInsets(48, 48, 48, 48);
+				case MaterialEdgeInset.Square8:
+					return new UIEdgeInsets(56, 56, 56, 56);
+				case MaterialEdgeInset.Square9:
+					return new UIEdgeInsets(64, 64, 64, 64);
 
-		// Flipped Rectangle
-		public static readonly UIEdgeInsets TailRectangle1 = new UIEdgeInsets(4, 2, 4, 2);
-		public static readonly UIEdgeInsets TailRectangle2 = new UIEdgeInsets(8, 4, 8, 4);
-		public static readonly UIEdgeInsets TailRectangle3 = new UIEdgeInsets(16, 8, 16, 8);
-		public static readonly UIEdgeInsets TailRectangle4 = new UIEdgeInsets(24, 12, 24, 12);
-		public static readonly UIEdgeInsets TailRectangle5 = new UIEdgeInsets(32, 16, 32, 16);
-		public static readonly UIEdgeInsets TailRectangle6 = new UIEdgeInsets(40, 20, 40, 20);
-		public static readonly UIEdgeInsets TailRectangle7 = new UIEdgeInsets(48, 24, 48, 24);
-		public static readonly UIEdgeInsets TailRectangle8 = new UIEdgeInsets(56, 28, 56, 28);
-		public static readonly UIEdgeInsets TailRectangle9 = new UIEdgeInsets(64, 32, 64, 32);
+					//rectangle
+				case MaterialEdgeInset.WideRectangle1:
+					return new UIEdgeInsets(4, 4, 4, 4);
+				case MaterialEdgeInset.WideRectangle2:
+					return new UIEdgeInsets(4, 8, 4, 8);
+				case MaterialEdgeInset.WideRectangle3:
+					return new UIEdgeInsets(8, 16, 8, 16);
+				case MaterialEdgeInset.WideRectangle4:
+					return new UIEdgeInsets(12, 24, 12, 24);
+				case MaterialEdgeInset.WideRectangle5:
+					return new UIEdgeInsets(16, 32, 16, 32);
+				case MaterialEdgeInset.WideRectangle6:
+					return new UIEdgeInsets(20, 40, 20, 40);
+				case MaterialEdgeInset.WideRectangle7:
+					return new UIEdgeInsets(24, 48, 24, 48);
+				case MaterialEdgeInset.WideRectangle8:
+					return new UIEdgeInsets(28, 56, 28, 56);
+				case MaterialEdgeInset.WideRectangle9:
+					return new UIEdgeInsets(32, 64, 32, 64);
+
+					//flipped rectangle
+				case MaterialEdgeInset.TallRectangle1:
+					return new UIEdgeInsets(4, 2, 4, 2);
+				case MaterialEdgeInset.TallRectangle2:
+					return new UIEdgeInsets(8, 4, 8, 4);
+				case MaterialEdgeInset.TallRectangle3:
+					return new UIEdgeInsets(16, 8, 16, 8);
+				case MaterialEdgeInset.TallRectangle4:
+					return new UIEdgeInsets(24, 12, 24, 12);
+				case MaterialEdgeInset.TallRectangle5:
+					return new UIEdgeInsets(32, 16, 32, 16);
+				case MaterialEdgeInset.TallRectangle6:
+					return new UIEdgeInsets(40, 20, 40, 20);
+				case MaterialEdgeInset.TallRectangle7:
+					return new UIEdgeInsets(48, 24, 48, 24);
+				case MaterialEdgeInset.TallRectangle8:
+					return new UIEdgeInsets(56, 28, 56, 28);
+				case MaterialEdgeInset.TallRectangle9:
+					return new UIEdgeInsets(64, 32, 64, 32);
+
+				default:
+					return default(UIEdgeInsets);
+			}
+		}
 	}
 }

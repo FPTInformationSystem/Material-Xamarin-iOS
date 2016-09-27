@@ -87,7 +87,9 @@ namespace FPT.Framework.iOS.Material
 			var bLayer = pulseLayers.Pop();
 			if (bLayer != null)
 			{
-				var animated = ((NSNumber)bLayer.ValueForKey(new NSString("animted"))).BoolValue;
+				var test = bLayer.ValueForKey(new NSString("animated")) as NSNumber;
+				var animated = test.BoolValue;
+
 				MaterialAnimation.Delay(animated ? 0 : 15, () =>
 				{
 					var pLayer = bLayer.Sublayers[0] as CAShapeLayer;

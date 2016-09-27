@@ -47,6 +47,9 @@
     <Folder Include="Animation\" />
     <Folder Include="Layer\" />
     <Folder Include="Type\" />
+    <Folder Include="Button\" />
+    <Folder Include="Color\" />
+    <Folder Include="Device\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyClass.cs" />
@@ -64,6 +67,10 @@
     <Compile Include="Animation\MaterialBasicAnimation.cs" />
     <Compile Include="Animation\MaterialKeyframeAnimation.cs" />
     <Compile Include="Animation\MaterialPulseAnimation.cs" />
+    <Compile Include="Button\MaterialButton.cs" />
+    <Compile Include="Color\MaterialColor.cs" />
+    <Compile Include="Device\MaterialDevice.cs" />
+    <Compile Include="Button\FlatButton.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

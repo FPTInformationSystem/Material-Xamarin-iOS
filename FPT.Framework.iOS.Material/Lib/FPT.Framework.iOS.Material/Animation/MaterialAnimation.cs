@@ -1,6 +1,7 @@
 ﻿using System;
 using Foundation;
 using CoreAnimation;
+using CoreFoundation;
 namespace FPT.Framework.iOS.Material
 {
 	//optional func materialAnimationDidStart(animation: CAAnimation)
@@ -60,9 +61,39 @@ namespace FPT.Framework.iOS.Material
 
 	public static partial class MaterialAnimation
 	{
-		public static void Delay(double time, Action completion)
+		private const int NSEC_PER_SEC = 1000000000;
+
+		private static void dispatch_later(double time, Action completion)
 		{
-			
+			DispatchQueue.MainQueue.DispatchAfter(new DispatchTime(DispatchTime.Now, (long)time * NSEC_PER_SEC), completion);
+		}
+
+		public static MaterialAnimationDelayCancelBlock Delay(double time, Action completion)
+		{
+			MaterialAnimationDelayCancelBlock cancelable;
+
+			MaterialAnimationDelayCancelBlock delayed = (cancel) =>
+			{
+				if (!cancel)
+				{
+					DispatchQueue.MainQueue.DispatchAsync(completion);
+				}
+				cancelable = null;
+			};
+
+			cancelable = delayed;
+
+			DispatchQueue.MainQueue.DispatchAfter(new DispatchTime(DispatchTime.Now, (long)time * NSEC_PER_SEC), () =>
+			{
+				cancelable(cancel: false);
+			});
+
+			//dispatch_later(time, () =>
+			//{
+			//	cancelable(cancel: false);
+			//});
+
+			return cancelable;
 		}
 
 		public static void DelayCancel(MaterialAnimationDelayCancelBlock completion)
