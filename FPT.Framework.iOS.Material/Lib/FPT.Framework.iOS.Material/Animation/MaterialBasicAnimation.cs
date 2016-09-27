@@ -8,11 +8,11 @@ namespace FPT.Framework.iOS.Material
 {
 	public static partial class MaterialAnimation
 	{
-		public static CABasicAnimation BackgroundColor(UIColor color, double? duration)
+		public static CABasicAnimation BackgroundColor(UIColor color, double? duration = null)
 		{
 			var animation = CABasicAnimation.FromKeyPath("backgroundColor");
 			animation.To = ObjCRuntime.Runtime.GetNSObject(color.CGColor.Handle);
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -26,7 +26,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			var animation = CABasicAnimation.FromKeyPath("cornerRadius");
 			animation.To = NSNumber.FromFloat(radius);
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -40,7 +40,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			var animation = CABasicAnimation.FromKeyPath("transform");
 			animation.To = NSValue.FromCATransform3D(transform);
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -61,7 +61,7 @@ namespace FPT.Framework.iOS.Material
 				animation.To = NSNumber.FromDouble(Math.PI * 2 * rotation.Value / 180.0);
 			}
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -81,7 +81,7 @@ namespace FPT.Framework.iOS.Material
 				animation.To = NSNumber.FromDouble(Math.PI * 2 * rotation.Value / 180.0);
 			}
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -101,7 +101,7 @@ namespace FPT.Framework.iOS.Material
 				animation.To = NSNumber.FromDouble(Math.PI * 2 * rotation.Value / 180.0);
 			}
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -121,7 +121,7 @@ namespace FPT.Framework.iOS.Material
 				animation.To = NSNumber.FromDouble(Math.PI * 2 * rotation.Value / 180.0);
 			}
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -137,7 +137,7 @@ namespace FPT.Framework.iOS.Material
 				animation.To = NSNumber.FromNFloat(scale.Value);
 			}
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -153,7 +153,7 @@ namespace FPT.Framework.iOS.Material
 				animation.To = NSNumber.FromNFloat(scale.Value);
 			}
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -169,7 +169,7 @@ namespace FPT.Framework.iOS.Material
 				animation.To = NSNumber.FromNFloat(scale.Value);
 			}
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -185,7 +185,7 @@ namespace FPT.Framework.iOS.Material
 				animation.To = NSNumber.FromNFloat(scale.Value);
 			}
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -198,7 +198,7 @@ namespace FPT.Framework.iOS.Material
 			var animation = CABasicAnimation.FromKeyPath("transform.translation");
 			animation.To = NSValue.FromCGSize(translation);
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -211,7 +211,7 @@ namespace FPT.Framework.iOS.Material
 			var animation = CABasicAnimation.FromKeyPath("transform.translation.x");
 			animation.To = NSValue.FromCGSize(translation);
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -224,7 +224,7 @@ namespace FPT.Framework.iOS.Material
 			var animation = CABasicAnimation.FromKeyPath("transform.translation.y");
 			animation.To = NSValue.FromCGSize(translation);
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -237,7 +237,7 @@ namespace FPT.Framework.iOS.Material
 			var animation = CABasicAnimation.FromKeyPath("transform.translation.z");
 			animation.To = NSValue.FromCGSize(translation);
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -250,7 +250,7 @@ namespace FPT.Framework.iOS.Material
 			var animation = CABasicAnimation.FromKeyPath("position");
 			animation.To = NSValue.FromCGPoint(point);
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)
@@ -263,7 +263,7 @@ namespace FPT.Framework.iOS.Material
 			var animation = CABasicAnimation.FromKeyPath("shadowPath");
 			animation.To = ObjCRuntime.Runtime.GetNSObject(path.Handle);
 
-			animation.FillMode = MaterialAnimationFillMode.Forward;
+			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
 			animation.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			if (duration != null)

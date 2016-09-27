@@ -42,9 +42,10 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mDepth = value;
-				ShadowOffset = value.Offset;
-				ShadowOpacity = value.Opacity;
-				ShadowRadius = value.Radius;
+				var depthValue = Convert.MaterialDepthToValue(value);
+				ShadowOffset = depthValue.Offset;
+				ShadowOpacity = depthValue.Opacity;
+				ShadowRadius = depthValue.Radius;
 				layoutShadowPath();
 			}
 		}

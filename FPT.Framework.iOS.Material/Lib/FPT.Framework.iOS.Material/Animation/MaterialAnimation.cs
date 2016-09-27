@@ -7,6 +7,26 @@ namespace FPT.Framework.iOS.Material
 
 	//optional func materialAnimationDidStop(animation: CAAnimation, finished flag: Bool)
 
+	public partial class Convert
+	{
+		public static MaterialAnimationFillModeType MaterialAnimationFillModeToValue(MaterialAnimationFillMode mode)
+		{
+			switch (mode)
+			{
+				case MaterialAnimationFillMode.Forwards:
+					return CAFillMode.Forwards;
+				case MaterialAnimationFillMode.Backwards:
+					return CAFillMode.Backwards;
+				case MaterialAnimationFillMode.Both:
+					return CAFillMode.Both;
+				case MaterialAnimationFillMode.Removed:
+					return CAFillMode.Removed;
+				default:
+					return default(MaterialAnimationFillModeType);
+			}
+		}
+	}
+
 	public abstract class MaterialAnimationDelegate : MaterialDelegate
 	{
 		public virtual void materialAnimationDidStart(CAAnimation animation) { }
@@ -31,12 +51,9 @@ namespace FPT.Framework.iOS.Material
 		}
 	}
 
-	public static class MaterialAnimationFillMode
+	public enum MaterialAnimationFillMode
 	{
-		public static readonly MaterialAnimationFillModeType Forward = CAFillMode.Forwards;
-		public static readonly MaterialAnimationFillModeType Backwards = CAFillMode.Backwards;
-		public static readonly MaterialAnimationFillModeType Both = CAFillMode.Both;
-		public static readonly MaterialAnimationFillModeType Removed = CAFillMode.Removed;
+		Forwards, Backwards, Both, Removed
 	}
 
 	public delegate void MaterialAnimationDelayCancelBlock(bool cancel);
@@ -54,22 +71,31 @@ namespace FPT.Framework.iOS.Material
 				completion(true);
 		}
 
-		public static void AnimateWithDuration(double duration, Action animation, Action completion)
+		public static void AnimationDisabled(Action animations)
+		{
+			AnimateWithDuration(0, animations);
+		}
+
+		public static void AnimateWithDuration(double duration, Action animations, Action completion = null)
 		{
 			CATransaction.Begin();
 			CATransaction.AnimationDuration = duration;
 			CATransaction.CompletionBlock = completion;
 			CATransaction.AnimationTimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
+			animations();
 			CATransaction.Commit();
 		}
 
-		public static CAAnimationGroup AnimationGroup(CAAnimation[] animations, double duration = 0.5)
+		public static CAAnimationGroup AnimationGroup(CAAnimation[] animations, double? duration = 0.5)
 		{
 			var group = new CAAnimationGroup();
-			group.FillMode = MaterialAnimationFillMode.Forward;
+			group.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			group.RemovedOnCompletion = false;
 			group.Animations = animations;
-			group.Duration = duration;
+			if (duration != null)
+			{
+				group.Duration = duration.Value;
+			}
 			group.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			return group;
 		}
