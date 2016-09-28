@@ -14,7 +14,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
+    <OutputPath>..\DLLs\</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,7 +26,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <OutputPath>..\DLLs\</OutputPath>
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -78,13 +78,14 @@
     <Compile Include="Sources\Type\MaterialRadius.cs" />
     <Compile Include="Sources\Type\MaterialShape.cs" />
     <Compile Include="Sources\Type\MaterialSpacing.cs" />
+    <Compile Include="Sources\Font\RobotoFont.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Fonts\Roboto\Roboto-Bold.ttf" />
-    <None Include="Fonts\Roboto\Roboto-Light.ttf" />
-    <None Include="Fonts\Roboto\Roboto-Medium.ttf" />
-    <None Include="Fonts\Roboto\Roboto-Regular.ttf" />
-    <None Include="Fonts\Roboto\Roboto-Thin.ttf" />
+    <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
+    <BundleResource Include="Fonts\Roboto\Roboto-Light.ttf" />
+    <BundleResource Include="Fonts\Roboto\Roboto-Medium.ttf" />
+    <BundleResource Include="Fonts\Roboto\Roboto-Regular.ttf" />
+    <BundleResource Include="Fonts\Roboto\Roboto-Thin.ttf" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

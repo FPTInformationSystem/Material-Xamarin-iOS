@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using CoreGraphics;
 using Foundation;
+using CoreFoundation;
 using ObjCRuntime;
 using UIKit;
 
@@ -47,13 +49,28 @@ namespace FPT.Framework.iOS.Material
 
 		internal static void loadFontIfNeeded(string fontName)
 		{
-			var loeadedFont = MaterialFontLoader.LoadedFonts[fontName];
-			if ((LoadedFonts == null) && (UIFont.FromName(name: fontName, size: 1) == null))
+			string loadedFont;
+			MaterialFontLoader.LoadedFonts.TryGetValue(fontName, out loadedFont);
+			if ((loadedFont == null) && (UIFont.FromName(name: fontName, size: 1) == null))
 			{
 				MaterialFontLoader.LoadedFonts[fontName] = fontName;
 				var bundle = NSBundle.FromClass(new Class(typeof(MaterialFontLoader)));
 				var identifier = bundle.BundleIdentifier;
+				var fontURL = bundle.GetUrlForResource(name: fontName, fileExtension: "ttf", subdirectory:"Fonts/Roboto");
+				if (fontURL != null)
+				{
+					var data = NSData.FromUrl(fontURL);
+					var provider = new CGDataProvider(data);
+					var font = CGFont.CreateFromProvider(provider);
 
+					NSError error;
+					if (!CoreText.CTFontManager.RegisterGraphicsFont(font, out error))
+					{
+						var errerrorDescription = error.Description;
+						throw new Exception(error.Description);
+						//new NSException(name: NSException.con, reason: error.Description, userInfo: error.UserInfo);
+					}
+				}
 			}
 		}
 	}

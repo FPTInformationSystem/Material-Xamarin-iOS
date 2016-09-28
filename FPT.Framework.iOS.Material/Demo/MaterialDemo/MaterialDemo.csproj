@@ -72,10 +72,10 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: Pham Quan (6Z3728XE9F)</CodesignKey>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
-    <MtouchFastDev>true</MtouchFastDev>
+    <MtouchFastDev>false</MtouchFastDev>
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchFloat32>true</MtouchFloat32>
@@ -93,6 +93,9 @@
     <Reference Include="Xamarin.iOS" />
     <Reference Include="Calabash">
       <HintPath>..\..\packages\Xamarin.TestCloud.Agent.0.19.0\lib\Xamarin.iOS10\Calabash.dll</HintPath>
+    </Reference>
+    <Reference Include="FPT.Framework.iOS.Material">
+      <HintPath>..\..\Lib\DLLs\FPT.Framework.iOS.Material.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -117,12 +120,6 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Lib\FPT.Framework.iOS.Material\FPT.Framework.iOS.Material.csproj">
-      <Project>{F0F7EA67-9AC3-4BD7-9780-F53968317FE5}</Project>
-      <Name>FPT.Framework.iOS.Material</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

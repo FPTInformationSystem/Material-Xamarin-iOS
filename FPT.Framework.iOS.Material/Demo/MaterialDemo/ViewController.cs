@@ -31,10 +31,10 @@ namespace MaterialDemo
 		{
 			nfloat w = 200;
 			var button = new FlatButton(new CGRect((View.Bounds.Width - w)/2, 100, w, 48));
-			button.SetTitle("Flat", UIControlState.Normal);
+			button.SetTitle("Button Raised", UIControlState.Normal);
 			button.SetTitleColor(MaterialColor.Blue.Base, UIControlState.Normal);
 			button.PulseColor = MaterialColor.Blue.Base;
-			//button.TitleLabel.Font 
+			button.TitleLabel.Font = MaterialFont.SystemFontWithSize(24f);
 			View.AddSubview(button);
 		}
 
@@ -54,10 +54,10 @@ namespace MaterialDemo
 		{
 			nfloat w = 200;
 			var button = new RaisedButton(new CGRect((View.Bounds.Width - w) / 2, 200, w, 48));
-			button.SetTitle(title: "Raised", forState: UIControlState.Normal);
+			button.SetTitle(title: "Button Raised", forState: UIControlState.Normal);
 			button.SetTitleColor(color: MaterialColor.Blue.Base, forState: UIControlState.Normal);
 			button.PulseColor = MaterialColor.Blue.Base;
-			//button.titleLabel!.font = RobotoFont.mediumWithSize(24)
+			button.TitleLabel.Font = RobotoFont.RegularWithSize(24f);
 
 			// Add button to UIViewController.
 			View.AddSubview(button);
