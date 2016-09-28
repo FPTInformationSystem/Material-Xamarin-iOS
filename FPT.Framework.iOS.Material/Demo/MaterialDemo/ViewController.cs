@@ -17,6 +17,8 @@ namespace MaterialDemo
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 			prepareFlatButtonExample();
+			prepareFabButtonExample();
+			prepareRaisedButtonExample();
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -35,5 +37,30 @@ namespace MaterialDemo
 			//button.TitleLabel.Font 
 			View.AddSubview(button);
 		}
+
+		private void prepareFabButtonExample()
+		{
+			nfloat w = 64;
+		//let img: UIImage ? = MaterialIcon.cm.pen
+			var button = new FabButton(new CGRect((View.Bounds.Width - w) / 2, 300, w, w));
+			//button.setImage(img, forState: .Normal)
+			//button.setImage(img, forState: .Highlighted)
+
+			// Add button to UIViewController.
+			View.AddSubview(button);
+		}
+
+		private void prepareRaisedButtonExample()
+		{
+			nfloat w = 200;
+			var button = new RaisedButton(new CGRect((View.Bounds.Width - w) / 2, 200, w, 48));
+			button.SetTitle(title: "Raised", forState: UIControlState.Normal);
+			button.SetTitleColor(color: MaterialColor.Blue.Base, forState: UIControlState.Normal);
+			button.PulseColor = MaterialColor.Blue.Base;
+			//button.titleLabel!.font = RobotoFont.mediumWithSize(24)
+
+			// Add button to UIViewController.
+			View.AddSubview(button);
+	}
 	}
 }

@@ -44,33 +44,47 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="Animation\" />
-    <Folder Include="Layer\" />
-    <Folder Include="Type\" />
-    <Folder Include="Button\" />
-    <Folder Include="Color\" />
-    <Folder Include="Device\" />
+    <Folder Include="Sources\" />
+    <Folder Include="Sources\Animation\" />
+    <Folder Include="Sources\Button\" />
+    <Folder Include="Sources\Color\" />
+    <Folder Include="Sources\Font\" />
+    <Folder Include="Sources\Layer\" />
+    <Folder Include="Sources\Device\" />
+    <Folder Include="Sources\Type\" />
+    <Folder Include="Fonts\" />
+    <Folder Include="Fonts\Roboto\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Animation\MaterialTransitionAnimation.cs" />
-    <Compile Include="Animation\MaterialAnimation.cs" />
-    <Compile Include="Layer\MaterialLayer.cs" />
-    <Compile Include="Type\MaterialShape.cs" />
-    <Compile Include="Type\MaterialRadius.cs" />
-    <Compile Include="Type\MaterialBorder.cs" />
-    <Compile Include="Type\MaterialSpacing.cs" />
-    <Compile Include="Type\MaterialDepth.cs" />
-    <Compile Include="Type\MaterialEdgeInset.cs" />
-    <Compile Include="Type\MaterialGravity.cs" />
-    <Compile Include="Animation\MaterialBasicAnimation.cs" />
-    <Compile Include="Animation\MaterialKeyframeAnimation.cs" />
-    <Compile Include="Animation\MaterialPulseAnimation.cs" />
-    <Compile Include="Button\MaterialButton.cs" />
-    <Compile Include="Color\MaterialColor.cs" />
-    <Compile Include="Device\MaterialDevice.cs" />
-    <Compile Include="Button\FlatButton.cs" />
+    <Compile Include="Sources\Animation\MaterialAnimation.cs" />
+    <Compile Include="Sources\Animation\MaterialBasicAnimation.cs" />
+    <Compile Include="Sources\Animation\MaterialKeyframeAnimation.cs" />
+    <Compile Include="Sources\Animation\MaterialPulseAnimation.cs" />
+    <Compile Include="Sources\Animation\MaterialTransitionAnimation.cs" />
+    <Compile Include="Sources\Button\FabButton.cs" />
+    <Compile Include="Sources\Button\FlatButton.cs" />
+    <Compile Include="Sources\Button\MaterialButton.cs" />
+    <Compile Include="Sources\Button\RaisedButton.cs" />
+    <Compile Include="Sources\Color\MaterialColor.cs" />
+    <Compile Include="Sources\Font\MaterialFont.cs" />
+    <Compile Include="Sources\Layer\MaterialLayer.cs" />
+    <Compile Include="Sources\Device\MaterialDevice.cs" />
+    <Compile Include="Sources\Type\MaterialBorder.cs" />
+    <Compile Include="Sources\Type\MaterialDepth.cs" />
+    <Compile Include="Sources\Type\MaterialEdgeInset.cs" />
+    <Compile Include="Sources\Type\MaterialGravity.cs" />
+    <Compile Include="Sources\Type\MaterialRadius.cs" />
+    <Compile Include="Sources\Type\MaterialShape.cs" />
+    <Compile Include="Sources\Type\MaterialSpacing.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Fonts\Roboto\Roboto-Bold.ttf" />
+    <None Include="Fonts\Roboto\Roboto-Light.ttf" />
+    <None Include="Fonts\Roboto\Roboto-Medium.ttf" />
+    <None Include="Fonts\Roboto\Roboto-Regular.ttf" />
+    <None Include="Fonts\Roboto\Roboto-Thin.ttf" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
