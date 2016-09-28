@@ -57,6 +57,7 @@ namespace FPT.Framework.iOS.Material
 				var bundle = NSBundle.FromClass(new Class(typeof(MaterialFontLoader)));
 				var identifier = bundle.BundleIdentifier;
 				var fontURL = bundle.GetUrlForResource(name: fontName, fileExtension: "ttf", subdirectory:"Fonts/Roboto");
+//				var fontURL = bundle.GetUrlForResource(name: fontName, fileExtension: "ttf");
 				if (fontURL != null)
 				{
 					var data = NSData.FromUrl(fontURL);

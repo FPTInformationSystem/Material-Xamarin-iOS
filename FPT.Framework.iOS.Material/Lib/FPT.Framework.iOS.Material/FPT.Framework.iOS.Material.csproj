@@ -54,6 +54,10 @@
     <Folder Include="Sources\Type\" />
     <Folder Include="Fonts\" />
     <Folder Include="Fonts\Roboto\" />
+    <Folder Include="Sources\Icon\" />
+    <Folder Include="Assets.xcassets\cm_add_white.imageset\" />
+    <Folder Include="Assets.xcassets\cm_arrow_back_white.imageset\" />
+    <Folder Include="Assets.xcassets\cm_arrow_downward_white.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyClass.cs" />
@@ -79,6 +83,7 @@
     <Compile Include="Sources\Type\MaterialShape.cs" />
     <Compile Include="Sources\Type\MaterialSpacing.cs" />
     <Compile Include="Sources\Font\RobotoFont.cs" />
+    <Compile Include="Sources\Icon\MaterialIcon.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
@@ -86,6 +91,12 @@
     <BundleResource Include="Fonts\Roboto\Roboto-Medium.ttf" />
     <BundleResource Include="Fonts\Roboto\Roboto-Regular.ttf" />
     <BundleResource Include="Fonts\Roboto\Roboto-Thin.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\cm_add_white.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\cm_arrow_back_white.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\cm_arrow_downward_white.imageset\Contents.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -41,8 +41,11 @@ namespace MaterialDemo
 		private void prepareFabButtonExample()
 		{
 			nfloat w = 64;
-		//let img: UIImage ? = MaterialIcon.cm.pen
+			//let img: UIImage ? = MaterialIcon.cm.pen
+			var img = MaterialIcon.CM.AddWhite;
 			var button = new FabButton(new CGRect((View.Bounds.Width - w) / 2, 300, w, w));
+			button.SetImage(image: img, forState: UIControlState.Normal);
+			button.SetImage(image: img, forState: UIControlState.Highlighted);
 			//button.setImage(img, forState: .Normal)
 			//button.setImage(img, forState: .Highlighted)
 
