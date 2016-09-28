@@ -11,7 +11,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				get
 				{
-					return new UIColor(red: 158 / 255, green: 158 / 255, blue: 158 / 255, alpha: 1);
+					return new UIColor(red: 158f / 255f, green: 158f / 255f, blue: 158f / 255f, alpha: 1);
 				}
 			}
 		}
@@ -22,7 +22,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				get
 				{
-					return new UIColor(red: 32 / 255, green: 150 / 255, blue: 243 / 255, alpha: 1);
+					return new UIColor(red: 32f / 255f, green: 150f / 255f, blue: 243f / 255f, alpha: 1);
 				}
 			}
 		}

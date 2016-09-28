@@ -21,7 +21,7 @@ namespace FPT.Framework.iOS.Material
 
 	public static partial class MaterialAnimation
 	{
-		internal static void pulseExpandAnimation(CALayer layer, CALayer visualLayer, UIColor pulseColor, nfloat pulseOpacity, CGPoint point, nfloat width, nfloat height, ref Stack<CAShapeLayer> pulseLayers, PulseAnimation pulseAnimation)
+		internal static void pulseExpandAnimation(CALayer layer, CALayer visualLayer, UIColor pulseColor, nfloat pulseOpacity, CGPoint point, nfloat width, nfloat height, ref Queue<CAShapeLayer> pulseLayers, PulseAnimation pulseAnimation)
 		{
 			if (pulseAnimation != PulseAnimation.None)
 			{
@@ -29,7 +29,7 @@ namespace FPT.Framework.iOS.Material
 				var bLayer = new CAShapeLayer();
 				var pLayer = new CAShapeLayer();
 				bLayer.AddSublayer(pLayer);
-				pulseLayers.Push(bLayer);
+				pulseLayers.Enqueue(bLayer);
 				visualLayer.AddSublayer(bLayer);
 				MaterialAnimation.AnimationDisabled(() =>
 				{
@@ -52,7 +52,7 @@ namespace FPT.Framework.iOS.Material
 				});
 				bLayer.SetValueForKey(NSObject.FromObject(false), new NSString("animated"));
 
-				var duration = pulseAnimation == PulseAnimation.Center ? 0.16125 : 0325;
+				var duration = pulseAnimation == PulseAnimation.Center ? 0.16125 : 0.325;
 				switch (pulseAnimation)
 				{
 					case PulseAnimation.CenterWithBacking:
@@ -82,15 +82,15 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		internal static void pulseContractAnimation(CALayer layer, CALayer visualLayer, UIColor pulseColor, ref Stack<CAShapeLayer> pulseLayers, PulseAnimation pulseAnimation)
+		internal static void pulseContractAnimation(CALayer layer, CALayer visualLayer, UIColor pulseColor, ref Queue<CAShapeLayer> pulseLayers, PulseAnimation pulseAnimation)
 		{
-			var bLayer = pulseLayers.Pop();
+			var bLayer = pulseLayers.Dequeue();
 			if (bLayer != null)
 			{
 				var test = bLayer.ValueForKey(new NSString("animated")) as NSNumber;
 				var animated = test.BoolValue;
 
-				MaterialAnimation.Delay(animated ? 0 : 15, () =>
+				MaterialAnimation.Delay(animated ? 0 : 0.15, () =>
 				{
 					var pLayer = bLayer.Sublayers[0] as CAShapeLayer;
 					if (pLayer != null)

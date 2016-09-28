@@ -60,7 +60,7 @@ namespace FPT.Framework.iOS.Material
 
 		private CAShapeLayer mVisualLayer = new CAShapeLayer();
 		private MaterialDelegate mDelegate;
-		private Stack<CAShapeLayer> mPulseLayers = new Stack<CAShapeLayer>();
+		private Queue<CAShapeLayer> mPulseLayers = new Queue<CAShapeLayer>();
 		private nfloat mPulseOpacity = 0.25f;
 		private UIColor mPulseColor = MaterialColor.Grey.Base;
 		private PulseAnimation mPulseAnimation = PulseAnimation.AtPointWithBacking;
@@ -110,7 +110,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		public Stack<CAShapeLayer> PulseLayers
+		public Queue<CAShapeLayer> PulseLayers
 		{
 			get
 			{
@@ -605,7 +605,11 @@ namespace FPT.Framework.iOS.Material
 				}
 				else if (ShadowPath == null)
 				{
-					//ShadowPath = UIBezierPath.FromRoundedRect(Bounds, CornerR
+					ShadowPath = UIBezierPath.FromRoundedRect(rect: Bounds, cornerRadius: CornerRadius).CGPath;
+				}
+				else
+				{
+					Animate(MaterialAnimation.ShadowPath(UIBezierPath.FromRoundedRect(rect: Bounds, cornerRadius: CornerRadius).CGPath, duration: 0));
 				}
 			}
 		}

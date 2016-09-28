@@ -10,7 +10,7 @@ namespace FPT.Framework.iOS.Material
 
 	public partial class Convert
 	{
-		public static MaterialAnimationFillModeType MaterialAnimationFillModeToValue(MaterialAnimationFillMode mode)
+		public static string MaterialAnimationFillModeToValue(MaterialAnimationFillMode mode)
 		{
 			switch (mode)
 			{
@@ -23,7 +23,7 @@ namespace FPT.Framework.iOS.Material
 				case MaterialAnimationFillMode.Removed:
 					return CAFillMode.Removed;
 				default:
-					return default(MaterialAnimationFillModeType);
+					return default(string);
 			}
 		}
 	}
@@ -32,24 +32,6 @@ namespace FPT.Framework.iOS.Material
 	{
 		public virtual void materialAnimationDidStart(CAAnimation animation) { }
 		public virtual void materialAnimationDidStop(CAAnimation animation, bool finished) { }
-	}
-
-	public class MaterialAnimationFillModeType
-	{
-		private NSString Value = NSString.Empty;
-		public static implicit operator NSString(MaterialAnimationFillModeType ts)
-		{
-			return ((ts == null) ? null : ts.Value);
-		}
-		public static implicit operator MaterialAnimationFillModeType(NSString val)
-		{
-			return new MaterialAnimationFillModeType { Value = val };
-		}
-
-		public static implicit operator string(MaterialAnimationFillModeType ts)
-		{
-			return ((ts == null) ? null : ts.ToString());
-		}
 	}
 
 	public enum MaterialAnimationFillMode
