@@ -3,3 +3,5 @@ obj
 bin
 .DS_Store
 *.mdb
+FPT.Framework.iOS.Material/packages/Xamarin.UITest.1.3.7
+FPT.Framework.iOS.Material/packages/NUnit.2.6.3

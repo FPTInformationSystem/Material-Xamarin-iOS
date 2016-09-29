@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{F645ECDC-3DC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPT.Framework.iOS.Material", "Lib\FPT.Framework.iOS.Material\FPT.Framework.iOS.Material.csproj", "{F0F7EA67-9AC3-4BD7-9780-F53968317FE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialViewDemo", "Demo\MaterialViewDemo\MaterialViewDemo.csproj", "{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -43,10 +45,19 @@ Global
 		{F0F7EA67-9AC3-4BD7-9780-F53968317FE5}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{F0F7EA67-9AC3-4BD7-9780-F53968317FE5}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{F0F7EA67-9AC3-4BD7-9780-F53968317FE5}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA}.Release|iPhone.ActiveCfg = Release|iPhone
+		{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA}.Release|iPhone.Build.0 = Release|iPhone
+		{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26C75516-374F-487F-8014-3B57C463C87A} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{3F30F05D-74EC-4FBE-ACF0-D9F139A36B06} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{F0F7EA67-9AC3-4BD7-9780-F53968317FE5} = {F645ECDC-3DC8-4ACB-ABE4-A540593506B4}
+		{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 	EndGlobalSection
 EndGlobal
