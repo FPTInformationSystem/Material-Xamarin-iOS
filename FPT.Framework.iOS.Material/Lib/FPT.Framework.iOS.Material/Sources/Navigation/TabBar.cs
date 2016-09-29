@@ -25,12 +25,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using Foundation;
+using ObjCRuntime;
+using UIKit;
+
 namespace FPT.Framework.iOS.Material
 {
-	public class TabBar
+	public class TabBar : UILabel
 	{
 		public TabBar()
 		{
+		}
+
+		[Export("layerClass")]
+		public static Class LayerClass()
+		{
+			return new Class(typeof(MaterialTextLayer));
 		}
 	}
 }
