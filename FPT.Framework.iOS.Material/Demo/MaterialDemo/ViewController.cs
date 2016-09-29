@@ -19,6 +19,8 @@ namespace MaterialDemo
 			prepareFlatButtonExample();
 			prepareFabButtonExample();
 			prepareRaisedButtonExample();
+
+			prepareMaterialView();
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -64,6 +66,23 @@ namespace MaterialDemo
 
 			// Add button to UIViewController.
 			View.AddSubview(button);
-	}
+		}
+
+		private void prepareMaterialView()
+		{
+			nfloat width = 200f;
+			nfloat height = 200f;
+
+			//var imageView = new UIImageView(UIImage.FromBundle("Demo"));
+			//View.AddSubview(imageView);
+
+			var materialView = new MaterialView(new CGRect(0, 0, width, height));
+			materialView.Image = UIImage.FromBundle("CosmicMind");
+			materialView.Shape = MaterialShape.Circle;
+			materialView.Depth = MaterialDepth.Depth2;
+			materialView.Center = View.Center;
+
+			View.AddSubview(materialView);
+		}
 	}
 }

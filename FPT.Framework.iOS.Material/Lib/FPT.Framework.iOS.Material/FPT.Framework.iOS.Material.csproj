@@ -58,9 +58,11 @@
     <Folder Include="Assets.xcassets\cm_add_white.imageset\" />
     <Folder Include="Assets.xcassets\cm_arrow_back_white.imageset\" />
     <Folder Include="Assets.xcassets\cm_arrow_downward_white.imageset\" />
+    <Folder Include="Sources\Navigation\" />
+    <Folder Include="Sources\Extension\" />
+    <Folder Include="Sources\View\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\Animation\MaterialAnimation.cs" />
     <Compile Include="Sources\Animation\MaterialBasicAnimation.cs" />
@@ -84,6 +86,10 @@
     <Compile Include="Sources\Type\MaterialSpacing.cs" />
     <Compile Include="Sources\Font\RobotoFont.cs" />
     <Compile Include="Sources\Icon\MaterialIcon.cs" />
+    <Compile Include="Sources\Navigation\TabBar.cs" />
+    <Compile Include="Sources\Layer\MaterialTextLayer.cs" />
+    <Compile Include="Sources\Extension\Material+UIFont.cs" />
+    <Compile Include="Sources\View\MaterialView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
@@ -99,4 +105,13 @@
     <ImageAsset Include="Assets.xcassets\cm_arrow_downward_white.imageset\Contents.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <StandardHeader Text="MIT/X11 License&#xA;&#xA;${FileName}&#xA; &#xA;Author:&#xA;      Pham Quan &lt;QuanP@fpt.com.vn, mr.pquan@gmail.com&gt; at FPT Software Service Center.&#xA;&#xA;Copyright (c) ${Year} FPT Information System.&#xA;&#xA;Permission is hereby granted, free of charge, to any person obtaining a copy&#xA;of this software and associated documentation files (the &quot;Software&quot;), to deal&#xA;in the Software without restriction, including without limitation the rights&#xA;to use, copy, modify, merge, publish, distribute, sublicense, and/or sell&#xA;copies of the Software, and to permit persons to whom the Software is&#xA;furnished to do so, subject to the following conditions:&#xA;&#xA;The above copyright notice and this permission notice shall be included in&#xA;all copies or substantial portions of the Software.&#xA;&#xA;THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR&#xA;IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,&#xA;FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE&#xA;AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER&#xA;LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,&#xA;OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN&#xA;THE SOFTWARE." IncludeInNewFiles="True" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

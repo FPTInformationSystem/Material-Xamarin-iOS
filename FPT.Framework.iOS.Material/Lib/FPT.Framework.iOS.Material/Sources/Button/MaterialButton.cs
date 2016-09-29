@@ -431,6 +431,18 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		public CGPoint Position
+		{
+			get
+			{
+				return Layer.Position;
+			}
+			set
+			{
+				Layer.Position = value;
+			}
+		}
+
 		public nfloat ZPosition
 		{
 			get
