@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialDemo", "Demo\MaterialDemo\MaterialDemo.csproj", "{26C75516-374F-487F-8014-3B57C463C87A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialDemo.UITests", "Demo\MaterialDemo.UITests\MaterialDemo.UITests.csproj", "{3F30F05D-74EC-4FBE-ACF0-D9F139A36B06}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{989A6933-FC41-40C0-B524-03C9F95BB42D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{F645ECDC-3DC8-4ACB-ABE4-A540593506B4}"
@@ -14,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialViewDemo", "Demo\MaterialViewDemo\MaterialViewDemo.csproj", "{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialPulseViewDemo", "Demo\MaterialPulseViewDemo\MaterialPulseViewDemo.csproj", "{6FBC8BAE-7C67-44A1-BAA4-AF7EBDA8788D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialButtonDemo", "Demo\MaterialButtonDemo\MaterialButtonDemo.csproj", "{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +31,6 @@ Global
 		{26C75516-374F-487F-8014-3B57C463C87A}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{26C75516-374F-487F-8014-3B57C463C87A}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{26C75516-374F-487F-8014-3B57C463C87A}.Debug|iPhone.Build.0 = Debug|iPhone
-		{3F30F05D-74EC-4FBE-ACF0-D9F139A36B06}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{3F30F05D-74EC-4FBE-ACF0-D9F139A36B06}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{3F30F05D-74EC-4FBE-ACF0-D9F139A36B06}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{3F30F05D-74EC-4FBE-ACF0-D9F139A36B06}.Release|iPhone.Build.0 = Release|Any CPU
-		{3F30F05D-74EC-4FBE-ACF0-D9F139A36B06}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{3F30F05D-74EC-4FBE-ACF0-D9F139A36B06}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{3F30F05D-74EC-4FBE-ACF0-D9F139A36B06}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{3F30F05D-74EC-4FBE-ACF0-D9F139A36B06}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{F0F7EA67-9AC3-4BD7-9780-F53968317FE5}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{F0F7EA67-9AC3-4BD7-9780-F53968317FE5}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
 		{F0F7EA67-9AC3-4BD7-9780-F53968317FE5}.Release|iPhone.ActiveCfg = Release|Any CPU
@@ -63,12 +55,20 @@ Global
 		{6FBC8BAE-7C67-44A1-BAA4-AF7EBDA8788D}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{6FBC8BAE-7C67-44A1-BAA4-AF7EBDA8788D}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{6FBC8BAE-7C67-44A1-BAA4-AF7EBDA8788D}.Debug|iPhone.Build.0 = Debug|iPhone
+		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}.Release|iPhone.ActiveCfg = Release|iPhone
+		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}.Release|iPhone.Build.0 = Release|iPhone
+		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26C75516-374F-487F-8014-3B57C463C87A} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
-		{3F30F05D-74EC-4FBE-ACF0-D9F139A36B06} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{F0F7EA67-9AC3-4BD7-9780-F53968317FE5} = {F645ECDC-3DC8-4ACB-ABE4-A540593506B4}
 		{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{6FBC8BAE-7C67-44A1-BAA4-AF7EBDA8788D} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
+		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 	EndGlobalSection
 EndGlobal
