@@ -89,6 +89,7 @@
     <Compile Include="Sources\Extension\Material+UIFont.cs" />
     <Compile Include="Sources\View\MaterialView.cs" />
     <Compile Include="Sources\View\MaterialPulseView.cs" />
+    <Compile Include="Sources\Button\IconButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
@@ -99,6 +100,9 @@
     <BundleResource Include="Resources\cm_add_white.png" />
     <BundleResource Include="Resources\cm_add_white%402x.png" />
     <BundleResource Include="Resources\cm_add_white%403x.png" />
+    <BundleResource Include="Resources\cm_search_white.png" />
+    <BundleResource Include="Resources\cm_search_white%402x.png" />
+    <BundleResource Include="Resources\cm_search_white%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>

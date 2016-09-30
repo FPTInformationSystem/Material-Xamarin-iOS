@@ -19,14 +19,7 @@ namespace MaterialButtonDemo
 			prepareFlatButtonExample();
 			prepareFabButtonExample();
 			prepareRaisedButtonExample();
-
-			//prepareMaterialView();
-		}
-
-		public override void DidReceiveMemoryWarning()
-		{
-			base.DidReceiveMemoryWarning();
-			// Release any cached data, images, etc that aren't in use.
+			prepareIconButtonExample();
 		}
 
 		public void prepareFlatButtonExample()
@@ -65,6 +58,17 @@ namespace MaterialButtonDemo
 			button.TitleLabel.Font = RobotoFont.RegularWithSize(24f);
 
 			// Add button to UIViewController.
+			View.AddSubview(button);
+		}
+
+		private void prepareIconButtonExample()
+		{
+			nfloat w = 64f;
+			var img = MaterialIcon.CM.Search;
+			var button = new IconButton(new CGRect((View.Bounds.Width - w) / 2, 400, w, w));
+			button.SetImage(image: img, forState: UIControlState.Normal);
+			button.SetImage(image: img, forState: UIControlState.Highlighted);
+
 			View.AddSubview(button);
 		}
 	}
