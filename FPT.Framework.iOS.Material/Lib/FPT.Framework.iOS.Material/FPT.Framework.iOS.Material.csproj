@@ -59,6 +59,7 @@
     <Folder Include="Sources\Extension\" />
     <Folder Include="Sources\View\" />
     <Folder Include="Resources\Assets.xcassets\" />
+    <Folder Include="Sources\Collection\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,6 +91,11 @@
     <Compile Include="Sources\View\MaterialView.cs" />
     <Compile Include="Sources\View\MaterialPulseView.cs" />
     <Compile Include="Sources\Button\IconButton.cs" />
+    <Compile Include="Sources\Collection\MaterialDataSourceItem.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionView.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionViewLayout.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionViewDelegate.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionViewDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
