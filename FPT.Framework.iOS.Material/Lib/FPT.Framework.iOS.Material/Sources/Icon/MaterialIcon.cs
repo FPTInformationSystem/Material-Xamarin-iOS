@@ -23,6 +23,7 @@ namespace FPT.Framework.iOS.Material
 
 		public static UIImage Icon(string name)
 		{
+			//return UIImage.FromBundle(name).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
 			return UIImage.FromBundle(name: name, bundle: Bundle, traitCollection: null).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
 		}
 

@@ -20,7 +20,7 @@ namespace MaterialDemo
 			prepareFabButtonExample();
 			prepareRaisedButtonExample();
 
-			prepareMaterialView();
+			//prepareMaterialView();
 		}
 
 		public override void DidReceiveMemoryWarning()

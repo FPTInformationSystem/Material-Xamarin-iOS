@@ -58,6 +58,7 @@
     <Folder Include="Sources\Navigation\" />
     <Folder Include="Sources\Extension\" />
     <Folder Include="Sources\View\" />
+    <Folder Include="Resources\Assets.xcassets\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +95,9 @@
     <BundleResource Include="Fonts\Roboto\Roboto-Medium.ttf" />
     <BundleResource Include="Fonts\Roboto\Roboto-Regular.ttf" />
     <BundleResource Include="Fonts\Roboto\Roboto-Thin.ttf" />
+    <BundleResource Include="Resources\cm_add_white.png" />
+    <BundleResource Include="Resources\cm_add_white%402x.png" />
+    <BundleResource Include="Resources\cm_add_white%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>
