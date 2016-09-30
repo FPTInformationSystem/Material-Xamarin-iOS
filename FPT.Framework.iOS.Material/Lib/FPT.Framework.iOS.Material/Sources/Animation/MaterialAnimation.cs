@@ -105,10 +105,7 @@ namespace FPT.Framework.iOS.Material
 			group.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			group.RemovedOnCompletion = false;
 			group.Animations = animations;
-			if (duration != null)
-			{
-				group.Duration = duration.Value;
-			}
+			group.Duration = duration.Value;
 			group.TimingFunction = CAMediaTimingFunction.FromName(CAMediaTimingFunction.EaseInEaseOut);
 			return group;
 		}

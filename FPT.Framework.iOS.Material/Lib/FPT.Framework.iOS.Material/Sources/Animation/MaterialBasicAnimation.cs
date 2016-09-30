@@ -58,7 +58,7 @@ namespace FPT.Framework.iOS.Material
 				animation.To = NSNumber.FromDouble(Math.PI * angle.Value / 180.0);
 			}
 			else if (rotation != null) {
-				animation.To = NSNumber.FromDouble(Math.PI * 2 * rotation.Value / 180.0);
+				animation.To = NSNumber.FromDouble(Math.PI * 2 * rotation.Value);
 			}
 
 			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
@@ -78,7 +78,7 @@ namespace FPT.Framework.iOS.Material
 			}
 			else if (rotation != null)
 			{
-				animation.To = NSNumber.FromDouble(Math.PI * 2 * rotation.Value / 180.0);
+				animation.To = NSNumber.FromDouble(Math.PI * 2 * rotation.Value);
 			}
 
 			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
@@ -98,7 +98,7 @@ namespace FPT.Framework.iOS.Material
 			}
 			else if (rotation != null)
 			{
-				animation.To = NSNumber.FromDouble(Math.PI * 2 * rotation.Value / 180.0);
+				animation.To = NSNumber.FromDouble(Math.PI * 2 * rotation.Value);
 			}
 
 			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
@@ -118,7 +118,7 @@ namespace FPT.Framework.iOS.Material
 			}
 			else if (rotation != null)
 			{
-				animation.To = NSNumber.FromDouble(Math.PI * 2 * rotation.Value / 180.0);
+				animation.To = NSNumber.FromDouble(Math.PI * 2 * rotation.Value);
 			}
 
 			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
@@ -206,10 +206,10 @@ namespace FPT.Framework.iOS.Material
 			return animation;
 		}
 
-		public static CABasicAnimation TranslateX(CGSize translation, double? duration = null)
+		public static CABasicAnimation TranslateX(nfloat translation, double? duration = null)
 		{
 			var animation = CABasicAnimation.FromKeyPath("transform.translation.x");
-			animation.To = NSValue.FromCGSize(translation);
+			animation.To = NSNumber.FromNFloat(translation);
 
 			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
@@ -219,10 +219,10 @@ namespace FPT.Framework.iOS.Material
 			return animation;
 		}
 
-		public static CABasicAnimation TranslateY(CGSize translation, double? duration = null)
+		public static CABasicAnimation TranslateY(nfloat translation, double? duration = null)
 		{
 			var animation = CABasicAnimation.FromKeyPath("transform.translation.y");
-			animation.To = NSValue.FromCGSize(translation);
+			animation.To = NSNumber.FromNFloat(translation);
 
 			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;
@@ -232,10 +232,10 @@ namespace FPT.Framework.iOS.Material
 			return animation;
 		}
 
-		public static CABasicAnimation TranslateZ(CGSize translation, double? duration = null)
+		public static CABasicAnimation TranslateZ(nfloat translation, double? duration = null)
 		{
 			var animation = CABasicAnimation.FromKeyPath("transform.translation.z");
-			animation.To = NSValue.FromCGSize(translation);
+			animation.To = NSNumber.FromNFloat(translation);
 
 			animation.FillMode = Convert.MaterialAnimationFillModeToValue(MaterialAnimationFillMode.Forwards);
 			animation.RemovedOnCompletion = false;

@@ -88,6 +88,7 @@
     <Compile Include="Sources\Layer\MaterialTextLayer.cs" />
     <Compile Include="Sources\Extension\Material+UIFont.cs" />
     <Compile Include="Sources\View\MaterialView.cs" />
+    <Compile Include="Sources\View\MaterialPulseView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
