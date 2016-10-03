@@ -1,6 +1,6 @@
 ﻿// MIT/X11 License
 //
-// IconButton.cs
+// UILabel.cs
 //
 // Author:
 //       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
@@ -26,22 +26,36 @@
 // THE SOFTWARE.
 using System;
 using CoreGraphics;
+
 namespace FPT.Framework.iOS.Material
 {
-	public class IconButton : MaterialButton
+	public class UILabel : UIKit.UILabel, IUIView
 	{
+		public UILabel() : base() { }
 
-		public IconButton(CGRect frame) : base(frame) { }
-
-		public IconButton() : base() { }
-
-		public override void prepareView()
+		public UILabel(Foundation.NSCoder coder) : base(coder)
 		{
-			base.prepareView();
-			CornerRadiusPreset = MaterialRadius.Radius1;
-			ContentEdgeInsetsPreset = MaterialEdgeInset.WideRectangle3;
-			PulseAnimation = PulseAnimation.Center;
 		}
 
+		public UILabel(CGRect frame) : base(frame)
+		{
+		}
+
+		private Grid mGrid;
+		public Grid Grid
+		{
+			get
+			{
+				if (mGrid == null)
+				{
+					mGrid = new Grid();
+				}
+				return mGrid;
+			}
+			set
+			{
+				mGrid = value;
+			}
+		}
 	}
 }

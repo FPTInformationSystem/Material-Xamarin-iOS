@@ -33,7 +33,7 @@ namespace FPT.Framework.iOS.Material
 {
 	public class TabBar : UILabel
 	{
-		public TabBar()
+		public TabBar() : base ()
 		{
 		}
 

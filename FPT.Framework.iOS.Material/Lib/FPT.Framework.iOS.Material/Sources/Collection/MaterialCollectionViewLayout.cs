@@ -37,9 +37,17 @@ namespace FPT.Framework.iOS.Material
 	{
 		#region PROPERTIES
 
-		internal CGPoint Offset { get; set; } = CGPoint.Empty;
+		private CGPoint mOffset = CGPoint.Empty;
+		internal CGPoint Offset
+		{
+			get { return mOffset; }
+			set
+			{
+				mOffset = value;
+			}
+		}
 
-		internal CGPoint ItemSize { get; set; } = CGPoint.Empty;
+		internal CGSize ItemSize { get; set; } = CGSize.Empty;
 
 		private MaterialEdgeInset mContentInsetPreset = MaterialEdgeInset.None;
 		public MaterialEdgeInset ContentInsetPreset
@@ -110,17 +118,42 @@ namespace FPT.Framework.iOS.Material
 
 		public override UICollectionViewLayoutAttributes LayoutAttributesForItem(NSIndexPath indexPath)
 		{
-			return base.LayoutAttributesForItem(indexPath);
+			var attributes = UICollectionViewLayoutAttributes.CreateForCell(indexPath);
+			var item = DataSourceItems[(int)indexPath.Item];
+
+			if (0 < ItemSize.Width && 0 < ItemSize.Height)
+			{
+				attributes.Frame = new CGRect(Offset.X, Offset.Y, ItemSize.Width - ContentInset.Left - ContentInset.Right, ItemSize.Height - ContentInset.Top - ContentInset.Bottom);
+			}
+			else if (ScrollDirection == UICollectionViewScrollDirection.Vertical)
+			{
+				attributes.Frame = new CGRect(ContentInset.Left, Offset.Y, CollectionView.Bounds.Width - ContentInset.Left - ContentInset.Right, item.Height == null ? CollectionView.Bounds.Height : item.Height.Value);
+			}
+			else
+			{
+				attributes.Frame = new CGRect(Offset.X, ContentInset.Top, item.Width == null? CollectionView.Bounds.Width : item.Width.Value, CollectionView.Bounds.Height - ContentInset.Top - ContentInset.Bottom);
+			}
+
+
+			return attributes;
 		}
 
 		public override UICollectionViewLayoutAttributes[] LayoutAttributesForElementsInRect(CGRect rect)
 		{
-			return base.LayoutAttributesForElementsInRect(rect);
+			var layoutAttributes = new List<UICollectionViewLayoutAttributes>();
+			foreach (var item in LayoutItems)
+			{
+				if (rect.IntersectsWith(item.Item1.Frame))
+				{
+					layoutAttributes.Add(item.Item1);
+				}
+			}
+			return layoutAttributes.ToArray();
 		}
 
 		public override bool ShouldInvalidateLayoutForBoundsChange(CGRect newBounds)
 		{
-			return base.ShouldInvalidateLayoutForBoundsChange(newBounds);
+			return ScrollDirection == UICollectionViewScrollDirection.Vertical ? newBounds.Width != CollectionView.Bounds.Width : newBounds.Height != CollectionView.Bounds.Height;
 		}
 
 		public override CGSize CollectionViewContentSize
@@ -134,7 +167,10 @@ namespace FPT.Framework.iOS.Material
 		public override void PrepareLayout()
 		{
 			var dataSource = CollectionView.DataSource;
-			//
+			if (dataSource != null && dataSource is MaterialCollectionViewDataSource)
+			{
+				prepareLayoutForItems((dataSource as MaterialCollectionViewDataSource).Items());
+			}
 		}
 
 		public override CGPoint TargetContentOffsetForProposedContentOffset(CGPoint proposedContentOffset)
@@ -144,6 +180,44 @@ namespace FPT.Framework.iOS.Material
 
 		private void prepareLayoutForItems(List<MaterialDataSourceItem> dataSourceItems)
 		{
+			LayoutItems.RemoveAll((obj) =>
+			{
+				return true;
+			});
+
+			mOffset.X = ContentInset.Left;
+			mOffset.Y = ContentInset.Top;
+
+			NSIndexPath indexPath;
+
+			for (var i = 0; i < dataSourceItems.Count; i++)
+			{
+				var item = dataSourceItems[i];
+				indexPath = NSIndexPath.FromItemSection(item: i, section: 0);
+				LayoutItems.Add(new Tuple<UICollectionViewLayoutAttributes, NSIndexPath>(LayoutAttributesForItem(indexPath), indexPath));
+
+				mOffset.X += Spacing;
+				mOffset.X += item.Width == null ? ItemSize.Width : item.Width.Value;
+
+				mOffset.Y += Spacing;
+				mOffset.Y += item.Height == null ? ItemSize.Height : item.Height.Value;
+			}
+
+			mOffset.Y += ContentInset.Right - Spacing;
+			mOffset.Y += ContentInset.Bottom - Spacing;
+
+			if (0 < ItemSize.Width && 0 < ItemSize.Height)
+			{
+				ContentSize = new CGSize(Offset.X, Offset.Y);
+			}
+			else if (ScrollDirection == UICollectionViewScrollDirection.Vertical)
+			{
+				ContentSize = new CGSize(CollectionView.Bounds.Width, Offset.Y);
+			}
+			else
+			{
+				ContentSize = new CGSize(Offset.X, CollectionView.Bounds.Height);
+			}
 		}
 
 		#endregion

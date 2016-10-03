@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialPulseViewDemo", "De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialButtonDemo", "Demo\MaterialButtonDemo\MaterialButtonDemo.csproj", "{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridDemo", "Demo\GridDemo\GridDemo.csproj", "{482FFE3B-D430-4A6B-B5A4-EEBA3C8228E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -63,6 +65,14 @@ Global
 		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D}.Debug|iPhone.Build.0 = Debug|iPhone
+		{482FFE3B-D430-4A6B-B5A4-EEBA3C8228E9}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{482FFE3B-D430-4A6B-B5A4-EEBA3C8228E9}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{482FFE3B-D430-4A6B-B5A4-EEBA3C8228E9}.Release|iPhone.ActiveCfg = Release|iPhone
+		{482FFE3B-D430-4A6B-B5A4-EEBA3C8228E9}.Release|iPhone.Build.0 = Release|iPhone
+		{482FFE3B-D430-4A6B-B5A4-EEBA3C8228E9}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{482FFE3B-D430-4A6B-B5A4-EEBA3C8228E9}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{482FFE3B-D430-4A6B-B5A4-EEBA3C8228E9}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{482FFE3B-D430-4A6B-B5A4-EEBA3C8228E9}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26C75516-374F-487F-8014-3B57C463C87A} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
@@ -70,5 +80,6 @@ Global
 		{25F94266-AA1A-43B0-9BD2-74E17AB7B7EA} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{6FBC8BAE-7C67-44A1-BAA4-AF7EBDA8788D} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{4060693F-3FE9-4CF7-BF97-67FE2A15BC1D} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
+		{482FFE3B-D430-4A6B-B5A4-EEBA3C8228E9} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 	EndGlobalSection
 EndGlobal

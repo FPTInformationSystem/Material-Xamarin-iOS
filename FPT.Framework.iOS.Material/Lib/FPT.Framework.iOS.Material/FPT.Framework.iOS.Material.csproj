@@ -60,6 +60,7 @@
     <Folder Include="Sources\View\" />
     <Folder Include="Resources\Assets.xcassets\" />
     <Folder Include="Sources\Collection\" />
+    <Folder Include="Sources\Layout\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,6 +97,12 @@
     <Compile Include="Sources\Collection\MaterialCollectionViewLayout.cs" />
     <Compile Include="Sources\Collection\MaterialCollectionViewDelegate.cs" />
     <Compile Include="Sources\Collection\MaterialCollectionViewDataSource.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionReusableView.cs" />
+    <Compile Include="Sources\Layout\Grid.cs" />
+    <Compile Include="Sources\Extension\UIView.cs" />
+    <Compile Include="Sources\Extension\UIButton.cs" />
+    <Compile Include="Sources\Extension\UILabel.cs" />
+    <Compile Include="Sources\Extension\UICollectionReusableView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />

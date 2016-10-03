@@ -131,5 +131,24 @@ namespace FPT.Framework.iOS.Material
 				}
 			}
 		}
+
+		public static class BlueGrey
+		{
+			public static UIColor Base
+			{
+				get
+				{
+					return new UIColor(red: 236f / 255f, green: 239f / 255f, blue: 241f / 255f, alpha: 1);
+				}
+			}
+
+			public static UIColor Darken4
+			{
+				get
+				{
+					return new UIColor(red: 38f / 255f, green: 50f / 255f, blue: 56f / 255f, alpha: 1);
+				}
+			}
+		}
 	}
 }
