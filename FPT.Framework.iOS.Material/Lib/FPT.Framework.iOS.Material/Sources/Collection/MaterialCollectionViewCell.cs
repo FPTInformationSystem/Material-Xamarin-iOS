@@ -1,6 +1,6 @@
 ﻿// MIT/X11 License
 //
-// MaterialCollectionReusableView.cs
+// MaterialCollectionViewCell.cs
 //
 // Author:
 //       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
@@ -30,15 +30,15 @@ using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using UIKit;
+using UIView = FPT.Framework.iOS.Material.Extension.UIView;
 
 namespace FPT.Framework.iOS.Material
 {
-
-	public class MaterialCollectionReusableViewAnimationDelegate : CAAnimationDelegate
+	public class MaterialCollectionViewCellAnimationDelegate : CAAnimationDelegate
 	{
-		MaterialCollectionReusableView mParent;
+		MaterialCollectionViewCell mParent;
 
-		public MaterialCollectionReusableViewAnimationDelegate(MaterialCollectionReusableView parent)
+		public MaterialCollectionViewCellAnimationDelegate(MaterialCollectionViewCell parent)
 		{
 			mParent = parent;
 		}
@@ -80,8 +80,9 @@ namespace FPT.Framework.iOS.Material
 		}
 	}
 
-	public class MaterialCollectionReusableView : UICollectionReusableView
+	public class MaterialCollectionViewCell : UICollectionViewCell
 	{
+
 		#region VARIABLES
 
 		private Queue<CAShapeLayer> mPulseLayers = new Queue<CAShapeLayer>();
@@ -90,24 +91,16 @@ namespace FPT.Framework.iOS.Material
 
 		#region PROPERTIES
 
-		public MaterialCollectionReusableViewAnimationDelegate AnimationDelegate { get; set; }
-
-		private Grid mGrid;
-		public Grid Grid
+		private UIView mContentView;
+		public override UIKit.UIView ContentView
 		{
 			get
 			{
-				if (mGrid == null)
-				{
-					mGrid = new Grid();
-				}
-				return mGrid;
-			}
-			set
-			{
-				mGrid = value;
+				return mContentView;
 			}
 		}
+
+		public MaterialCollectionViewCellAnimationDelegate AnimationDelegate { get; set; }
 
 		private CAShapeLayer VisualLayer { get; set; } = new CAShapeLayer();
 
@@ -224,11 +217,11 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return Grid.ContentInsetPreset;
+				return mContentView.Grid.ContentInsetPreset;
 			}
 			set
 			{
-				Grid.ContentInsetPreset = value;
+				mContentView.Grid.ContentInsetPreset = value;
 			}
 		}
 
@@ -236,11 +229,12 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return Grid.ContentInset;
+
+				return mContentView.Grid.ContentInset;
 			}
 			set
 			{
-				Grid.ContentInset = value;
+				mContentView.Grid.ContentInset = value;
 			}
 		}
 
@@ -254,7 +248,7 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mSpacingPreset = value;
-				Grid.Spacing = Convert.MaterialSpacingToValue(SpacingPreset);
+				mContentView.Grid.Spacing = Convert.MaterialSpacingToValue(SpacingPreset);
 			}
 		}
 
@@ -262,11 +256,11 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return Grid.Spacing;
+				return mContentView.Grid.Spacing;
 			}
 			set
 			{
-				Grid.Spacing = value;
+				mContentView.Grid.Spacing = value;
 			}
 		}
 
@@ -575,7 +569,7 @@ namespace FPT.Framework.iOS.Material
 
 		#region CONSTRUCTORS
 
-		public MaterialCollectionReusableView(Foundation.NSCoder coder) : base(coder)
+		public MaterialCollectionViewCell(Foundation.NSCoder coder) : base(coder)
 		{
 			Depth = MaterialDepth.None;
 			CornerRadiusPreset = MaterialRadius.None;
@@ -584,7 +578,7 @@ namespace FPT.Framework.iOS.Material
 			prepareView();
 		}
 
-		public MaterialCollectionReusableView(CGRect frame) : base(frame)
+		public MaterialCollectionViewCell(CGRect frame) : base(frame)
 		{
 			Depth = MaterialDepth.None;
 			CornerRadiusPreset = MaterialRadius.None;
@@ -593,13 +587,14 @@ namespace FPT.Framework.iOS.Material
 			prepareView();
 		}
 
-		public MaterialCollectionReusableView() : this(CGRect.Empty)
+		public MaterialCollectionViewCell() : this(CGRect.Empty)
 		{
 		}
 
 		#endregion
 
 		#region OVERRIDE FUNCTIONS
+
 
 		public override void LayoutSublayersOfLayer(CALayer layer)
 		{
@@ -619,7 +614,7 @@ namespace FPT.Framework.iOS.Material
 
 		public void Animate(CAAnimation animation)
 		{
-			animation.WeakDelegate = new MaterialCollectionReusableViewAnimationDelegate(this);
+			animation.WeakDelegate = new MaterialCollectionViewCellAnimationDelegate(this);
 			if (animation is CABasicAnimation)
 			{
 				var a = (CABasicAnimation)animation;
@@ -653,26 +648,6 @@ namespace FPT.Framework.iOS.Material
 			});
 		}
 
-		public override void TouchesBegan(Foundation.NSSet touches, UIEvent evt)
-		{
-			base.TouchesBegan(touches, evt);
-			UITouch touch = touches.AnyObject as UITouch;
-			MaterialAnimation.pulseExpandAnimation(layer: Layer, visualLayer: VisualLayer, pulseColor: PulseColor, pulseOpacity: PulseOpacity, point: Layer.ConvertPointToLayer(point: touch.LocationInView(this), layer: Layer), width: Width, height: Height, pulseLayers: ref mPulseLayers, pulseAnimation: PulseAnimation);
-		}
-
-		public override void TouchesEnded(Foundation.NSSet touches, UIEvent evt)
-		{
-			base.TouchesEnded(touches, evt);
-			MaterialAnimation.pulseContractAnimation(layer: Layer, visualLayer: VisualLayer, pulseColor: PulseColor, pulseLayers: ref mPulseLayers, pulseAnimation: PulseAnimation);
-
-		}
-
-		public override void TouchesCancelled(Foundation.NSSet touches, UIEvent evt)
-		{
-			base.TouchesCancelled(touches, evt);
-			MaterialAnimation.pulseContractAnimation(layer: Layer, visualLayer: VisualLayer, pulseColor: PulseColor, pulseLayers: ref mPulseLayers, pulseAnimation: PulseAnimation);
-		}
-
 		#endregion
 
 		#region FUNCTIONS
@@ -681,6 +656,9 @@ namespace FPT.Framework.iOS.Material
 		{
 			ContentScaleFactor = MaterialDevice.Scale;
 			prepareVisualLayer();
+
+			//This is a trick for add propery Grid to ContentView
+			prepareContentView();
 		}
 
 		internal void prepareVisualLayer()
@@ -688,6 +666,13 @@ namespace FPT.Framework.iOS.Material
 			VisualLayer.ZPosition = 0;
 			VisualLayer.MasksToBounds = true;
 			Layer.AddSublayer(VisualLayer);
+		}
+
+		internal void prepareContentView()
+		{
+			mContentView = new UIView(base.ContentView.Bounds);
+			mContentView.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+			base.ContentView.AddSubview(mContentView);
 		}
 
 		internal void layoutVisualLayer()

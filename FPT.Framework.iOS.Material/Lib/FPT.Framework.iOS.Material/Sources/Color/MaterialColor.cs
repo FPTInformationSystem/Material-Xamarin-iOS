@@ -119,6 +119,14 @@ namespace FPT.Framework.iOS.Material
 					return new UIColor(red: 158f / 255f, green: 158f / 255f, blue: 158f / 255f, alpha: 1);
 				}
 			}
+
+			public static UIColor Lighten3
+			{
+				get
+				{
+					return new UIColor(red: 238f / 255f, green: 238f / 255f, blue: 238f / 255f, alpha: 1);
+				}
+			}
 		}
 
 		public static class Blue
@@ -130,6 +138,8 @@ namespace FPT.Framework.iOS.Material
 					return new UIColor(red: 32f / 255f, green: 150f / 255f, blue: 243f / 255f, alpha: 1);
 				}
 			}
+
+
 		}
 
 		public static class BlueGrey

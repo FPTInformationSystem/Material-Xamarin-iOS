@@ -355,7 +355,7 @@ namespace FPT.Framework.iOS.Material
 		#endregion
 	}
 
-	public interface IUIView
+	public partial interface IUIView
 	{
 		Grid Grid { get; set; }
 	}

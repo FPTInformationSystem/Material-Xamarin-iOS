@@ -27,7 +27,7 @@
 using System;
 using CoreGraphics;
 
-namespace FPT.Framework.iOS.Material
+namespace FPT.Framework.iOS.Material.Extension
 {
 	public class UIButton : UIKit.UIButton, IUIView
 	{
@@ -56,6 +56,24 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mGrid = value;
+			}
+		}
+
+		private Layout mLayout;
+		public Layout Layout
+		{
+			get
+			{
+				if (mLayout == null)
+				{
+					mLayout = new Layout(this);
+				}
+				return mLayout;
+			}
+
+			set
+			{
+				mLayout = value;
 			}
 		}
 	}

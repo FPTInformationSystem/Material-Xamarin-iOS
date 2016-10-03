@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -93,16 +92,18 @@
     <Compile Include="Sources\View\MaterialPulseView.cs" />
     <Compile Include="Sources\Button\IconButton.cs" />
     <Compile Include="Sources\Collection\MaterialDataSourceItem.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionReusableView.cs" />
     <Compile Include="Sources\Collection\MaterialCollectionView.cs" />
     <Compile Include="Sources\Collection\MaterialCollectionViewLayout.cs" />
     <Compile Include="Sources\Collection\MaterialCollectionViewDelegate.cs" />
     <Compile Include="Sources\Collection\MaterialCollectionViewDataSource.cs" />
-    <Compile Include="Sources\Collection\MaterialCollectionReusableView.cs" />
     <Compile Include="Sources\Layout\Grid.cs" />
     <Compile Include="Sources\Extension\UIView.cs" />
     <Compile Include="Sources\Extension\UIButton.cs" />
     <Compile Include="Sources\Extension\UILabel.cs" />
     <Compile Include="Sources\Extension\UICollectionReusableView.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionViewCell.cs" />
+    <Compile Include="Sources\Layout\Layout.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
