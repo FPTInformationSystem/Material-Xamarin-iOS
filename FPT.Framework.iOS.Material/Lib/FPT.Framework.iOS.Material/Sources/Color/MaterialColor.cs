@@ -110,6 +110,93 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		public static class Pink
+		{
+		}
+
+		public static class Purple
+		{
+		}
+
+		public static class DeepPurple
+		{
+		}
+
+		public static class Indigo
+		{
+		}
+
+		public static class Blue
+		{
+			public static UIColor Base
+			{
+				get
+				{
+					return new UIColor(red: 32f / 255f, green: 150f / 255f, blue: 243f / 255f, alpha: 1);
+				}
+			}
+
+
+		}
+
+		public static class LightBlue
+		{
+		}
+
+		public static class Cyan
+		{
+		}
+
+		public static class Teal
+		{
+		}
+
+		public static class Green
+		{
+			public static UIColor Base
+			{
+				get
+				{
+					return new UIColor(red: 76f / 255f, green: 175f / 255f, blue: 80f / 255f, alpha: 1);
+				}
+			}
+		}
+
+		public static class LightGreen
+		{
+		}
+
+		public static class Lime
+		{
+		}
+
+		public static class Yellow
+		{
+			public static UIColor Base
+			{
+				get
+				{
+					return new UIColor(red: 255f / 255f, green: 235f / 255f, blue: 59f / 255f, alpha: 1);
+				}
+			}
+		}
+
+		public static class Amber
+		{
+		}
+
+		public static class Orange
+		{
+		}
+
+		public static class DeepOrange
+		{
+		}
+
+		public static class Grown
+		{
+		}
+
 		public static class Grey
 		{
 			public static UIColor Base
@@ -127,19 +214,6 @@ namespace FPT.Framework.iOS.Material
 					return new UIColor(red: 238f / 255f, green: 238f / 255f, blue: 238f / 255f, alpha: 1);
 				}
 			}
-		}
-
-		public static class Blue
-		{
-			public static UIColor Base
-			{
-				get
-				{
-					return new UIColor(red: 32f / 255f, green: 150f / 255f, blue: 243f / 255f, alpha: 1);
-				}
-			}
-
-
 		}
 
 		public static class BlueGrey

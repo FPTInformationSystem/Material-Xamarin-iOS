@@ -32,7 +32,7 @@ using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
-	public class Layout
+	public class Layout : NSObject
 	{
 
 		#region PROPERTIES
@@ -142,7 +142,7 @@ namespace FPT.Framework.iOS.Material
 			return this.Size(v, width, height);
 		}
 
-		public Layout Horizontally(UIView[] children, nfloat left, nfloat right, nfloat spacing)
+		public Layout Horizontally(UIView[] children, nfloat left = default(nfloat), nfloat right = default(nfloat), nfloat spacing = default(nfloat))
 		{
 			var v = Parent;
 			if (v == null)
@@ -153,7 +153,7 @@ namespace FPT.Framework.iOS.Material
 			return this;
 		}
 
-		public Layout Vertically(UIView[] children, nfloat top, nfloat bottom, nfloat spacing)
+		public Layout Vertically(UIView[] children, nfloat top = default(nfloat), nfloat bottom = default(nfloat), nfloat spacing = default(nfloat))
 		{
 			var v = Parent;
 			if (v == null)
@@ -164,18 +164,24 @@ namespace FPT.Framework.iOS.Material
 			return this;
 		}
 
-		public Layout Horizontally(UIView child, nfloat left, nfloat right)
+		/// <summary>A child view is aligned at the center horizontally with an optional offset value.</summary>
+		/// <param name="child">A child UIView to layout.</param>
+		/// <param name="left">A CGFloat value for padding the left side.</param>
+		/// <param name="right">A CGFloat value for padding the right side.</param>
+		/// <returns>The current Layout instance.</returns>
+		public Layout Horizontally(UIView child, nfloat left = default(nfloat), nfloat right = default(nfloat))
 		{
 			var v = Parent;
 			if (v == null)
 			{
 				return debugParentNotAvailableMessage();
 			}
+			this.Child = child;
 			Layout.Horizontally(Parent, child, left, right);
 			return this;
 		}
 
-		public Layout Horizontally(nfloat left, nfloat right)
+		public Layout Horizontally(nfloat left = default(nfloat), nfloat right = default(nfloat))
 		{
 			var v = Child;
 			if (v == null)
@@ -184,6 +190,293 @@ namespace FPT.Framework.iOS.Material
 			}
 			return this.Horizontally(v, left, right);
 		}
+
+		public Layout Vertically(UIView child, nfloat top = default(nfloat), nfloat bottom = default(nfloat))
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.Vertically(Parent, child, top, bottom);
+			return this;
+		}
+
+		public Layout Vertically(nfloat top = default(nfloat), nfloat bottom = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.Vertically(v, top, bottom);
+		}
+
+		public Layout Edges(UIView child, nfloat top = default(nfloat), nfloat left = default(nfloat), nfloat bottom = default(nfloat), nfloat right = default(nfloat))
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.Edges(v, child, top, left, bottom, right);
+			return this;
+		}
+
+		public Layout Edges(nfloat top = default(nfloat), nfloat left = default(nfloat), nfloat bottom = default(nfloat), nfloat right = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.Edges(v, top, left, bottom, right);
+		}
+
+		public Layout Top(UIView child, nfloat top = default(nfloat)) 
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.Top(v, child, top);
+			return this;
+		}
+
+		public Layout Top(nfloat top = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.Top(v, top);
+		}
+
+		public Layout Left(UIView child, nfloat left = default(nfloat))
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.Left(v, child, left);
+			return this;
+		}
+
+		public Layout Left(nfloat left = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.Left(v, left);
+		}
+
+		public Layout Bottom(UIView child, nfloat bottom = default(nfloat))
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.Bottom(v, child, bottom);
+			return this;
+		}
+
+		public Layout Bottom(nfloat bottom = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.Bottom(v, bottom);
+		}
+
+		public Layout Right(UIView child, nfloat right = default(nfloat))
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.Right(v, child, right);
+			return this;
+		}
+
+		public Layout Right(nfloat right = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.Right(v, right);
+		}
+
+		public Layout TopLeft(UIView child, nfloat top = default(nfloat), nfloat left = default(nfloat))
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.TopLeft(v, child, top, left);
+			return this;
+		}
+
+		public Layout TopLeft(nfloat top = default(nfloat), nfloat left = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.TopLeft(v, top, left);
+		}
+
+		public Layout TopRight(UIView child, nfloat top = default(nfloat), nfloat right = default(nfloat))
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.TopRight(v, child, top, right);
+			return this;
+		}
+
+		public Layout TopRight(nfloat top = default(nfloat), nfloat right = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.TopRight(v, top, right);
+		}
+
+		public Layout BottomLeft(UIView child, nfloat bottom = default(nfloat), nfloat left = default(nfloat))
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.BottomLeft(v, child, bottom, left);
+			return this;
+		}
+
+		public Layout BottomLeft(nfloat bottom = default(nfloat), nfloat left = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.BottomLeft(v, bottom, left);
+		}
+
+		public Layout BottomRight(UIView child, nfloat bottom = default(nfloat), nfloat right = default(nfloat))
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.BottomRight(v, child, bottom, right);
+			return this;
+		}
+
+		public Layout BottomRight(nfloat bottom = default(nfloat), nfloat right = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.BottomRight(v, bottom, right);
+		}
+
+		public Layout Center(UIView child, nfloat offsetX = default(nfloat), nfloat offsetY = default(nfloat))
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.Center(v, child, offsetX, offsetY);
+			return this;
+		}
+
+		public Layout Center(nfloat offsetX = default(nfloat), nfloat offsetY = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.Center(v, offsetX, offsetY);
+		}
+
+		public Layout CenterHorizontally(UIView child, nfloat offset = default(nfloat))
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.CenterHorizontally(v, child, offset);
+			return this;
+		}
+
+		public Layout CenterHorizontally(nfloat offset = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.CenterHorizontally(v, offset);
+		}
+
+		public Layout CenterVertically(UIView child, nfloat offset = default(nfloat))
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.CenterVertically(v, child, offset);
+			return this;
+		}
+
+		public Layout CenterVertically(nfloat offset = default(nfloat))
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.CenterVertically(v, offset);
+		}
+
 		#endregion
 
 		#region STATIC FUNCTIONS
@@ -295,7 +588,7 @@ namespace FPT.Framework.iOS.Material
 						attribute1: NSLayoutAttribute.Height,
 						relation: NSLayoutRelation.Equal,
 						view2: children[0],
-						attribute2: NSLayoutAttribute.Width,
+						attribute2: NSLayoutAttribute.Height,
 						multiplier: 1,
 						constant: 0));
 				}
@@ -510,5 +803,25 @@ namespace FPT.Framework.iOS.Material
 	public partial interface IUIView
 	{
 		Layout Layout { get; set; }
+	}
+
+	public static partial class Extensions
+	{
+		public static Layout Layout(this UIView view)
+		{
+			var key = new NSObject();
+			var v = MaterialObjC.MaterialAssociatedObject(view.Handle, key.Handle, () =>
+			{
+				return new Layout(view).Handle;
+			});
+
+			return ObjCRuntime.Runtime.GetNSObject(v) as Layout;
+
+		}
+
+		public static Layout Layout(this UIView view, UIView child)
+		{
+			return new Layout(view, child);
+		}
 	}
 }

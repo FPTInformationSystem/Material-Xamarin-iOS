@@ -104,6 +104,7 @@
     <Compile Include="Sources\Extension\UICollectionReusableView.cs" />
     <Compile Include="Sources\Collection\MaterialCollectionViewCell.cs" />
     <Compile Include="Sources\Layout\Layout.cs" />
+    <Compile Include="Sources\Extension\Material+Obj-C.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
