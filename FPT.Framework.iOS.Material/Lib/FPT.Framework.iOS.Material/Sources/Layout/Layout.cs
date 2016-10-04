@@ -56,6 +56,10 @@ namespace FPT.Framework.iOS.Material
 			this.Child = child;
 		}
 
+		protected Layout(IntPtr ptr) : base()
+		{
+		}
+
 		#endregion
 
 		#region FUNCTIONS
@@ -800,17 +804,13 @@ namespace FPT.Framework.iOS.Material
 		#endregion
 	}
 
-	public partial interface IUIView
-	{
-		Layout Layout { get; set; }
-	}
-
 	public static partial class Extensions
 	{
+		static NSObject sLayoutKey = new NSObject();
 		public static Layout Layout(this UIView view)
 		{
 			var key = new NSObject();
-			var v = MaterialObjC.MaterialAssociatedObject(view.Handle, key.Handle, () =>
+			var v = MaterialObjC.MaterialAssociatedObject(view.Handle, sLayoutKey.Handle, () =>
 			{
 				return new Layout(view).Handle;
 			});

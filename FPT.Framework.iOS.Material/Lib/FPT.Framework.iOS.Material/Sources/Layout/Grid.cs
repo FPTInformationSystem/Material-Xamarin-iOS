@@ -26,6 +26,7 @@
 // THE SOFTWARE.
 using System;
 using CoreGraphics;
+using Foundation;
 using UIKit;
 
 namespace FPT.Framework.iOS.Material
@@ -139,7 +140,7 @@ namespace FPT.Framework.iOS.Material
 		#endregion
 	}
 
-	public class Grid
+	public class Grid : NSObject
 	{
 
 		#region PROPERTIES
@@ -261,8 +262,8 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		private IUIView[] mViews;
-		public IUIView[] Views
+		private UIView[] mViews;
+		public UIView[] Views
 		{
 			get
 			{
@@ -275,6 +276,8 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		#region CONSTRUCTORS
+
 		public Grid(int rows = 12, int columns = 12, nfloat spacing = default(nfloat))
 		{
 			this.Rows = rows;
@@ -283,6 +286,12 @@ namespace FPT.Framework.iOS.Material
 			Offset = new GridOffset(this);
 			Axis = new GridAxis(this);
 		}
+
+		protected Grid(IntPtr ptr) : base()
+		{
+		}
+
+		#endregion
 
 		#endregion
 
@@ -308,8 +317,8 @@ namespace FPT.Framework.iOS.Material
 							case GridAxisDirection.Horizontal:
 								{
 									nfloat w = (sv.Bounds.Width - ContentInset.Left - ContentInset.Right - LayoutInset.Left + Spacing) / ((nfloat) gc);
-									int c = view.Grid.Columns;
-									int co = view.Grid.Offset.Columns;
+									int c = view.Grid().Columns;
+									int co = view.Grid().Offset.Columns;
 									nfloat vh = sv.Bounds.Height - ContentInset.Top - ContentInset.Bottom - LayoutInset.Top - LayoutInset.Bottom;
 									nfloat vl = ((nfloat)i + n + co) * w + ContentInset.Left + LayoutInset.Left;
 									nfloat vw = w * ((nfloat)c) - Spacing;
@@ -320,8 +329,8 @@ namespace FPT.Framework.iOS.Material
 							case GridAxisDirection.Vertical:
 								{
 									nfloat h = (sv.Bounds.Height - ContentInset.Top - ContentInset.Bottom - LayoutInset.Top - LayoutInset.Bottom + Spacing) / ((nfloat) gr);
-									int r = view.Grid.Rows;
-									int ro = view.Grid.Offset.Rows;
+									int r = view.Grid().Rows;
+									int ro = view.Grid().Offset.Rows;
 									nfloat vw = sv.Bounds.Width - ContentInset.Left - ContentInset.Right - LayoutInset.Left - LayoutInset.Right;
 									nfloat vt = ((nfloat)i + n + ro) * h + ContentInset.Top + LayoutInset.Top;
 									nfloat vh = h * ((nfloat)r) - Spacing;
@@ -332,11 +341,11 @@ namespace FPT.Framework.iOS.Material
 							case GridAxisDirection.None:
 								{
 									nfloat w = (sv.Bounds.Width - ContentInset.Left - ContentInset.Right - LayoutInset.Left - LayoutInset.Right + Spacing) / ((nfloat) gc);
-									int c = view.Grid.Columns;
-									int co = view.Grid.Offset.Columns;
+									int c = view.Grid().Columns;
+									int co = view.Grid().Offset.Columns;
 									nfloat h = (sv.Bounds.Height - ContentInset.Top - ContentInset.Bottom - LayoutInset.Top - LayoutInset.Bottom + Spacing) / ((nfloat) gr);
-									int r = view.Grid.Rows;
-									int ro = view.Grid.Offset.Rows;
+									int r = view.Grid().Rows;
+									int ro = view.Grid().Offset.Rows;
 									nfloat vt = ((nfloat)ro) * h + ContentInset.Top + LayoutInset.Top;
 									nfloat vl = ((nfloat)co) * w + ContentInset.Left + LayoutInset.Left;
 									nfloat vh = h * ((nfloat)r) - Spacing;
@@ -355,8 +364,18 @@ namespace FPT.Framework.iOS.Material
 		#endregion
 	}
 
-	public partial interface IUIView
+	public static partial class Extensions
 	{
-		Grid Grid { get; set; }
+		static NSObject sGridKey = new NSObject();
+		public static Grid Grid(this UIView view)
+		{
+			var v = MaterialObjC.MaterialAssociatedObject(view.Handle, sGridKey.Handle, () =>
+			{
+				return new Grid().Handle;
+			});
+
+			return ObjCRuntime.Runtime.GetNSObject(v) as Grid;
+
+		}
 	}
 }

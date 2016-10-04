@@ -91,6 +91,66 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		public MaterialEdgeInset ContentInsetPreset
+		{
+			get
+			{
+				return (CollectionViewLayout as MaterialCollectionViewLayout).ContentInsetPreset;
+			}
+			set
+			{
+				(CollectionViewLayout as MaterialCollectionViewLayout).ContentInsetPreset = value;
+			}
+		}
+
+		public UIEdgeInsets ContentInset
+		{
+			get
+			{
+				return (CollectionViewLayout as MaterialCollectionViewLayout).ContentInset;
+			}
+			set
+			{
+				(CollectionViewLayout as MaterialCollectionViewLayout).ContentInset = value;
+			}
+		}
+
+		public UICollectionViewScrollDirection ScrollDirection
+		{
+			get
+			{
+				return (CollectionViewLayout as MaterialCollectionViewLayout).ScrollDirection;
+			}
+			set
+			{
+				(CollectionViewLayout as MaterialCollectionViewLayout).ScrollDirection = value;
+			}
+		}
+
+		public MaterialSpacing SpacingPreset
+		{
+			get
+			{
+				return (CollectionViewLayout as MaterialCollectionViewLayout).SpacingPreset;
+			}
+			set
+			{
+				(CollectionViewLayout as MaterialCollectionViewLayout).SpacingPreset = value;
+			}
+		}
+
+		public nfloat Spacing
+		{
+			get
+			{
+				return (CollectionViewLayout as MaterialCollectionViewLayout).Spacing;
+			}
+			set
+			{
+				(CollectionViewLayout as MaterialCollectionViewLayout).Spacing = value;
+			}
+		}
+
 		#endregion
 
 		public MaterialCollectionView(Foundation.NSCoder coder) : base(coder)

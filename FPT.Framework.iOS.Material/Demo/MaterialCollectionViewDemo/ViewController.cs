@@ -66,10 +66,10 @@ namespace MaterialCollectionViewDemo
 		private void prepareCollectionView()
 		{
 			CollectionView = new MaterialCollectionView(frame: View.Bounds);
-			CollectionView.RegisterClassForCell(MaterialCollectionViewCell, "MaterialCollectionViewCell");
-			CollectionView.DataSource = new ViewControllerDataSource();
+			CollectionView.RegisterClassForCell(typeof(MaterialCollectionViewCell), "MaterialCollectionViewCell");
+			CollectionView.DataSource = new ViewControllerDataSource(this);
 			CollectionView.ContentInset.Top = 100;
-			CollectionView.Spacing = 16;
+			CollectionView.Spacing = 16f;
 
 
 

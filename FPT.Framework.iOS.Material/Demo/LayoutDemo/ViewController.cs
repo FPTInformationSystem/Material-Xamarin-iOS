@@ -1,7 +1,5 @@
 ﻿using System;
 using FPT.Framework.iOS.Material;
-using FPT.Framework.iOS.Material.Extension;
-//using UILabel = FPT.Framework.iOS.Material.Extension.UILabel;
 using UILabel = UIKit.UILabel;
 using UIView = UIKit.UIView;
 using UIKit;

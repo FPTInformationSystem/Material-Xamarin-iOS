@@ -40,6 +40,7 @@ namespace FPT.Framework.iOS.Material
 				return v;
 			}
 			v = initializer();
+			Messaging.objc_setAssociatedObject(receiver, key, v, Messaging.AssociationPolicy.RETAIN);
 			return v;
 		}
 

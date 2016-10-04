@@ -98,10 +98,6 @@
     <Compile Include="Sources\Collection\MaterialCollectionViewDelegate.cs" />
     <Compile Include="Sources\Collection\MaterialCollectionViewDataSource.cs" />
     <Compile Include="Sources\Layout\Grid.cs" />
-    <Compile Include="Sources\Extension\UIView.cs" />
-    <Compile Include="Sources\Extension\UIButton.cs" />
-    <Compile Include="Sources\Extension\UILabel.cs" />
-    <Compile Include="Sources\Extension\UICollectionReusableView.cs" />
     <Compile Include="Sources\Collection\MaterialCollectionViewCell.cs" />
     <Compile Include="Sources\Layout\Layout.cs" />
     <Compile Include="Sources\Extension\Material+Obj-C.cs" />

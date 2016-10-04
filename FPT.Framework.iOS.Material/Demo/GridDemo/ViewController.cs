@@ -2,8 +2,6 @@
 using CoreGraphics;
 using FPT.Framework.iOS.Material;
 using UIKit;
-using UIView = FPT.Framework.iOS.Material.UIView;
-using UILabel = FPT.Framework.iOS.Material.UILabel;
 
 namespace GridDemo
 {
@@ -94,63 +92,63 @@ namespace GridDemo
 			alarmButton.SetImage(image: image, forState: UIControlState.Highlighted);
 			contentView.AddSubview(alarmButton);
 
-			leftImageView.Grid.Rows = 7;
-			leftImageView.Grid.Columns = 6;
+			leftImageView.Grid().Rows = 7;
+			leftImageView.Grid().Columns = 6;
 
 
-			topImageView.Grid.Rows = 4;
-			topImageView.Grid.Columns = 6;
-			topImageView.Grid.Offset.Columns = 6;
+			topImageView.Grid().Rows = 4;
+			topImageView.Grid().Columns = 6;
+			topImageView.Grid().Offset.Columns = 6;
 
 
-			bottomImageView.Grid.Rows = 3;
-			bottomImageView.Grid.Offset.Rows = 4;
-			bottomImageView.Grid.Columns = 6;
-			bottomImageView.Grid.Offset.Columns = 6;
+			bottomImageView.Grid().Rows = 3;
+			bottomImageView.Grid().Offset.Rows = 4;
+			bottomImageView.Grid().Columns = 6;
+			bottomImageView.Grid().Offset.Columns = 6;
 
 
-			contentView.Grid.Rows = 5;
-			contentView.Grid.Offset.Rows = 7;
+			contentView.Grid().Rows = 5;
+			contentView.Grid().Offset.Rows = 7;
 
 
-			cardView.Grid.Axis.Direction = GridAxisDirection.None;
-			cardView.Grid.Spacing = 4;
-			cardView.Grid.Views = new UIView[] {
-			leftImageView,
-			topImageView,
-			bottomImageView,
-			contentView
+			cardView.Grid().Axis.Direction = GridAxisDirection.None;
+			cardView.Grid().Spacing = 4;
+			cardView.Grid().Views = new UIView[] {
+				leftImageView,
+				topImageView,
+				bottomImageView,
+				contentView
 			};
 
 
-			titleLabel.Grid.Rows = 3;
-			titleLabel.Grid.Columns = 8;
+			titleLabel.Grid().Rows = 3;
+			titleLabel.Grid().Columns = 8;
 
 
-			moreButton.Grid.Rows = 3;
-			moreButton.Grid.Columns = 2;
-			moreButton.Grid.Offset.Columns = 10;
+			moreButton.Grid().Rows = 3;
+			moreButton.Grid().Columns = 2;
+			moreButton.Grid().Offset.Columns = 10;
 
 
-			detailLabel.Grid.Rows = 6;
-			detailLabel.Grid.Offset.Rows = 3;
+			detailLabel.Grid().Rows = 6;
+			detailLabel.Grid().Offset.Rows = 3;
 
 
-			alarmLabel.Grid.Rows = 3;
-			alarmLabel.Grid.Columns = 8;
-			alarmLabel.Grid.Offset.Rows = 9;
+			alarmLabel.Grid().Rows = 3;
+			alarmLabel.Grid().Columns = 8;
+			alarmLabel.Grid().Offset.Rows = 9;
 
 
-			alarmButton.Grid.Rows = 3;
-			alarmButton.Grid.Offset.Rows = 9;
-			alarmButton.Grid.Columns = 2;
-			alarmButton.Grid.Offset.Columns = 10;
+			alarmButton.Grid().Rows = 3;
+			alarmButton.Grid().Offset.Rows = 9;
+			alarmButton.Grid().Columns = 2;
+			alarmButton.Grid().Offset.Columns = 10;
 
 
-			contentView.Grid.Spacing = 8;
-			contentView.Grid.Axis.Direction = GridAxisDirection.None;
-			contentView.Grid.ContentInsetPreset = MaterialEdgeInset.Square3;
-			contentView.Grid.Views = new IUIView[] {
+			contentView.Grid().Spacing = 8;
+			contentView.Grid().Axis.Direction = GridAxisDirection.None;
+			contentView.Grid().ContentInsetPreset = MaterialEdgeInset.Square3;
+			contentView.Grid().Views = new UIView[] {
 				titleLabel,
 				moreButton,
 				detailLabel,

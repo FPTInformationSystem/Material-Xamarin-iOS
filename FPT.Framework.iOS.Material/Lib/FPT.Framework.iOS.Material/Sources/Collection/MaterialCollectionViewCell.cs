@@ -30,7 +30,6 @@ using CoreAnimation;
 using CoreGraphics;
 using Foundation;
 using UIKit;
-using UIView = FPT.Framework.iOS.Material.Extension.UIView;
 
 namespace FPT.Framework.iOS.Material
 {
@@ -217,11 +216,11 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return mContentView.Grid.ContentInsetPreset;
+				return mContentView.Grid().ContentInsetPreset;
 			}
 			set
 			{
-				mContentView.Grid.ContentInsetPreset = value;
+				mContentView.Grid().ContentInsetPreset = value;
 			}
 		}
 
@@ -230,11 +229,11 @@ namespace FPT.Framework.iOS.Material
 			get
 			{
 
-				return mContentView.Grid.ContentInset;
+				return mContentView.Grid().ContentInset;
 			}
 			set
 			{
-				mContentView.Grid.ContentInset = value;
+				mContentView.Grid().ContentInset = value;
 			}
 		}
 
@@ -248,7 +247,7 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mSpacingPreset = value;
-				mContentView.Grid.Spacing = Convert.MaterialSpacingToValue(SpacingPreset);
+				mContentView.Grid().Spacing = Convert.MaterialSpacingToValue(SpacingPreset);
 			}
 		}
 
@@ -256,11 +255,11 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return mContentView.Grid.Spacing;
+				return mContentView.Grid().Spacing;
 			}
 			set
 			{
-				mContentView.Grid.Spacing = value;
+				mContentView.Grid().Spacing = value;
 			}
 		}
 
