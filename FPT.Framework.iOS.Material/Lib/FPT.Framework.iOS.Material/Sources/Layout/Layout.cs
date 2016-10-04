@@ -88,6 +88,102 @@ namespace FPT.Framework.iOS.Material
 			return this;
 		}
 
+		public Layout Width(nfloat width)
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.Width(v, width);
+		}
+
+		public Layout Height(UIView child, nfloat height)
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.Height(Parent, Child, height);
+			return this;
+		}
+
+		public Layout Height(nfloat height)
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.Height(v, height);
+		}
+
+		public Layout Size(UIView child, nfloat width, nfloat height)
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			this.Child = child;
+			Layout.Size(Parent, Child, width, height);
+			return this;
+		}
+
+		public Layout Size(nfloat width, nfloat height)
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.Size(v, width, height);
+		}
+
+		public Layout Horizontally(UIView[] children, nfloat left, nfloat right, nfloat spacing)
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			Layout.Horizontally(Parent, children, left, right, spacing);
+			return this;
+		}
+
+		public Layout Vertically(UIView[] children, nfloat top, nfloat bottom, nfloat spacing)
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			Layout.Vertically(Parent, children, top, bottom, spacing);
+			return this;
+		}
+
+		public Layout Horizontally(UIView child, nfloat left, nfloat right)
+		{
+			var v = Parent;
+			if (v == null)
+			{
+				return debugParentNotAvailableMessage();
+			}
+			Layout.Horizontally(Parent, child, left, right);
+			return this;
+		}
+
+		public Layout Horizontally(nfloat left, nfloat right)
+		{
+			var v = Child;
+			if (v == null)
+			{
+				return debugChildNotAvailableMessage();
+			}
+			return this.Horizontally(v, left, right);
+		}
 		#endregion
 
 		#region STATIC FUNCTIONS
@@ -96,7 +192,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			prepareForConstraint(parent, child);
 			parent.AddConstraint(NSLayoutConstraint.Create(
-				view1: ObjCRuntime.Runtime.GetNSObject(child.Handle),
+				view1: child,
 				attribute1: NSLayoutAttribute.Width,
 				relation: NSLayoutRelation.Equal,
 				//view2: null,
@@ -110,7 +206,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			prepareForConstraint(parent, child);
 			parent.AddConstraint(NSLayoutConstraint.Create(
-				view1: ObjCRuntime.Runtime.GetNSObject(child.Handle),
+				view1: child,
 				attribute1: NSLayoutAttribute.Height,
 				relation: NSLayoutRelation.Equal,
 				multiplier: 1,
@@ -129,7 +225,7 @@ namespace FPT.Framework.iOS.Material
 			if (0 < children.Length)
 			{
 				parent.AddConstraint(NSLayoutConstraint.Create(
-					view1: ObjCRuntime.Runtime.GetNSObject(children[0].Handle),
+					view1: children[0],
 					attribute1: NSLayoutAttribute.Left,
 					relation: NSLayoutRelation.Equal,
 					view2: parent,
@@ -140,16 +236,16 @@ namespace FPT.Framework.iOS.Material
 				for (var i = 1; i < children.Length; i++)
 				{
 					parent.AddConstraint(NSLayoutConstraint.Create(
-						view1: ObjCRuntime.Runtime.GetNSObject(children[i].Handle),
+						view1: children[i],
 						attribute1: NSLayoutAttribute.Left,
 						relation: NSLayoutRelation.Equal,
-						view2: ObjCRuntime.Runtime.GetNSObject(children[i - 1].Handle),
+						view2: children[i - 1],
 						attribute2: NSLayoutAttribute.Right,
 						multiplier: 1,
 						constant: spacing));
 
 					parent.AddConstraint(NSLayoutConstraint.Create(
-						view1: ObjCRuntime.Runtime.GetNSObject(children[i].Handle),
+						view1: children[i],
 						attribute1: NSLayoutAttribute.Width,
 						relation: NSLayoutRelation.Equal,
 						view2: children[0],
@@ -159,7 +255,7 @@ namespace FPT.Framework.iOS.Material
 				}
 
 				parent.AddConstraint(NSLayoutConstraint.Create(
-					view1: ObjCRuntime.Runtime.GetNSObject(children[children.Length - 1].Handle),
+					view1: children[children.Length - 1],
 					attribute1: NSLayoutAttribute.Right,
 					relation: NSLayoutRelation.Equal,
 					view2: parent,
@@ -175,7 +271,7 @@ namespace FPT.Framework.iOS.Material
 			if (0 < children.Length)
 			{
 				parent.AddConstraint(NSLayoutConstraint.Create(
-					view1: ObjCRuntime.Runtime.GetNSObject(children[0].Handle),
+					view1: children[0],
 					attribute1: NSLayoutAttribute.Top,
 					relation: NSLayoutRelation.Equal,
 					view2: parent,
@@ -186,16 +282,16 @@ namespace FPT.Framework.iOS.Material
 				for (var i = 1; i < children.Length; i++)
 				{
 					parent.AddConstraint(NSLayoutConstraint.Create(
-						view1: ObjCRuntime.Runtime.GetNSObject(children[i].Handle),
+						view1: children[i],
 						attribute1: NSLayoutAttribute.Top,
 						relation: NSLayoutRelation.Equal,
-						view2: ObjCRuntime.Runtime.GetNSObject(children[i - 1].Handle),
+						view2: children[i - 1],
 						attribute2: NSLayoutAttribute.Bottom,
 						multiplier: 1,
 						constant: spacing));
 
 					parent.AddConstraint(NSLayoutConstraint.Create(
-						view1: ObjCRuntime.Runtime.GetNSObject(children[i].Handle),
+						view1: children[i],
 						attribute1: NSLayoutAttribute.Height,
 						relation: NSLayoutRelation.Equal,
 						view2: children[0],
@@ -205,7 +301,7 @@ namespace FPT.Framework.iOS.Material
 				}
 
 				parent.AddConstraint(NSLayoutConstraint.Create(
-					view1: ObjCRuntime.Runtime.GetNSObject(children[children.Length - 1].Handle),
+					view1: children[children.Length - 1],
 					attribute1: NSLayoutAttribute.Bottom,
 					relation: NSLayoutRelation.Equal,
 					view2: parent,
@@ -219,7 +315,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			prepareForConstraint(parent, child);
 			parent.AddConstraint(NSLayoutConstraint.Create(
-				view1: ObjCRuntime.Runtime.GetNSObject(child.Handle),
+				view1: child,
 				attribute1: NSLayoutAttribute.Left,
 				relation: NSLayoutRelation.Equal,
 				view2: parent,
@@ -227,7 +323,7 @@ namespace FPT.Framework.iOS.Material
 				multiplier: 1,
 				constant: left));
 			parent.AddConstraint(NSLayoutConstraint.Create(
-				view1: ObjCRuntime.Runtime.GetNSObject(child.Handle),
+				view1: child,
 				attribute1: NSLayoutAttribute.Right,
 				relation: NSLayoutRelation.Equal,
 				view2: parent,
@@ -240,7 +336,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			prepareForConstraint(parent, child);
 			parent.AddConstraint(NSLayoutConstraint.Create(
-				view1: ObjCRuntime.Runtime.GetNSObject(child.Handle),
+				view1: child,
 				attribute1: NSLayoutAttribute.Top,
 				relation: NSLayoutRelation.Equal,
 				view2: parent,
@@ -248,7 +344,7 @@ namespace FPT.Framework.iOS.Material
 				multiplier: 1,
 				constant: top));
 			parent.AddConstraint(NSLayoutConstraint.Create(
-				view1: ObjCRuntime.Runtime.GetNSObject(child.Handle),
+				view1: child,
 				attribute1: NSLayoutAttribute.Bottom,
 				relation: NSLayoutRelation.Equal,
 				view2: parent,
@@ -257,59 +353,118 @@ namespace FPT.Framework.iOS.Material
 				constant: -bottom));
 		}
 
+		public static void Edges(UIView parent, UIView child, nfloat top = default(nfloat), nfloat left = default(nfloat), nfloat bottom = default(nfloat), nfloat right = default(nfloat))
+		{
+			Horizontally(parent, child, left, right);
+			Vertically(parent, child, top, bottom);
+		}
+
 		public static void Top(UIView parent, UIView child, nfloat top = default(nfloat))
 		{
-
+			prepareForConstraint(parent, child);
+			parent.AddConstraint(NSLayoutConstraint.Create(
+				view1: child,
+				attribute1: NSLayoutAttribute.Top,
+				relation: NSLayoutRelation.Equal,
+				view2: parent,
+				attribute2: NSLayoutAttribute.Top,
+				multiplier: 1,
+				constant: top));
 		}
 
 		public static void Left(UIView parent, UIView child, nfloat left = default(nfloat))
 		{
-
+			prepareForConstraint(parent, child);
+			parent.AddConstraint(NSLayoutConstraint.Create(
+				view1: child,
+				attribute1: NSLayoutAttribute.Left,
+				relation: NSLayoutRelation.Equal,
+				view2: parent,
+				attribute2: NSLayoutAttribute.Left,
+				multiplier: 1,
+				constant: left));
 		}
 
 		public static void Bottom(UIView parent, UIView child, nfloat bottom = default(nfloat))
 		{
-
+			prepareForConstraint(parent, child);
+			parent.AddConstraint(NSLayoutConstraint.Create(
+				view1: child,
+				attribute1: NSLayoutAttribute.Bottom,
+				relation: NSLayoutRelation.Equal,
+				view2: parent,
+				attribute2: NSLayoutAttribute.Bottom,
+				multiplier: 1,
+				constant: -bottom));
 		}
 
 		public static void Right(UIView parent, UIView child, nfloat right = default(nfloat))
 		{
-
+			prepareForConstraint(parent, child);
+			parent.AddConstraint(NSLayoutConstraint.Create(
+				view1: child,
+				attribute1: NSLayoutAttribute.Right,
+				relation: NSLayoutRelation.Equal,
+				view2: parent,
+				attribute2: NSLayoutAttribute.Right,
+				multiplier: 1,
+				constant: -right));
 		}
 
 		public static void TopLeft(UIView parent, UIView child, nfloat top = default(nfloat), nfloat left = default(nfloat))
 		{
-
+			Top(parent, child, top);
+			Left(parent, child, left);
 		}
 
 		public static void TopRight(UIView parent, UIView child, nfloat top = default(nfloat), nfloat right = default(nfloat))
 		{
-
+			Top(parent, child, top);
+			Right(parent, child, right);
 		}
 
 		public static void BottomLeft(UIView parent, UIView child, nfloat bottom = default(nfloat), nfloat left = default(nfloat))
 		{
-
+			Bottom(parent, child, bottom);
+			Left(parent, child, left);
 		}
 
 		public static void BottomRight(UIView parent, UIView child, nfloat bottom = default(nfloat), nfloat right = default(nfloat))
 		{
-
+			Bottom(parent, child, bottom);
+			Right(parent, child, right);
 		}
 
 		public static void Center(UIView parent, UIView child, nfloat offsetX = default(nfloat), nfloat offsetY = default(nfloat))
 		{
-
+			CenterHorizontally(parent, child, offsetX);
+			CenterVertically(parent, child, offsetY);
 		}
 
 		public static void CenterHorizontally(UIView parent, UIView child, nfloat offset = default(nfloat))
 		{
-
+			prepareForConstraint(parent, child);
+			parent.AddConstraint(NSLayoutConstraint.Create(
+				view1: child,
+				attribute1: NSLayoutAttribute.CenterX,
+				relation: NSLayoutRelation.Equal,
+				view2: parent,
+				attribute2: NSLayoutAttribute.CenterX,
+				multiplier: 1,
+				constant: offset));
 		}
 
 		public static void CenterVertically(UIView parent, UIView child, nfloat offset = default(nfloat))
 		{
-
+			prepareForConstraint(parent, child);
+			parent.AddConstraint(NSLayoutConstraint.Create(
+				view1: child,
+				attribute1: NSLayoutAttribute.CenterY,
+				relation: NSLayoutRelation.Equal,
+				view2: parent,
+				attribute2: NSLayoutAttribute.CenterY,
+				multiplier: 1,
+				constant: offset));
 		}
 
 		public static NSLayoutConstraint[] Constraint(string format, NSLayoutFormatOptions options, NSDictionary metrics, NSDictionary views)
@@ -329,8 +484,6 @@ namespace FPT.Framework.iOS.Material
 				metrics: metrics,
 				views: views
 			);
-
-
 		}
 
 		private static void prepareForConstraint(UIView parent, UIView child)
