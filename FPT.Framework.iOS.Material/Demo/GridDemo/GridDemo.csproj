@@ -29,6 +29,7 @@
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <MtouchExtraArgs></MtouchExtraArgs>
+    <MtouchFloat32>false</MtouchFloat32>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -37,7 +38,7 @@
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: Pham Quan (6Z3728XE9F)</CodesignKey>
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchFloat32>true</MtouchFloat32>

@@ -40,13 +40,13 @@ namespace FPT.Framework.iOS.Material
 				return v;
 			}
 			v = initializer();
-			Messaging.objc_setAssociatedObject(receiver, key, v, Messaging.AssociationPolicy.RETAIN);
+			Messaging.objc_setAssociatedObject(receiver, key, v, Messaging.AssociationPolicy.RETAIN_NONATOMIC);
 			return v;
 		}
 
 		public static void MaterialAssociatedObject(IntPtr receiver, IntPtr key, IntPtr value)
 		{
-			Messaging.objc_setAssociatedObject(receiver, key, value, Messaging.AssociationPolicy.RETAIN);
+			Messaging.objc_setAssociatedObject(receiver, key, value, Messaging.AssociationPolicy.RETAIN_NONATOMIC);
 		}
 	}
 
@@ -61,10 +61,10 @@ namespace FPT.Framework.iOS.Material
 			COPY = 01403,
 		}
 
-		[DllImport("/usr/lib/libobjc.dylib")]
+		[DllImport("libobjc.dylib")]
 		internal static extern IntPtr objc_getAssociatedObject(IntPtr receiver, IntPtr key);
 
-		[DllImport("/usr/lib/libobjc.dylib")]
+		[DllImport("libobjc.dylib")]
 		internal static extern void objc_setAssociatedObject(IntPtr receiver, IntPtr key, IntPtr value, AssociationPolicy policy);
 	}
 }
