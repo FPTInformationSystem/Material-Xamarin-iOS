@@ -1,6 +1,6 @@
 ﻿// MIT/X11 License
 //
-// MaterialView.cs
+// MaterialTableViewCell.cs
 //
 // Author:
 //       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
@@ -25,190 +25,103 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CoreAnimation;
-using CoreGraphics;
-using Foundation;
 using UIKit;
-//using UIView = FPT.Framework.iOS.Material.UIView;
+using CoreAnimation;
+using System.Collections.Generic;
+using Foundation;
+using CoreGraphics;
 
 namespace FPT.Framework.iOS.Material
 {
-	public class MaterialView : UIView
+	public class MaterialTableViewCellAnimationDelegate : CAAnimationDelegate
 	{
-		public class MaterialViewAnimationDelegate : CAAnimationDelegate
+		MaterialTableViewCell mParent;
+
+		public MaterialTableViewCellAnimationDelegate(MaterialTableViewCell parent)
 		{
-			MaterialView mParent;
+			mParent = parent;
+		}
 
-			public MaterialViewAnimationDelegate(MaterialView parent)
+		public override void AnimationStarted(CAAnimation anim)
+		{
+			if (mParent.Delegate is MaterialAnimationDelegate)
 			{
-				mParent = parent;
-			}
-
-			public override void AnimationStarted(CAAnimation anim)
-			{
-				if (mParent.Delegate is MaterialAnimationDelegate)
-				{
-					(mParent.Delegate as MaterialAnimationDelegate).materialAnimationDidStart(anim);
-				}
-			}
-
-			public override void AnimationStopped(CAAnimation anim, bool finished)
-			{
-				if (anim is CAPropertyAnimation)
-				{
-					if (anim is CABasicAnimation)
-					{
-						var b = (CABasicAnimation)anim;
-						var v = b.To;
-						if (v != null)
-						{
-							var k = b.KeyPath;
-							if (k != null)
-							{
-								mParent.Layer.SetValueForKey(v, new NSString(k));
-								mParent.Layer.RemoveAnimation(k);
-							}
-						}
-					}
-				}
-				else if (anim is CAAnimationGroup)
-				{
-					foreach (var x in ((CAAnimationGroup)anim).Animations)
-					{
-						AnimationStopped(anim: x, finished: true);
-					}
-				}
+				(mParent.Delegate as MaterialAnimationDelegate).materialAnimationDidStart(anim);
 			}
 		}
 
+		public override void AnimationStopped(CAAnimation anim, bool finished)
+		{
+			if (anim is CAPropertyAnimation)
+			{
+				if (anim is CABasicAnimation)
+				{
+					var b = (CABasicAnimation)anim;
+					var v = b.To;
+					if (v != null)
+					{
+						var k = b.KeyPath;
+						if (k != null)
+						{
+							mParent.Layer.SetValueForKey(v, new NSString(k));
+							mParent.Layer.RemoveAnimation(k);
+						}
+					}
+				}
+			}
+			else if (anim is CAAnimationGroup)
+			{
+				foreach (var x in ((CAAnimationGroup)anim).Animations)
+				{
+					AnimationStopped(anim: x, finished: true);
+				}
+			}
+		}
+	}
+
+
+	public class MaterialTableViewCell : UITableViewCell
+	{
+
 		#region VARIABLES
 
-		private MaterialViewAnimationDelegate mAnimationDelegate;
-
-		private CAShapeLayer mVisualLayer = new CAShapeLayer();
-		private MaterialDelegate mDelegate;
-		private UIImage mImage;
-
-		private UIColor mShadowColor;
-		private bool mShadowPathAutoSizeEnabled = true;
-		private MaterialDepth mDepth = MaterialDepth.None;
-		private MaterialRadius mCornerRadiusPreset = MaterialRadius.None;
-		private MaterialShape mShape = MaterialShape.None;
-		private MaterialBorder mBorderWidthPreset = MaterialBorder.None;
-
-		private MaterialGravity mContentsGravityPreset;
+		private Queue<CAShapeLayer> mPulseLayers = new Queue<CAShapeLayer>();
 
 		#endregion
 
 		#region PROPERTIES
-		public MaterialViewAnimationDelegate AnimationDelegate
+
+		private CAShapeLayer VisualLayer { get; set; } = new CAShapeLayer();
+
+		public MaterialDelegate Delegate { get; set; }
+
+		private Queue<CAShapeLayer> PulseLayer
 		{
 			get
 			{
-				return mAnimationDelegate;
+				return mPulseLayers;
 			}
 			set
 			{
-				mAnimationDelegate = value;
+				mPulseLayers = value;
 			}
 		}
 
-		public CAShapeLayer VisualLayer
-		{
-			get
-			{
-				return mVisualLayer;
-			}
-			private set
-			{
-				mVisualLayer = value;
-			}
-		}
+		public nfloat PulseOpacity { get; set; } = 0.25f;
 
-		public MaterialDelegate Delegate
-		{
-			get
-			{
-				return mDelegate;
-			}
-			private set
-			{
-				mDelegate = value;
-			}
-		}
+		public UIColor PulseColor { get; set; } = MaterialColor.Grey.Base;
 
-		public UIImage Image
+		private PulseAnimation mPulseAnimation = PulseAnimation.AtPointWithBacking;
+		public PulseAnimation PulseAnimation
 		{
 			get
 			{
-				return mImage;
+				return mPulseAnimation;
 			}
 			set
 			{
-				mImage = value;
-				if (mImage != null)
-					VisualLayer.Contents = mImage.CGImage;
-			}
-		}
-
-		public CGRect ContentsRect
-		{
-			get
-			{
-				return VisualLayer.ContentsRect;
-			}
-			set
-			{
-				VisualLayer.ContentsRect = value;
-			}
-		}
-
-		public CGRect ContentsCenter
-		{
-			get
-			{
-				return VisualLayer.ContentsCenter;
-			}
-			set
-			{
-				VisualLayer.ContentsCenter = value;
-			}
-		}
-
-		public nfloat ContentsScale
-		{
-			get
-			{
-				return VisualLayer.ContentsScale;
-			}
-			set
-			{
-				VisualLayer.ContentsScale = value;
-			}
-		}
-
-		public MaterialGravity ContentsGravityPreset
-		{
-			get
-			{
-				return mContentsGravityPreset;
-			}
-			set
-			{
-				mContentsGravityPreset = value;
-				ContentsGravity = Convert.MaterialGravityToValue(mContentsGravityPreset);
-			}
-		}
-
-		public string ContentsGravity
-		{
-			get
-			{
-				return VisualLayer.ContentsGravity;
-			}
-			set
-			{
-				VisualLayer.ContentsGravity = value;
+				mPulseAnimation = value;
+				VisualLayer.MasksToBounds = mPulseAnimation != PulseAnimation.CenterRadialBeyondBounds;
 			}
 		}
 
@@ -233,7 +146,10 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				base.BackgroundColor = value;
-				Layer.BackgroundColor = BackgroundColor.CGColor;
+				if (BackgroundColor != null)
+				{
+					Layer.BackgroundColor = BackgroundColor.CGColor;
+				}
 			}
 		}
 
@@ -293,6 +209,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		private UIColor mShadowColor;
 		public UIColor ShadowColor
 		{
 			get
@@ -357,6 +274,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		private bool mShadowPathAutoSizeEnabled = true;
 		public bool ShadowPathAutoSizeEnabled
 		{
 			get
@@ -373,6 +291,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		private MaterialDepth mDepth;
 		public MaterialDepth Depth
 		{
 			get
@@ -390,18 +309,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		public MaterialRadius CornerRadiusPreset
-		{
-			get
-			{
-				return mCornerRadiusPreset;
-			}
-			set
-			{
-				mCornerRadiusPreset = value;
-
-			}
-		}
+		public MaterialRadius CornerRadiusPreset { get; set; }
 
 		public nfloat CornerRadius
 		{
@@ -413,13 +321,14 @@ namespace FPT.Framework.iOS.Material
 			{
 				Layer.CornerRadius = value;
 				layoutShadowPath();
-				if (Shape != MaterialShape.Circle)
+				if (Shape == MaterialShape.Circle)
 				{
 					Shape = MaterialShape.None;
 				}
 			}
 		}
 
+		private MaterialShape mShape;
 		public MaterialShape Shape
 		{
 			get
@@ -446,6 +355,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		private MaterialBorder mBorderWidthPreset = MaterialBorder.None;
 		public MaterialBorder BorderWidthPreset
 		{
 			get
@@ -512,19 +422,13 @@ namespace FPT.Framework.iOS.Material
 
 		#region CONSTRUCTORS
 
-		public MaterialView() : this(CGRect.Empty)
+		public MaterialTableViewCell(Foundation.NSCoder coder) : base(coder)
 		{
-		}
-
-		public MaterialView(Foundation.NSCoder coder) : base(coder)
-		{
-			ContentsGravityPreset = MaterialGravity.ResizeAspectFill;
 			prepareView();
 		}
 
-		public MaterialView(CGRect frame) : base(frame)
+		public MaterialTableViewCell(UITableViewCellStyle style, string reuseIdentifier) : base(style, reuseIdentifier)
 		{
-			ContentsGravityPreset = MaterialGravity.ResizeAspectFill;
 			prepareView();
 		}
 
@@ -550,7 +454,7 @@ namespace FPT.Framework.iOS.Material
 
 		public void Animate(CAAnimation animation)
 		{
-			animation.WeakDelegate = new MaterialViewAnimationDelegate(this);
+			animation.WeakDelegate = new MaterialTableViewCellAnimationDelegate(this);
 			if (animation is CABasicAnimation)
 			{
 				var a = (CABasicAnimation)animation;
@@ -574,14 +478,47 @@ namespace FPT.Framework.iOS.Material
 
 		}
 
+		public override void TouchesBegan(Foundation.NSSet touches, UIEvent evt)
+		{
+			base.TouchesBegan(touches, evt);
+			UITouch touch = touches.AnyObject as UITouch;
+			MaterialAnimation.pulseExpandAnimation(layer: Layer, visualLayer: VisualLayer, pulseColor: PulseColor, pulseOpacity: PulseOpacity, point: Layer.ConvertPointToLayer(point: touch.LocationInView(this), layer: Layer), width: Width, height: Height, pulseLayers: ref mPulseLayers, pulseAnimation: PulseAnimation);
+		}
+
+		public override void TouchesEnded(Foundation.NSSet touches, UIEvent evt)
+		{
+			base.TouchesEnded(touches, evt);
+			MaterialAnimation.pulseContractAnimation(layer: Layer, visualLayer: VisualLayer, pulseColor: PulseColor, pulseLayers: ref mPulseLayers, pulseAnimation: PulseAnimation);
+
+		}
+
+		public override void TouchesCancelled(Foundation.NSSet touches, UIEvent evt)
+		{
+			base.TouchesCancelled(touches, evt);
+			MaterialAnimation.pulseContractAnimation(layer: Layer, visualLayer: VisualLayer, pulseColor: PulseColor, pulseLayers: ref mPulseLayers, pulseAnimation: PulseAnimation);
+		}
+
 		#endregion
 
 		#region FUNCTIONS
 
 		public virtual void prepareView()
 		{
+			SelectionStyle = UITableViewCellSelectionStyle.None;
+			SeparatorInset = UIEdgeInsets.Zero;
 			ContentScaleFactor = MaterialDevice.Scale;
-			BackgroundColor = MaterialColor.White;
+			if (ImageView != null)
+			{
+				ImageView.UserInteractionEnabled = false;
+			}
+			if (TextLabel != null)
+			{
+				TextLabel.UserInteractionEnabled = false;
+			}
+			if (DetailTextLabel != null)
+			{
+				DetailTextLabel.UserInteractionEnabled = false;
+			}
 			prepareVisualLayer();
 		}
 
@@ -630,6 +567,5 @@ namespace FPT.Framework.iOS.Material
 		}
 
 		#endregion
-
 	}
 }

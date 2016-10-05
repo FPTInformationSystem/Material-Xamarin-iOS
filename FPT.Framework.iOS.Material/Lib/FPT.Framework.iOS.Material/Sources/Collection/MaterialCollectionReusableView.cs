@@ -92,22 +92,22 @@ namespace FPT.Framework.iOS.Material
 
 		public MaterialCollectionReusableViewAnimationDelegate AnimationDelegate { get; set; }
 
-		private Grid mGrid;
-		public Grid Grid
-		{
-			get
-			{
-				if (mGrid == null)
-				{
-					mGrid = new Grid();
-				}
-				return mGrid;
-			}
-			set
-			{
-				mGrid = value;
-			}
-		}
+		//private Grid mGrid;
+		//public Grid Grid
+		//{
+		//	get
+		//	{
+		//		if (mGrid == null)
+		//		{
+		//			mGrid = new Grid();
+		//		}
+		//		return mGrid;
+		//	}
+		//	set
+		//	{
+		//		mGrid = value;
+		//	}
+		//}
 
 		private CAShapeLayer VisualLayer { get; set; } = new CAShapeLayer();
 
@@ -224,11 +224,11 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return Grid.ContentInsetPreset;
+				return this.Grid().ContentInsetPreset;
 			}
 			set
 			{
-				Grid.ContentInsetPreset = value;
+				this.Grid().ContentInsetPreset = value;
 			}
 		}
 
@@ -236,11 +236,11 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return Grid.ContentInset;
+				return this.Grid().ContentInset;
 			}
 			set
 			{
-				Grid.ContentInset = value;
+				this.Grid().ContentInset = value;
 			}
 		}
 
@@ -254,7 +254,7 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mSpacingPreset = value;
-				Grid.Spacing = Convert.MaterialSpacingToValue(SpacingPreset);
+				this.Grid().Spacing = Convert.MaterialSpacingToValue(SpacingPreset);
 			}
 		}
 
@@ -262,15 +262,15 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return Grid.Spacing;
+				return this.Grid().Spacing;
 			}
 			set
 			{
-				Grid.Spacing = value;
+				this.Grid().Spacing = value;
 			}
 		}
 
-		public bool mMasksToBounds
+		public bool MasksToBounds
 		{
 			get
 			{

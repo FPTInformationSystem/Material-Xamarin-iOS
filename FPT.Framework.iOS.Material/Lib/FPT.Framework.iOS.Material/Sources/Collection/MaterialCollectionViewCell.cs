@@ -90,14 +90,14 @@ namespace FPT.Framework.iOS.Material
 
 		#region PROPERTIES
 
-		private UIView mContentView;
-		public override UIKit.UIView ContentView
-		{
-			get
-			{
-				return mContentView;
-			}
-		}
+		//private UIView mContentView;
+		//public override UIKit.UIView ContentView
+		//{
+		//	get
+		//	{
+		//		return mContentView;
+		//	}
+		//}
 
 		public MaterialCollectionViewCellAnimationDelegate AnimationDelegate { get; set; }
 
@@ -216,11 +216,11 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return mContentView.Grid().ContentInsetPreset;
+				return ContentView.Grid().ContentInsetPreset;
 			}
 			set
 			{
-				mContentView.Grid().ContentInsetPreset = value;
+				ContentView.Grid().ContentInsetPreset = value;
 			}
 		}
 
@@ -229,11 +229,11 @@ namespace FPT.Framework.iOS.Material
 			get
 			{
 
-				return mContentView.Grid().ContentInset;
+				return ContentView.Grid().ContentInset;
 			}
 			set
 			{
-				mContentView.Grid().ContentInset = value;
+				ContentView.Grid().ContentInset = value;
 			}
 		}
 
@@ -247,7 +247,7 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mSpacingPreset = value;
-				mContentView.Grid().Spacing = Convert.MaterialSpacingToValue(SpacingPreset);
+				ContentView.Grid().Spacing = Convert.MaterialSpacingToValue(SpacingPreset);
 			}
 		}
 
@@ -255,11 +255,11 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return mContentView.Grid().Spacing;
+				return ContentView.Grid().Spacing;
 			}
 			set
 			{
-				mContentView.Grid().Spacing = value;
+				ContentView.Grid().Spacing = value;
 			}
 		}
 
@@ -657,7 +657,7 @@ namespace FPT.Framework.iOS.Material
 			prepareVisualLayer();
 
 			//This is a trick for add propery Grid to ContentView
-			prepareContentView();
+			//prepareContentView();
 		}
 
 		internal void prepareVisualLayer()
@@ -667,12 +667,12 @@ namespace FPT.Framework.iOS.Material
 			Layer.AddSublayer(VisualLayer);
 		}
 
-		internal void prepareContentView()
-		{
-			mContentView = new UIView(base.ContentView.Bounds);
-			mContentView.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-			base.ContentView.AddSubview(mContentView);
-		}
+		//internal void prepareContentView()
+		//{
+		//	mContentView = new UIView(base.ContentView.Bounds);
+		//	mContentView.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+		//	base.ContentView.AddSubview(mContentView);
+		//}
 
 		internal void layoutVisualLayer()
 		{

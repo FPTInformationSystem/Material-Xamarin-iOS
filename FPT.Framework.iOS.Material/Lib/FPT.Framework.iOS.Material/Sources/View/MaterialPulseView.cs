@@ -133,6 +133,8 @@ namespace FPT.Framework.iOS.Material
 
 		#region CONSTRUCTORS
 
+		public MaterialPulseView(Foundation.NSCoder coder) : base(coder) { }
+
 		public MaterialPulseView(CGRect frame) : base(frame) { }
 
 		#endregion

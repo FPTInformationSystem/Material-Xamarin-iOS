@@ -42,6 +42,13 @@ namespace FPT.Framework.iOS.Material
 					return MaterialIcon.Icon("cm_search_white");
 				}
 			}
+			public static UIImage Settings
+			{
+				get
+				{
+					return MaterialIcon.Icon("cm_settings_white");
+				}
+			}
 			//public static UIImage Pen {
 			//	get
 			//	{

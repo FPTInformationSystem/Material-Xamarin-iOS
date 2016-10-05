@@ -7,6 +7,8 @@ namespace FPT.Framework.iOS.Material
 	{
 		public FlatButton(CGRect frame) : base(frame) { }
 
+		public FlatButton() : base() { }
+
 		public override void prepareView()
 		{
 			base.prepareView();

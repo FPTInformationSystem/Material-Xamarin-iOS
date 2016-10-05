@@ -136,7 +136,21 @@ namespace FPT.Framework.iOS.Material
 				}
 			}
 
+			public static UIColor Accent1
+			{
+				get
+				{
+					return new UIColor(red: 130f / 255f, green: 177f / 255f, blue: 255f / 255f, alpha: 1);
+				}
+			}
 
+			public static UIColor Accent3
+			{
+				get
+				{
+					return new UIColor(red: 41f / 255f, green: 121f / 255f, blue: 255f / 255f, alpha: 1);
+				}
+			}
 		}
 
 		public static class LightBlue
@@ -212,6 +226,22 @@ namespace FPT.Framework.iOS.Material
 				get
 				{
 					return new UIColor(red: 238f / 255f, green: 238f / 255f, blue: 238f / 255f, alpha: 1);
+				}
+			}
+
+			public static UIColor Lighten5
+			{
+				get
+				{
+					return new UIColor(red: 250f / 255f, green: 250f / 255f, blue: 250f / 255f, alpha: 1);
+				}
+			}
+
+			public static UIColor Darken1
+			{
+				get
+				{
+					return new UIColor(red: 117f / 255f, green: 117f / 255f, blue: 117f / 255f, alpha: 1);
 				}
 			}
 		}

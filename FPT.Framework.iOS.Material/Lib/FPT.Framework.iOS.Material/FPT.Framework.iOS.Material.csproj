@@ -60,6 +60,8 @@
     <Folder Include="Resources\Assets.xcassets\" />
     <Folder Include="Sources\Collection\" />
     <Folder Include="Sources\Layout\" />
+    <Folder Include="Sources\Table\" />
+    <Folder Include="Sources\Card\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +103,8 @@
     <Compile Include="Sources\Collection\MaterialCollectionViewCell.cs" />
     <Compile Include="Sources\Layout\Layout.cs" />
     <Compile Include="Sources\Extension\Material+Obj-C.cs" />
+    <Compile Include="Sources\Table\MaterialTableViewCell.cs" />
+    <Compile Include="Sources\Card\CardView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
@@ -114,6 +118,9 @@
     <BundleResource Include="Resources\cm_search_white.png" />
     <BundleResource Include="Resources\cm_search_white%402x.png" />
     <BundleResource Include="Resources\cm_search_white%403x.png" />
+    <BundleResource Include="Resources\cm_settings_white.png" />
+    <BundleResource Include="Resources\cm_settings_white%402x.png" />
+    <BundleResource Include="Resources\cm_settings_white%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>
