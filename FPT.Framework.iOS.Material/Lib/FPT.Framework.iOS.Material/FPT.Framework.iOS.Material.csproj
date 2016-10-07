@@ -105,6 +105,11 @@
     <Compile Include="Sources\Extension\Material+Obj-C.cs" />
     <Compile Include="Sources\Table\MaterialTableViewCell.cs" />
     <Compile Include="Sources\Card\CardView.cs" />
+    <Compile Include="Sources\Extension\Material+UIImage+TintColor.cs" />
+    <Compile Include="Sources\Extension\Material+UIImage+FilterBlur.cs" />
+    <Compile Include="Sources\Extension\Material+UIImage+Blank.cs" />
+    <Compile Include="Sources\Extension\Material+UIImage+Color.cs" />
+    <Compile Include="Sources\Extension\Material+UIImage+Resize.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />

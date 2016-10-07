@@ -42,8 +42,9 @@ namespace TableCardViewDemo
 				cell.DetailTextLabel.Text = item.Detail;
 				cell.DetailTextLabel.Font = RobotoFont.Regular;
 				cell.DetailTextLabel.TextColor = MaterialColor.Grey.Darken1;
-				cell.ImageView.Image = item.Image;
-				cell.ImageView.Layer.CornerRadius = 20;
+				cell.ImageView.Image = item.Image.ResizeToWidth(40f);
+				cell.ImageView.Layer.CornerRadius = 5;
+				cell.ImageView.Layer.MasksToBounds = true;
 
 				return cell;
 			}
