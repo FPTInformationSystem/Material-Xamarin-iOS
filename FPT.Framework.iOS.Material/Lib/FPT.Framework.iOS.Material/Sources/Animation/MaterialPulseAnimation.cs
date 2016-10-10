@@ -84,7 +84,14 @@ namespace FPT.Framework.iOS.Material
 
 		internal static void pulseContractAnimation(CALayer layer, CALayer visualLayer, UIColor pulseColor, ref Queue<CAShapeLayer> pulseLayers, PulseAnimation pulseAnimation)
 		{
-			var bLayer = pulseLayers.Dequeue();
+			CAShapeLayer bLayer = null;
+			try
+			{
+				bLayer = pulseLayers.Dequeue();
+			}
+			catch (Exception) {
+				return;
+			}
 			if (bLayer != null)
 			{
 				var test = bLayer.ValueForKey(new NSString("animated")) as NSNumber;

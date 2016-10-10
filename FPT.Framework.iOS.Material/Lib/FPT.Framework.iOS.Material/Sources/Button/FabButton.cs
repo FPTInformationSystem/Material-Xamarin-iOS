@@ -6,6 +6,7 @@ namespace FPT.Framework.iOS.Material
 	public class FabButton : MaterialButton
 	{
 		public FabButton(CGRect frame) : base(frame) { }
+		public FabButton() : base() { }
 
 		public override void prepareView()
 		{

@@ -110,6 +110,8 @@
     <Compile Include="Sources\Extension\Material+UIImage+Blank.cs" />
     <Compile Include="Sources\Extension\Material+UIImage+Color.cs" />
     <Compile Include="Sources\Extension\Material+UIImage+Resize.cs" />
+    <Compile Include="Sources\View\MaterialLabel.cs" />
+    <Compile Include="Sources\View\MaterialSwitch.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />

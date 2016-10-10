@@ -1,4 +1,5 @@
-﻿// MIT/X11 License
+﻿
+// MIT/X11 License
 //
 // TabBar.cs
 //
@@ -25,22 +26,143 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using CoreGraphics;
 using Foundation;
 using ObjCRuntime;
 using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
-	public class TabBar : UILabel
+
+	public enum TabBarLineAlignment
 	{
-		public TabBar() : base ()
+		Top, Bottom
+	}
+
+	public class TabBar : MaterialView
+	{
+
+		#region PROPERTIES
+
+		public UIView Line
 		{
+			get; private set;
 		}
 
-		[Export("layerClass")]
-		public static Class LayerClass()
+		private TabBarLineAlignment mLineAlignment = TabBarLineAlignment.Bottom;
+		public TabBarLineAlignment LineAlignment
 		{
-			return new Class(typeof(MaterialTextLayer));
+			get
+			{
+				return mLineAlignment;
+			}
+			set
+			{
+				mLineAlignment = value;
+				LayoutSubviews();
+			}
 		}
+
+		public bool WillRenderView
+		{
+			get
+			{
+				return 0 < Width;
+			}
+		}
+
+		private UIButton[] mButtons;
+		public UIButton[] Buttons
+		{
+			get
+			{
+				return mButtons;
+			}
+			set
+			{
+				if (mButtons != null && mButtons != value)
+				{
+					foreach (var b in mButtons)
+					{
+						b.RemoveFromSuperview();
+					}
+				}
+				mButtons = value;
+				if (mButtons != null)
+				{
+					foreach (var b in mButtons)
+					{
+						AddSubview(b);
+				}
+				}
+			}
+		}
+
+		#endregion
+
+		#region FUNCTIONS
+
+		public override void LayoutSubviews()
+		{
+			base.LayoutSubviews();
+			if (WillRenderView)
+			{
+				var v = Buttons;
+				if (v.Length > 0)
+				{
+					int columns = this.Grid().Axis.Columns / v.Length;
+					foreach (var b in v)
+					{
+						b.Grid().Columns = columns;
+						b.ContentEdgeInsets = UIEdgeInsets.Zero;
+						b.Layer.CornerRadius = 0;
+						b.TouchUpInside -= handleButton;
+						b.TouchUpInside += handleButton;
+						//b.RemoveTarget(this, new Selector(
+					}
+					this.Grid().Views = v;
+					Line.Frame = new CGRect(0, LineAlignment == TabBarLineAlignment.Bottom ? Height - 3 : 0, v[0].Frame.Width, 3);
+				}
+			}
+		}
+
+		private void handleButton(object sender, EventArgs e)
+		{
+			UIButton button = sender as UIButton;
+			UIView.Animate(0.25f, () =>
+			{
+				var frame = this.Line.Frame;
+				frame.X = button.Frame.X;
+				frame.Width = button.Frame.Width;
+				this.Line.Frame = frame;
+			});
+		}
+
+		public override void prepareView()
+		{
+			base.prepareView();
+			AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
+			ContentScaleFactor = MaterialDevice.Scale;
+			prepareBottomLayer();
+		}
+
+		private void prepareBottomLayer()
+		{
+			Line = new UIView();
+			Line.BackgroundColor = MaterialColor.Yellow.Base;
+			AddSubview(Line);
+		}
+
+		#endregion
+
+		#region CONSTRUCTORS
+
+		public TabBar() : this(CGRect.Empty) { }
+
+		public TabBar(Foundation.NSCoder coder) : base(coder) { }
+
+		public TabBar(CGRect frame) : base(frame) { }
+
+		#endregion
 	}
 }
