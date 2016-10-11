@@ -27,12 +27,27 @@ namespace FPT.Framework.iOS.Material
 			return UIImage.FromBundle(name: name, bundle: Bundle, traitCollection: null).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
 		}
 
+		public static UIImage Visibility
+		{
+			get
+			{
+				return MaterialIcon.Icon("ic_visibility_white");
+			}
+		}
+
 		public static class CM {
 			public static UIImage AddWhite
 			{
 				get
 				{
 					return MaterialIcon.Icon("cm_add_white");
+				}
+			}
+			public static UIImage Clear
+			{
+				get
+				{
+					return MaterialIcon.Icon("cm_close_white");
 				}
 			}
 			public static UIImage Search
@@ -49,6 +64,7 @@ namespace FPT.Framework.iOS.Material
 					return MaterialIcon.Icon("cm_settings_white");
 				}
 			}
+
 			//public static UIImage Pen {
 			//	get
 			//	{

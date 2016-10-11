@@ -112,6 +112,13 @@ namespace FPT.Framework.iOS.Material
 
 		public static class Pink
 		{
+			public static UIColor Base
+			{
+				get
+				{
+					return new UIColor(red: 233f / 255f, green: 30f / 255f, blue: 99f / 255f, alpha: 1);
+				}
+			}
 		}
 
 		public static class Purple
@@ -216,6 +223,13 @@ namespace FPT.Framework.iOS.Material
 
 		public static class Cyan
 		{
+			public static UIColor Base
+			{
+				get
+				{
+					return new UIColor(red: 0f / 255f, green: 188f / 255f, blue: 212f / 255f, alpha: 1);
+				}
+			}
 		}
 
 		public static class Teal
@@ -254,6 +268,13 @@ namespace FPT.Framework.iOS.Material
 
 		public static class Amber
 		{
+			public static UIColor Darken4
+			{
+				get
+				{
+					return new UIColor(red: 255f / 255f, green: 111f / 255f, blue: 0f / 255f, alpha: 1);
+				}
+			}
 		}
 
 		public static class Orange

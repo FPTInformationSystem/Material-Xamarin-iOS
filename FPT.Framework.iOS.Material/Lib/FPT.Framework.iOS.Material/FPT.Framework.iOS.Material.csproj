@@ -62,6 +62,7 @@
     <Folder Include="Sources\Layout\" />
     <Folder Include="Sources\Table\" />
     <Folder Include="Sources\Card\" />
+    <Folder Include="Sources\Text\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,6 +113,8 @@
     <Compile Include="Sources\Extension\Material+UIImage+Resize.cs" />
     <Compile Include="Sources\View\MaterialLabel.cs" />
     <Compile Include="Sources\View\MaterialSwitch.cs" />
+    <Compile Include="Sources\Text\TextField.cs" />
+    <Compile Include="Sources\Text\ErrorTextField.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
@@ -128,6 +131,12 @@
     <BundleResource Include="Resources\cm_settings_white.png" />
     <BundleResource Include="Resources\cm_settings_white%402x.png" />
     <BundleResource Include="Resources\cm_settings_white%403x.png" />
+    <BundleResource Include="Resources\cm_close_white.png" />
+    <BundleResource Include="Resources\cm_close_white%402x.png" />
+    <BundleResource Include="Resources\cm_close_white%403x.png" />
+    <BundleResource Include="Resources\ic_visibility_white.png" />
+    <BundleResource Include="Resources\ic_visibility_white%402x.png" />
+    <BundleResource Include="Resources\ic_visibility_white%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>

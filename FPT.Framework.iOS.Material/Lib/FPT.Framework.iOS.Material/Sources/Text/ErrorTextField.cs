@@ -1,6 +1,6 @@
 ﻿// MIT/X11 License
 //
-// Material+UIFont.cs
+// ErrorTextField.cs
 //
 // Author:
 //       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
@@ -26,25 +26,57 @@
 // THE SOFTWARE.
 using System;
 using CoreGraphics;
-using Foundation;
-using UIKit;
 namespace FPT.Framework.iOS.Material
 {
-	public static partial class Extensions
+	public class ErrorTextField : TextField
 	{
-		public static CGSize StringSize(this UIFont font, NSString String, double width)
+
+		#region PROPERTIES
+
+		private bool mRevealError = false;
+		public bool RevealError
 		{
-			var attributes = new UIStringAttributes();
-			attributes.Font = font;
-			return String.GetBoundingRect(new CGSize(width, double.MaxValue),
-										  options: NSStringDrawingOptions.UsesLineFragmentOrigin,
-									  attributes: attributes,
-										  context: null).Size;
+			get
+			{
+				return mRevealError;
+			}
+			set
+			{
+				mRevealError = value;
+				DetailLabel.Hidden = !RevealError;
+			}
 		}
 
-		public static CGSize StringSize(this UIFont font, string String, double width)
+		#endregion
+
+		#region CONSTRUCTORS
+
+		public ErrorTextField() : this(CGRect.Empty)
 		{
-			return StringSize(font, new NSString(String), width);
 		}
+
+		public ErrorTextField(Foundation.NSCoder coder) : base(coder)
+		{
+			PrepareView();
+		}
+
+		public ErrorTextField(CGRect frame) : base(frame)
+		{
+			PrepareView();
+		}
+
+		#endregion
+
+		#region FUNCTIONS
+
+		public override void PrepareView()
+		{
+			base.PrepareView();
+			RevealError = false;
+			DetailColor = MaterialColor.Red.Base;
+		}
+
+		#endregion
+
 	}
 }
