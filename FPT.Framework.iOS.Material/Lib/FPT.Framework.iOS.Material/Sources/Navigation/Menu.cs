@@ -140,10 +140,11 @@ namespace FPT.Framework.iOS.Material
 			this.Spacing = spacing;
 		}
 
-		public Menu(CGPoint origin, MaterialSpacing spacingPreset = MaterialSpacing.Spacing3)
+		public Menu(CGPoint origin, nfloat? spacing = null)
 		{
+			spacing = spacing == null ? 16f : spacing;
 			this.Origin = origin;
-			this.SpacingPreset = spacingPreset;
+			this.Spacing = spacing.Value;
 		}
 
 		/// Convenience initializer.
@@ -283,7 +284,10 @@ namespace FPT.Framework.iOS.Material
 							var frame = view.Frame;
 							frame.Y = baseView.Frame.Y - ((nfloat)i) * s.ItemSize.Height - ((nfloat)i) * s.Spacing;
 							view.Frame = frame;
-							animations(view);
+							if (animations != null)
+							{
+								animations(view);
+							}
 						}, completion: (bool finished) =>
 						{
 							var s = this;
@@ -338,7 +342,10 @@ namespace FPT.Framework.iOS.Material
 							var frame = view.Frame;
 							frame.Y = s.Origin.Y;
 							view.Frame = frame;
-							animations(view);
+							if (animations != null)
+							{
+								animations(view);
+							}
 						}, completion: (bool finished) =>
 						{
 							var s = this;
@@ -395,7 +402,10 @@ namespace FPT.Framework.iOS.Material
 							var frame = view.Frame;
 							frame.Y = baseView.Frame.Y + h + ((nfloat)i - 1) * s.ItemSize.Height - ((nfloat)i) * s.Spacing;
 							view.Frame = frame;
-							animations(view);
+							if (animations != null)
+							{
+								animations(view);
+							}
 						}, completion: (bool finished) =>
 						{
 							var s = this;
@@ -403,6 +413,10 @@ namespace FPT.Framework.iOS.Material
 							if (view == v[v.Length - 1])
 							{
 								s.Opened = true;
+							}
+							if (completion != null)
+							{
+								completion(view);
 							}
 						});
 				}
@@ -447,7 +461,10 @@ namespace FPT.Framework.iOS.Material
 							var frame = view.Frame;
 							frame.Y = s.Origin.Y + h;
 							view.Frame = frame;
-							animations(view);
+							if (animations != null)
+							{
+								animations(view);
+							}
 						}, completion: (bool finished) =>
 						{
 							var s = this;
@@ -503,7 +520,10 @@ namespace FPT.Framework.iOS.Material
 							var frame = view.Frame;
 							frame.X = baseView.Frame.X - ((nfloat)i) * s.ItemSize.Width - ((nfloat)i) * s.Spacing;
 							view.Frame = frame;
-							animations(view);
+							if (animations != null)
+							{
+								animations(view);
+							}
 						}, completion: (bool finished) =>
 						{
 							var s = this;
@@ -558,7 +578,10 @@ namespace FPT.Framework.iOS.Material
 							var frame = view.Frame;
 							frame.X = s.Origin.X;
 							view.Frame = frame;
-							animations(view);
+							if (animations != null)
+							{
+								animations(view);
+							}
 						}, completion: (bool finished) =>
 						{
 							var s = this;
@@ -615,7 +638,10 @@ namespace FPT.Framework.iOS.Material
 							var frame = view.Frame;
 							frame.X = baseView.Frame.X + w + ((nfloat)i - 1) * s.ItemSize.Width - ((nfloat)i) * s.Spacing;
 							view.Frame = frame;
-							animations(view);
+							if (animations != null)
+							{
+								animations(view);
+							}
 						}, completion: (bool finished) =>
 						{
 							var s = this;
@@ -623,6 +649,10 @@ namespace FPT.Framework.iOS.Material
 							if (view == v[v.Length - 1])
 							{
 								s.Opened = true;
+							}
+							if (completion != null)
+							{
+								completion(view);
 							}
 						});
 				}
@@ -665,9 +695,12 @@ namespace FPT.Framework.iOS.Material
 							var s = this;
 							view.Alpha = 1;
 							var frame = view.Frame;
-							frame.Y = s.Origin.Y + w;
+							frame.X = s.Origin.X + w;
 							view.Frame = frame;
-							animations(view);
+							if (animations != null)
+							{
+								animations(view);
+							}
 						}, completion: (bool finished) =>
 						{
 							var s = this;

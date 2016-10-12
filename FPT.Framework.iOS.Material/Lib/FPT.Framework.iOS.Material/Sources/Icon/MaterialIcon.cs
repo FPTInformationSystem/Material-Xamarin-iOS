@@ -36,7 +36,7 @@ namespace FPT.Framework.iOS.Material
 		}
 
 		public static class CM {
-			public static UIImage AddWhite
+			public static UIImage Add
 			{
 				get
 				{
@@ -50,6 +50,15 @@ namespace FPT.Framework.iOS.Material
 					return MaterialIcon.Icon("cm_close_white");
 				}
 			}
+
+			public static UIImage Close
+			{
+				get
+				{
+					return MaterialIcon.Icon("cm_close_white");
+				}
+			}
+
 			public static UIImage Search
 			{
 				get
@@ -57,6 +66,7 @@ namespace FPT.Framework.iOS.Material
 					return MaterialIcon.Icon("cm_search_white");
 				}
 			}
+
 			public static UIImage Settings
 			{
 				get
