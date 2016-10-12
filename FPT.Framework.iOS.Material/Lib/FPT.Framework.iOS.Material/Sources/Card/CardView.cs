@@ -317,9 +317,9 @@ namespace FPT.Framework.iOS.Material
 
 		#region OVERRIDE FUNCTIONS
 
-		public override void prepareView()
+		public override void PrepareView()
 		{
-			base.prepareView();
+			base.PrepareView();
 			Depth = MaterialDepth.Depth1;
 			DividerColor = MaterialColor.Grey.Lighten3;
 			CornerRadiusPreset = MaterialRadius.Radius1;

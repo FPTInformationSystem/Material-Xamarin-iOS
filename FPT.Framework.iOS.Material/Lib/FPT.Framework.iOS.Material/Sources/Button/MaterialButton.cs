@@ -56,7 +56,7 @@ namespace FPT.Framework.iOS.Material
 		}
 
 		#region VARIABLES
-		private MaterialButtonAnimationDelegate mAnimationDelegate;
+		//private MaterialButtonAnimationDelegate mAnimationDelegate;
 
 		private CAShapeLayer mVisualLayer = new CAShapeLayer();
 		private MaterialDelegate mDelegate;
@@ -74,17 +74,17 @@ namespace FPT.Framework.iOS.Material
 		#endregion
 
 		#region PROPERTIES
-		public MaterialButtonAnimationDelegate AnimationDelegate
-		{
-			get
-			{
-				return mAnimationDelegate;
-			}
-			set
-			{
-				mAnimationDelegate = value;
-			}
-		}
+		//public MaterialButtonAnimationDelegate AnimationDelegate
+		//{
+		//	get
+		//	{
+		//		return mAnimationDelegate;
+		//	}
+		//	set
+		//	{
+		//		mAnimationDelegate = value;
+		//	}
+		//}
 
 		public CAShapeLayer VisualLayer
 		{

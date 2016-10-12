@@ -87,7 +87,7 @@ namespace FPT.Framework.iOS.Material
 
 		#region VARIABLES
 
-		private TextFieldAnimationDelegate mAnimationDelegate;
+		//private TextFieldAnimationDelegate mAnimationDelegate;
 
 		#endregion
 

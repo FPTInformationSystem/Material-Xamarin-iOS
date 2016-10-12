@@ -115,6 +115,10 @@
     <Compile Include="Sources\View\MaterialSwitch.cs" />
     <Compile Include="Sources\Text\TextField.cs" />
     <Compile Include="Sources\Text\ErrorTextField.cs" />
+    <Compile Include="Sources\Navigation\RootController.cs" />
+    <Compile Include="Sources\Navigation\MenuController.cs" />
+    <Compile Include="Sources\Navigation\Menu.cs" />
+    <Compile Include="Sources\Navigation\MenuView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />

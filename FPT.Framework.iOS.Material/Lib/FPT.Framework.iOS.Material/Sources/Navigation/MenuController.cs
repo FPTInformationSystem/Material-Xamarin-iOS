@@ -25,12 +25,43 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using UIKit;
+using Foundation;
 namespace FPT.Framework.iOS.Material
 {
-	public class MenuController
+
+	public static partial class Extensions
 	{
-		public MenuController()
+		public static MenuController MenuController(this UIViewController viewController)
+		{
+			while (viewController != null)
+			{
+				if (viewController is MenuController)
+				{
+					return viewController as MenuController;
+				}
+				viewController = viewController.ParentViewController;
+			}
+			return null;
+		}
+	}
+
+	public class MenuController : RootController
+	{
+
+		#region PROPERTIES
+
+		public MenuView MenuView { get; private set; } = new MenuView();
+
+		#endregion
+
+		#region CONSTRUCTORS
+
+		public MenuController(NSCoder coder) : base(coder)
 		{
 		}
+
+		#endregion
+
 	}
 }

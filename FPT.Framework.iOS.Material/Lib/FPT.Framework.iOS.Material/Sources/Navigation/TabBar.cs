@@ -138,9 +138,9 @@ namespace FPT.Framework.iOS.Material
 			});
 		}
 
-		public override void prepareView()
+		public override void PrepareView()
 		{
-			base.prepareView();
+			base.PrepareView();
 			AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
 			ContentScaleFactor = MaterialDevice.Scale;
 			prepareBottomLayer();

@@ -103,7 +103,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		public UIEdgeInsets ContentInset
+		public override UIEdgeInsets ContentInset
 		{
 			get
 			{

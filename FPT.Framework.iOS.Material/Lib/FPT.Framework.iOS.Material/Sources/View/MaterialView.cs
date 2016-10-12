@@ -519,13 +519,13 @@ namespace FPT.Framework.iOS.Material
 		public MaterialView(Foundation.NSCoder coder) : base(coder)
 		{
 			ContentsGravityPreset = MaterialGravity.ResizeAspectFill;
-			prepareView();
+			PrepareView();
 		}
 
 		public MaterialView(CGRect frame) : base(frame)
 		{
 			ContentsGravityPreset = MaterialGravity.ResizeAspectFill;
-			prepareView();
+			PrepareView();
 		}
 
 		#endregion
@@ -578,7 +578,7 @@ namespace FPT.Framework.iOS.Material
 
 		#region FUNCTIONS
 
-		public virtual void prepareView()
+		public virtual void PrepareView()
 		{
 			ContentScaleFactor = MaterialDevice.Scale;
 			BackgroundColor = MaterialColor.White;
