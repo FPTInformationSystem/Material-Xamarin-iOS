@@ -43,6 +43,15 @@ namespace FPT.Framework.iOS.Material
 					return MaterialIcon.Icon("cm_add_white");
 				}
 			}
+
+			public static UIImage ArrowBack
+			{
+				get
+				{
+					return MaterialIcon.Icon("ic_arrow_back_white");
+				}
+			}
+
 			public static UIImage Clear
 			{
 				get
@@ -56,6 +65,14 @@ namespace FPT.Framework.iOS.Material
 				get
 				{
 					return MaterialIcon.Icon("cm_close_white");
+				}
+			}
+
+			public static UIImage MoreHorizontal
+			{
+				get
+				{
+					return MaterialIcon.Icon("ic_more_horiz_white");
 				}
 			}
 
