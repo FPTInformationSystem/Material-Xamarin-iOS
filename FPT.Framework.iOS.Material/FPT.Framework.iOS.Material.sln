@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchBarDemo", "Demo\Searc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchBarControllerDemo", "Demo\SearchBarControllerDemo\SearchBarControllerDemo.csproj", "{8DC4326F-1379-4158-889D-525B206FEEDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolbarDemo", "Demo\ToolbarDemo\ToolbarDemo.csproj", "{6E67A907-AEF0-4A95-A263-41217B769676}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -173,6 +175,14 @@ Global
 		{8DC4326F-1379-4158-889D-525B206FEEDC}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{8DC4326F-1379-4158-889D-525B206FEEDC}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{8DC4326F-1379-4158-889D-525B206FEEDC}.Debug|iPhone.Build.0 = Debug|iPhone
+		{6E67A907-AEF0-4A95-A263-41217B769676}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{6E67A907-AEF0-4A95-A263-41217B769676}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{6E67A907-AEF0-4A95-A263-41217B769676}.Release|iPhone.ActiveCfg = Release|iPhone
+		{6E67A907-AEF0-4A95-A263-41217B769676}.Release|iPhone.Build.0 = Release|iPhone
+		{6E67A907-AEF0-4A95-A263-41217B769676}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{6E67A907-AEF0-4A95-A263-41217B769676}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{6E67A907-AEF0-4A95-A263-41217B769676}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{6E67A907-AEF0-4A95-A263-41217B769676}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26C75516-374F-487F-8014-3B57C463C87A} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
@@ -191,5 +201,6 @@ Global
 		{2EAE21F0-576D-4835-AC02-1C2290C2E9DE} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{57F2A2BF-AFA1-4B85-B225-9A7D472042C2} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{8DC4326F-1379-4158-889D-525B206FEEDC} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
+		{6E67A907-AEF0-4A95-A263-41217B769676} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 	EndGlobalSection
 EndGlobal

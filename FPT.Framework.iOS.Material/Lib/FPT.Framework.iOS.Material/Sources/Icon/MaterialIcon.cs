@@ -68,6 +68,14 @@ namespace FPT.Framework.iOS.Material
 				}
 			}
 
+			public static UIImage Menu
+			{
+				get
+				{
+					return MaterialIcon.Icon("cm_menu_white");
+				}
+			}
+
 			public static UIImage MoreHorizontal
 			{
 				get

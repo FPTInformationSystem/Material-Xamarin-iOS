@@ -40,9 +40,8 @@ namespace FPT.Framework.iOS.Material
 
 		public BarView(CGRect frame) : base(frame) { }
 
-		public BarView() : this(CGRect.Empty) { }
-
 		public BarView(UIControl[] leftControls = null, UIControl[] rightControls = null) : base(leftControls, rightControls) { }
+
 		#endregion
 
 		#region FUNCTIONS

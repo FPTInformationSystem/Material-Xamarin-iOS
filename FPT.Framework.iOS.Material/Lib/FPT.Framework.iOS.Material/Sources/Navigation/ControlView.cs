@@ -139,6 +139,8 @@ namespace FPT.Framework.iOS.Material
 						AddSubview(b);
 					}
 				}
+
+				LayoutSubviews();
 			}
 		}
 
@@ -169,6 +171,8 @@ namespace FPT.Framework.iOS.Material
 						AddSubview(b);
 					}
 				}
+
+				LayoutSubviews();
 			}
 		}
 
@@ -219,19 +223,19 @@ namespace FPT.Framework.iOS.Material
 						if (c is UIButton)
 						{
 							(c as UIButton).ContentEdgeInsets = UIEdgeInsets.Zero;
-
-							var frame = c.Frame;
-							frame.Height = Frame.Size.Height - ContentInset.Top - ContentInset.Bottom;
-							c.Frame = frame;
-
-							var q = (int)(w / GridFactor);
-							c.Grid().Columns = q + 1;
-
-							ContentView.Grid().Columns -= c.Grid().Columns;
-
-							AddSubview(c);
-							this.Grid().Views.Add(c);
 						}
+						var frame = c.Frame;
+						frame.Height = Frame.Size.Height - ContentInset.Top - ContentInset.Bottom;
+						c.Frame = frame;
+
+						var q = (int)(w / GridFactor);
+						c.Grid().Columns = q + 1;
+
+						ContentView.Grid().Columns -= c.Grid().Columns;
+
+						AddSubview(c);
+						this.Grid().Views.Add(c);
+
 					}
 				}
 				AddSubview(ContentView);
@@ -246,19 +250,20 @@ namespace FPT.Framework.iOS.Material
 						if (c is UIButton)
 						{
 							(c as UIButton).ContentEdgeInsets = UIEdgeInsets.Zero;
-
-							var frame = c.Frame;
-							frame.Height = Frame.Size.Height - ContentInset.Top - ContentInset.Bottom;
-							c.Frame = frame;
-
-							var q = (int)(w / GridFactor);
-							c.Grid().Columns = q + 1;
-
-							ContentView.Grid().Columns -= c.Grid().Columns;
-
-							AddSubview(c);
-							this.Grid().Views.Add(c);
 						}
+
+						var frame = c.Frame;
+						frame.Height = Frame.Size.Height - ContentInset.Top - ContentInset.Bottom;
+						c.Frame = frame;
+
+						var q = (int)(w / GridFactor);
+						c.Grid().Columns = q + 1;
+
+						ContentView.Grid().Columns -= c.Grid().Columns;
+
+						AddSubview(c);
+						this.Grid().Views.Add(c);
+
 					}
 				}
 
