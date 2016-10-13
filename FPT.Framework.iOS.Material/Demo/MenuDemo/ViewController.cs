@@ -115,6 +115,7 @@ namespace MenuDemo
 			var btn1 = new FabButton();
 			btn1.SetImage(image, UIControlState.Normal);
 			btn1.SetImage(image, UIControlState.Highlighted);
+			btn1.AddTarget(this, new Selector("handleFabMenu"), UIControlEvent.TouchUpInside);
 			View.AddSubview(btn1);
 
 			image = UIImage.FromBundle("ic_add_white");
@@ -211,7 +212,7 @@ namespace MenuDemo
 			View.AddSubview(btn3);
 
 			flashMenu = new Menu(new CGPoint((View.Bounds.Width + btn1.Width) / 2f, 100));
-			flashMenu.Direction = MenuDirection.Right;
+			flashMenu.Direction = MenuDirection.Down;
 			flashMenu.ItemSize = btn1.IntrinsicContentSize;
 			flashMenu.Views = new UIView[] {
 				btn1, btn2, btn3

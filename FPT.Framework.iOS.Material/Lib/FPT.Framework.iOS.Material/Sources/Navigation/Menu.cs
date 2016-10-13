@@ -338,7 +338,7 @@ namespace FPT.Framework.iOS.Material
 						animations: () =>
 						{
 							var s = this;
-							view.Alpha = 1;
+							view.Alpha = 0;
 							var frame = view.Frame;
 							frame.Y = s.Origin.Y;
 							view.Frame = frame;
@@ -353,7 +353,7 @@ namespace FPT.Framework.iOS.Material
 							s.enable(view);
 							if (view == v[v.Length - 1])
 							{
-								s.Opened = true;
+								s.Opened = false;
 							}
 							if (completion != null)
 							{
@@ -400,7 +400,7 @@ namespace FPT.Framework.iOS.Material
 							var s = this;
 							view.Alpha = 1;
 							var frame = view.Frame;
-							frame.Y = baseView.Frame.Y + h + ((nfloat)i - 1) * s.ItemSize.Height - ((nfloat)i) * s.Spacing;
+							frame.Y = baseView.Frame.Y + h + ((nfloat)i - 1) * s.ItemSize.Height + ((nfloat)i) * s.Spacing;
 							view.Frame = frame;
 							if (animations != null)
 							{
@@ -457,7 +457,7 @@ namespace FPT.Framework.iOS.Material
 						animations: () =>
 						{
 							var s = this;
-							view.Alpha = 1;
+							view.Alpha = 0;
 							var frame = view.Frame;
 							frame.Y = s.Origin.Y + h;
 							view.Frame = frame;
@@ -472,7 +472,7 @@ namespace FPT.Framework.iOS.Material
 							s.enable(view);
 							if (view == v[v.Length - 1])
 							{
-								s.Opened = true;
+								s.Opened = false;
 							}
 							if (completion != null)
 							{
@@ -574,7 +574,7 @@ namespace FPT.Framework.iOS.Material
 						animations: () =>
 						{
 							var s = this;
-							view.Alpha = 1;
+							view.Alpha = 0;
 							var frame = view.Frame;
 							frame.X = s.Origin.X;
 							view.Frame = frame;
@@ -589,7 +589,7 @@ namespace FPT.Framework.iOS.Material
 							s.enable(view);
 							if (view == v[v.Length - 1])
 							{
-								s.Opened = true;
+								s.Opened = false;
 							}
 							if (completion != null)
 							{
@@ -636,7 +636,7 @@ namespace FPT.Framework.iOS.Material
 							var s = this;
 							view.Alpha = 1;
 							var frame = view.Frame;
-							frame.X = baseView.Frame.X + w + ((nfloat)i - 1) * s.ItemSize.Width - ((nfloat)i) * s.Spacing;
+							frame.X = baseView.Frame.X + w + ((nfloat)i - 1) * s.ItemSize.Width + ((nfloat)i) * s.Spacing;
 							view.Frame = frame;
 							if (animations != null)
 							{
@@ -693,7 +693,7 @@ namespace FPT.Framework.iOS.Material
 						animations: () =>
 						{
 							var s = this;
-							view.Alpha = 1;
+							view.Alpha = 0;
 							var frame = view.Frame;
 							frame.X = s.Origin.X + w;
 							view.Frame = frame;
@@ -708,7 +708,7 @@ namespace FPT.Framework.iOS.Material
 							s.enable(view);
 							if (view == v[v.Length - 1])
 							{
-								s.Opened = true;
+								s.Opened = false;
 							}
 							if (completion != null)
 							{
