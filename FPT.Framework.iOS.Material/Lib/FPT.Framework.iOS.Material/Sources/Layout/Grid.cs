@@ -25,6 +25,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Collections.Generic;
 using CoreGraphics;
 using Foundation;
 using UIKit;
@@ -262,8 +263,8 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		private UIView[] mViews;
-		public UIView[] Views
+		private List<UIView> mViews;
+		public List<UIView> Views
 		{
 			get
 			{
@@ -305,7 +306,7 @@ namespace FPT.Framework.iOS.Material
 				var gc = Axis.Inerited ? Columns : Axis.Columns;
 				var gr = Axis.Inerited ? Rows : Axis.Rows;
 				var n = 0;
-				for (var i = 0; i < v.Length; i++)
+				for (var i = 0; i < v.Count; i++)
 				{
 					var view = v[i];
 					var sv = (view as UIKit.UIView).Superview;

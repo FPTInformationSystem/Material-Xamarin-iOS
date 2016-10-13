@@ -26,6 +26,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Collections.Generic;
 using CoreGraphics;
 using Foundation;
 using ObjCRuntime;
@@ -120,7 +121,7 @@ namespace FPT.Framework.iOS.Material
 						b.TouchUpInside += handleButton;
 						//b.RemoveTarget(this, new Selector(
 					}
-					this.Grid().Views = v;
+					this.Grid().Views = new List<UIView>(v);
 					Line.Frame = new CGRect(0, LineAlignment == TabBarLineAlignment.Bottom ? Height - 3 : 0, v[0].Frame.Width, 3);
 				}
 			}

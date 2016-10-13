@@ -233,7 +233,10 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				base.BackgroundColor = value;
-				Layer.BackgroundColor = BackgroundColor.CGColor;
+				if (BackgroundColor != null)
+				{
+					Layer.BackgroundColor = BackgroundColor.CGColor;
+				}
 			}
 		}
 

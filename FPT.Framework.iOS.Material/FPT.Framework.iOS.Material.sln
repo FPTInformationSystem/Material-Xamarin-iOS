@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFieldDemo", "Demo\TextF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuDemo", "Demo\MenuDemo\MenuDemo.csproj", "{00129AF4-C0CD-42A0-AFB2-97CE44491C86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlDemo", "Demo\ControlDemo\ControlDemo.csproj", "{2EAE21F0-576D-4835-AC02-1C2290C2E9DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -143,6 +145,14 @@ Global
 		{00129AF4-C0CD-42A0-AFB2-97CE44491C86}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{00129AF4-C0CD-42A0-AFB2-97CE44491C86}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{00129AF4-C0CD-42A0-AFB2-97CE44491C86}.Debug|iPhone.Build.0 = Debug|iPhone
+		{2EAE21F0-576D-4835-AC02-1C2290C2E9DE}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{2EAE21F0-576D-4835-AC02-1C2290C2E9DE}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{2EAE21F0-576D-4835-AC02-1C2290C2E9DE}.Release|iPhone.ActiveCfg = Release|iPhone
+		{2EAE21F0-576D-4835-AC02-1C2290C2E9DE}.Release|iPhone.Build.0 = Release|iPhone
+		{2EAE21F0-576D-4835-AC02-1C2290C2E9DE}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{2EAE21F0-576D-4835-AC02-1C2290C2E9DE}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{2EAE21F0-576D-4835-AC02-1C2290C2E9DE}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{2EAE21F0-576D-4835-AC02-1C2290C2E9DE}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26C75516-374F-487F-8014-3B57C463C87A} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
@@ -158,5 +168,6 @@ Global
 		{AE9FCD4F-AF04-4A27-8D0D-ED7AF0F04C02} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{2DCC1A57-D3B3-43B7-8682-64757F8E742D} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{00129AF4-C0CD-42A0-AFB2-97CE44491C86} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
+		{2EAE21F0-576D-4835-AC02-1C2290C2E9DE} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 	EndGlobalSection
 EndGlobal

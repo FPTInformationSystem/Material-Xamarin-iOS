@@ -119,6 +119,7 @@
     <Compile Include="Sources\Navigation\MenuController.cs" />
     <Compile Include="Sources\Navigation\Menu.cs" />
     <Compile Include="Sources\Navigation\MenuView.cs" />
+    <Compile Include="Sources\Navigation\ControlView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />

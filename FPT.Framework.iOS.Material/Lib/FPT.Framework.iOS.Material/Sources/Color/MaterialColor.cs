@@ -234,6 +234,21 @@ namespace FPT.Framework.iOS.Material
 
 		public static class Teal
 		{
+			public static UIColor Base
+			{
+				get
+				{
+					return new UIColor(red: 0f / 255f, green: 150f / 255f, blue: 136f / 255f, alpha: 1);
+				}
+			}
+
+			public static UIColor Accent3
+			{
+				get
+				{
+					return new UIColor(red: 29f / 255f, green: 233f / 255f, blue: 182f / 255f, alpha: 1);
+				}
+			}
 		}
 
 		public static class Green
