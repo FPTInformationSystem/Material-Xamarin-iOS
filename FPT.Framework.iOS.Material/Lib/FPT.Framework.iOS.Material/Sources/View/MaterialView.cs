@@ -278,6 +278,10 @@ namespace FPT.Framework.iOS.Material
 			{
 				var frame = Layer.Frame;
 				frame.Width = value;
+				if (Shape != MaterialShape.None)
+				{
+					frame.Height = value;
+				}
 				Layer.Frame = frame;
 			}
 		}
@@ -292,6 +296,10 @@ namespace FPT.Framework.iOS.Material
 			{
 				var frame = Layer.Frame;
 				frame.Height = value;
+				if (Shape != MaterialShape.None)
+				{
+					frame.Width = value;
+				}
 				Layer.Frame = frame;
 			}
 		}

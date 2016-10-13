@@ -59,6 +59,14 @@ namespace FPT.Framework.iOS.Material
 				}
 			}
 
+			public static UIImage MoreVertical
+			{
+				get
+				{
+					return MaterialIcon.Icon("ic_more_vert_white");
+				}
+			}
+
 			public static UIImage Search
 			{
 				get

@@ -122,16 +122,22 @@ namespace FPT.Framework.iOS.Material
 			}
 			set
 			{
-				foreach (var b in LeftControls)
+				if (LeftControls != null)
 				{
-					b.RemoveFromSuperview();
+					foreach (var b in LeftControls)
+					{
+						b.RemoveFromSuperview();
+					}
 				}
 
 				mLeftControls = value;
 
-				foreach (var b in LeftControls)
+				if (LeftControls != null)
 				{
-					AddSubview(b);
+					foreach (var b in LeftControls)
+					{
+						AddSubview(b);
+					}
 				}
 			}
 		}

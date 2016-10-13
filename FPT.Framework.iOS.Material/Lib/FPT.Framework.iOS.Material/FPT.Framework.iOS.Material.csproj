@@ -120,6 +120,8 @@
     <Compile Include="Sources\Navigation\Menu.cs" />
     <Compile Include="Sources\Navigation\MenuView.cs" />
     <Compile Include="Sources\Navigation\ControlView.cs" />
+    <Compile Include="Sources\View\BarView.cs" />
+    <Compile Include="Sources\View\SearchBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
@@ -142,6 +144,12 @@
     <BundleResource Include="Resources\ic_visibility_white.png" />
     <BundleResource Include="Resources\ic_visibility_white%402x.png" />
     <BundleResource Include="Resources\ic_visibility_white%403x.png" />
+    <BundleResource Include="Resources\cm_more_vert_white.png" />
+    <BundleResource Include="Resources\cm_more_vert_white%402x.png" />
+    <BundleResource Include="Resources\cm_more_vert_white%403x.png" />
+    <BundleResource Include="Resources\ic_more_vert_white.png" />
+    <BundleResource Include="Resources\ic_more_vert_white%402x.png" />
+    <BundleResource Include="Resources\ic_more_vert_white%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>
