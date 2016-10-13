@@ -32,6 +32,7 @@ namespace ControlDemo
 		public void prepareControlView()
 		{
 			controlView = new ControlView(new CGRect(0, View.Bounds.Height - 56, View.Bounds.Width, 56));
+			View.Layout(controlView).Bottom(0).Left(0).Right(0);
 
 			var undoButton = new FlatButton();
 			undoButton.PulseColor = MaterialColor.White;
@@ -54,7 +55,7 @@ namespace ControlDemo
 			};
 			controlView.ContentInsetPreset = MaterialEdgeInset.WideRectangle3;
 
-			View.AddSubview(controlView);
+			//View.AddSubview(controlView);
 			controlView.ContentView.Grid().Views = new List<UIView>()
 			{
 				label
