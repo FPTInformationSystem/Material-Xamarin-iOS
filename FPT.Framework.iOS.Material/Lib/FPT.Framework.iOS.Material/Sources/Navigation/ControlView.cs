@@ -164,7 +164,7 @@ namespace FPT.Framework.iOS.Material
 
 				mRightControls = value;
 
-				if (LeftControls != null)
+				if (RightControls != null)
 				{
 					foreach (var b in RightControls)
 					{

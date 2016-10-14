@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchBarControllerDemo", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolbarDemo", "Demo\ToolbarDemo\ToolbarDemo.csproj", "{6E67A907-AEF0-4A95-A263-41217B769676}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolbarControllerDemo", "Demo\ToolbarControllerDemo\ToolbarControllerDemo.csproj", "{D1FDCD9D-16B0-43CD-A2A0-484087F8D0F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -183,6 +185,14 @@ Global
 		{6E67A907-AEF0-4A95-A263-41217B769676}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{6E67A907-AEF0-4A95-A263-41217B769676}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{6E67A907-AEF0-4A95-A263-41217B769676}.Debug|iPhone.Build.0 = Debug|iPhone
+		{D1FDCD9D-16B0-43CD-A2A0-484087F8D0F1}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{D1FDCD9D-16B0-43CD-A2A0-484087F8D0F1}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{D1FDCD9D-16B0-43CD-A2A0-484087F8D0F1}.Release|iPhone.ActiveCfg = Release|iPhone
+		{D1FDCD9D-16B0-43CD-A2A0-484087F8D0F1}.Release|iPhone.Build.0 = Release|iPhone
+		{D1FDCD9D-16B0-43CD-A2A0-484087F8D0F1}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{D1FDCD9D-16B0-43CD-A2A0-484087F8D0F1}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{D1FDCD9D-16B0-43CD-A2A0-484087F8D0F1}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{D1FDCD9D-16B0-43CD-A2A0-484087F8D0F1}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26C75516-374F-487F-8014-3B57C463C87A} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
@@ -202,5 +212,6 @@ Global
 		{57F2A2BF-AFA1-4B85-B225-9A7D472042C2} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{8DC4326F-1379-4158-889D-525B206FEEDC} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{6E67A907-AEF0-4A95-A263-41217B769676} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
+		{D1FDCD9D-16B0-43CD-A2A0-484087F8D0F1} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 	EndGlobalSection
 EndGlobal

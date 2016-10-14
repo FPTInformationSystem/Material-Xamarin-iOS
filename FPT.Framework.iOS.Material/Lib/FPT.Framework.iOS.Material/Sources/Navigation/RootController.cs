@@ -130,7 +130,7 @@ namespace FPT.Framework.iOS.Material
 				toViewController: toViewController,
 				duration: duration,
 				options: options,
-				animations: animations,
+				animations: animations==null? ()=>{ } : animations,
 				completionHandler: (finished) =>
 				{
 					var s = this;

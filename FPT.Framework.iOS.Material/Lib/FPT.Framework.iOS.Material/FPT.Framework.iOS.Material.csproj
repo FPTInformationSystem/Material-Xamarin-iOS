@@ -124,6 +124,7 @@
     <Compile Include="Sources\Navigation\Toolbar.cs" />
     <Compile Include="Sources\Navigation\SearchBar.cs" />
     <Compile Include="Sources\Navigation\BarView.cs" />
+    <Compile Include="Sources\Navigation\ToolBarController.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />

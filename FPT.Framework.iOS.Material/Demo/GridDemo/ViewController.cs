@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CoreGraphics;
 using FPT.Framework.iOS.Material;
 using UIKit;
@@ -57,7 +58,7 @@ namespace GridDemo
 			contentView.AddSubview(titleLabel);
 
 
-			image = MaterialIcon.CM.AddWhite;
+			image = MaterialIcon.CM.Add;
 			var moreButton = new IconButton();
 			moreButton.ContentEdgeInsetsPreset = MaterialEdgeInset.None;
 			moreButton.PulseColor = MaterialColor.BlueGrey.Darken4;
@@ -113,7 +114,7 @@ namespace GridDemo
 
 			cardView.Grid().Axis.Direction = GridAxisDirection.None;
 			cardView.Grid().Spacing = 4;
-			cardView.Grid().Views = new UIView[] {
+			cardView.Grid().Views = new List<UIView> {
 				leftImageView,
 				topImageView,
 				bottomImageView,
@@ -148,7 +149,7 @@ namespace GridDemo
 			contentView.Grid().Spacing = 8;
 			contentView.Grid().Axis.Direction = GridAxisDirection.None;
 			contentView.Grid().ContentInsetPreset = MaterialEdgeInset.Square3;
-			contentView.Grid().Views = new UIView[] {
+			contentView.Grid().Views = new List<UIView> {
 				titleLabel,
 				moreButton,
 				detailLabel,
