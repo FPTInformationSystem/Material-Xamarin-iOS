@@ -63,7 +63,7 @@ We are very busy with the company projects. But you can try to contact any of th
 ## Installation
 The only DLL you need to Add Reference to your native Xamarin.iOS project is located at
 > **https://github.com/FPTInformationSystem/Material-Xamarin-iOS/blob/master/FPT.Framework.iOS.Material/Lib/DLLs/FPT.Framework.iOS.Material.dll**
-> - [Download Material](https://github.com/FPTInformationSystem/Material-Xamarin-iOS/blob/master/FPT.Framework.iOS.Material/Lib/DLLs/FPT.Framework.iOS.Material.dll)
+> - [Download Material](https://github.com/FPTInformationSystem/Material-Xamarin-iOS/raw/master/FPT.Framework.iOS.Material/Lib/DLLs/FPT.Framework.iOS.Material.dll)
 
 ## Changelog
 As they says that
