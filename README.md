@@ -16,8 +16,8 @@ The official site says that
 We are trying to catch up them as soon as possible. They have to deal with Swift 2, 2.3, 3.0 while C# is the only thing we care about.
 
 ## Features
-[x] ready
-[ ] pending or in progress
+- [x] ready
+- [ ] pending or in progress
 
 - [x] Completely Customizable
 - [x] Animations
@@ -42,14 +42,14 @@ We are trying to catch up them as soon as possible. They have to deal with Swift
 
 ## (estimate to be done on November 2016) (Their Swift version will be Released October 30th 2016)
 
-- [x] Reminders
-- [x] Text Editor
-- [x] Toasts
-- [x] Dialogs & Alerts
-- [x] Bottom Sheets
-- [x] Beginner To Pro Lessons
-- [x] Additional Examples
-- [x] And More...
+- [ ] Reminders
+- [ ] Text Editor
+- [ ] Toasts
+- [ ] Dialogs & Alerts
+- [ ] Bottom Sheets
+- [ ] Beginner To Pro Lessons
+- [ ] Additional Examples
+- [ ] And More...
 
 ## Requirements
 * Xamarin Studio or Visual Studio with Xamarin.iOS: (We are developing with Xamarin.iOS 6.1.1)
