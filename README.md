@@ -16,8 +16,7 @@ The official site says that
 We are trying to catch up them as soon as possible. They have to deal with Swift 2, 2.3, 3.0 while C# is the only thing we care about.
 
 ## Features
-- [x] ready
-- [ ] pending or in progress
+These are features we are developing and somes were marked as completed.
 
 - [x] Completely Customizable
 - [x] Animations
