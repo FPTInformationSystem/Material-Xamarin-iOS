@@ -1,4 +1,6 @@
-![Material](http://www.cosmicmind.io/MK/Material.png) <img alt="FPT" src="https://fpt.com.vn//Images/images/member_company/pu-member1.jpg" width="200px">
+<img alt="FPT" src="https://fpt.com.vn//Images/images/member_company/pu-member1.jpg" width="200px">
+![Material](http://www.cosmicmind.io/MK/Material.png)
+
 
 
 ## Welcome to Material
