@@ -46,7 +46,7 @@ namespace FPT.Framework.iOS.Material
 
 		public UIView ContentView { get; set;}
 
-		public UILabel TitleLabel { get; private set; }
+		public UILabel TitleLabel { get; internal set; }
 
 		public UILabel DetailLabel { get; private set; }
 
@@ -87,6 +87,8 @@ namespace FPT.Framework.iOS.Material
 
 	public static partial class Extensions
 	{
+		
+		/// NavigationItem reference.
 		static NSObject sMaterialAssociatedObjectNavigationItemKey = new NSObject();
 		public static MaterialAssociatedObjectNavigationItem Item(this UINavigationItem view)
 		{
@@ -99,16 +101,98 @@ namespace FPT.Framework.iOS.Material
 
 		}
 
-		//public static MaterialAssociatedObjectNavigationItem SetItem(this UINavigationItem view)
-		//{
-		//	var v = MaterialObjC.MaterialAssociatedObject(view.Handle, sMaterialAssociatedObjectNavigationItemKey.Handle, () =>
-		//	{
-		//		return new MaterialAssociatedObjectNavigationItem().Handle;
-		//	});
+		public static void SetItem(this UINavigationItem view, MaterialAssociatedObjectNavigationItem value)
+		{
+			MaterialObjC.MaterialAssociatedObject(view.Handle, sMaterialAssociatedObjectNavigationItemKey.Handle, value.Handle);
 
-		//	return ObjCRuntime.Runtime.GetNSObject(v) as MaterialAssociatedObjectNavigationItem;
+		}
 
-		//}
+		/// Back Button.
+		public static IconButton BackButton(this UINavigationItem view)
+		{
+			return view.Item().BackButton;
+		}
 
+		public static void SetBackButton(this UINavigationItem view, IconButton backButton)
+		{
+			view.Item().BackButton = backButton;
+		}
+
+		/// ContentView
+		public static UIView ContentView(this UINavigationItem view)
+		{
+			return view.Item().ContentView;
+		}
+
+		public static void SetContentView(this UINavigationItem view, UIView contentView)
+		{
+			view.Item().ContentView = contentView;
+		}
+
+		/// Title
+		public static string Title(this UINavigationItem view)
+		{
+			return view.Item().TitleLabel.Text;
+		}
+
+		public static void SetTitle(this UINavigationItem view, string title)
+		{
+			view.Item().TitleLabel.Text = title;
+		}
+
+		/// Title Label.
+		public static UILabel Titlelabel(this UINavigationItem view)
+		{
+			return view.Item().TitleLabel;
+		}
+
+		public static void SetTitlelabel(this UINavigationItem view, UILabel titleLabel)
+		{
+			view.Item().TitleLabel = titleLabel;
+		}
+
+		/// Detail
+		public static string Detail(this UINavigationItem view)
+		{
+			return view.Item().DetailLabel.Text;
+		}
+
+		public static void SetDetailTitle(this UINavigationItem view, string title)
+		{
+			view.Item().DetailLabel.Text = title;
+		}
+
+		/// Detail Label.
+		public static UILabel Detaillabel(this UINavigationItem view)
+		{
+			return view.Item().DetailLabel;
+		}
+
+		public static void SetDetaillabel(this UINavigationItem view, UILabel titleLabel)
+		{
+			view.Item().TitleLabel = titleLabel;
+		}
+
+		/// Left side UIControls.
+		public static UIControl[] LeftControls(this UINavigationItem view)
+		{
+			return view.Item().LeftControls;
+		}
+
+		public static void SetLeftControls(this UINavigationItem view, UIControl[] leftControls)
+		{
+			view.Item().LeftControls = leftControls;
+		}
+
+		/// Right side UIControls.
+		public static UIControl[] RightControls(this UINavigationItem view)
+		{
+			return view.Item().RightControls;
+		}
+
+		public static void SetRightControls(this UINavigationItem view, UIControl[] rightControls)
+		{
+			view.Item().RightControls = rightControls;
+		}
 	}
 }
