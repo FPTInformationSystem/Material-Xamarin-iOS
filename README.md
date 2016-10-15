@@ -1,5 +1,4 @@
-<img alt="FPT" src="https://fpt.com.vn//Images/images/member_company/pu-member1.jpg" width="200px">
-![Material](http://www.cosmicmind.io/MK/Material.png)
+![Material](https://raw.githubusercontent.com/FPTInformationSystem/Material-Xamarin-iOS/master/FPTMaterial.png)
 
 
 
