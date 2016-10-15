@@ -16,26 +16,26 @@ The official site says that
 We are trying to catch up them as soon as possible. They have to deal with Swift 2, 2.3, 3.0 while C# is the only thing we care about.
 
 ## Features
-[x]: ready
-[]: pending or in progress
+[x] ready
+[ ] pending or in progress
 
 - [x] Completely Customizable
 - [x] Animations
 - [x] Grid System
 - [x] Layout Library
-- [] Color Library
-- [] Photo Library
-- [] Photo & Video
+- [ ] Color Library
+- [ ] Photo Library
+- [ ] Photo & Video
 - [x] Cards
 - [x] Menus
 - [x] Icons
 - [x] TextField
-- [] Snackbar
+- [ ] Snackbar
 - [x] TabBar
-- [] PageTabBar
+- [ ] PageTabBar
 - [x] SearchBar
 - [x] NavigationController
-- [] NavigationDrawer
+- [ ] NavigationDrawer
 - [x] BottomNavigationBar
 - [x] Example Projects (50%)
 - [x] And More...
