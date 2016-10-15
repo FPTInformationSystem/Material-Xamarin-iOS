@@ -1,0 +1,177 @@
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F0F7EA67-9AC3-4BD7-9780-F53968317FE5}</ProjectGuid>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FPT.Framework.iOS.Material</RootNamespace>
+    <AssemblyName>FPT.Framework.iOS.Material</AssemblyName>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\DLLs\</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchUseSGen>true</MtouchUseSGen>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchLink></MtouchLink>
+    <MtouchHttpClientHandler></MtouchHttpClientHandler>
+    <MtouchTlsProvider></MtouchTlsProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>..\DLLs\</OutputPath>
+    <DefineConstants></DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchUseSGen>true</MtouchUseSGen>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchLink></MtouchLink>
+    <MtouchHttpClientHandler></MtouchHttpClientHandler>
+    <MtouchTlsProvider></MtouchTlsProvider>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Sources\" />
+    <Folder Include="Sources\Animation\" />
+    <Folder Include="Sources\Button\" />
+    <Folder Include="Sources\Color\" />
+    <Folder Include="Sources\Font\" />
+    <Folder Include="Sources\Layer\" />
+    <Folder Include="Sources\Device\" />
+    <Folder Include="Sources\Type\" />
+    <Folder Include="Fonts\" />
+    <Folder Include="Fonts\Roboto\" />
+    <Folder Include="Sources\Icon\" />
+    <Folder Include="Sources\Navigation\" />
+    <Folder Include="Sources\Extension\" />
+    <Folder Include="Sources\View\" />
+    <Folder Include="Resources\Assets.xcassets\" />
+    <Folder Include="Sources\Collection\" />
+    <Folder Include="Sources\Layout\" />
+    <Folder Include="Sources\Table\" />
+    <Folder Include="Sources\Card\" />
+    <Folder Include="Sources\Text\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sources\Animation\MaterialAnimation.cs" />
+    <Compile Include="Sources\Animation\MaterialBasicAnimation.cs" />
+    <Compile Include="Sources\Animation\MaterialKeyframeAnimation.cs" />
+    <Compile Include="Sources\Animation\MaterialPulseAnimation.cs" />
+    <Compile Include="Sources\Animation\MaterialTransitionAnimation.cs" />
+    <Compile Include="Sources\Button\FabButton.cs" />
+    <Compile Include="Sources\Button\FlatButton.cs" />
+    <Compile Include="Sources\Button\MaterialButton.cs" />
+    <Compile Include="Sources\Button\RaisedButton.cs" />
+    <Compile Include="Sources\Color\MaterialColor.cs" />
+    <Compile Include="Sources\Font\MaterialFont.cs" />
+    <Compile Include="Sources\Layer\MaterialLayer.cs" />
+    <Compile Include="Sources\Device\MaterialDevice.cs" />
+    <Compile Include="Sources\Type\MaterialBorder.cs" />
+    <Compile Include="Sources\Type\MaterialDepth.cs" />
+    <Compile Include="Sources\Type\MaterialEdgeInset.cs" />
+    <Compile Include="Sources\Type\MaterialGravity.cs" />
+    <Compile Include="Sources\Type\MaterialRadius.cs" />
+    <Compile Include="Sources\Type\MaterialShape.cs" />
+    <Compile Include="Sources\Type\MaterialSpacing.cs" />
+    <Compile Include="Sources\Font\RobotoFont.cs" />
+    <Compile Include="Sources\Icon\MaterialIcon.cs" />
+    <Compile Include="Sources\Navigation\TabBar.cs" />
+    <Compile Include="Sources\Layer\MaterialTextLayer.cs" />
+    <Compile Include="Sources\Extension\Material+UIFont.cs" />
+    <Compile Include="Sources\View\MaterialView.cs" />
+    <Compile Include="Sources\View\MaterialPulseView.cs" />
+    <Compile Include="Sources\Button\IconButton.cs" />
+    <Compile Include="Sources\Collection\MaterialDataSourceItem.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionReusableView.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionView.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionViewLayout.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionViewDelegate.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionViewDataSource.cs" />
+    <Compile Include="Sources\Layout\Grid.cs" />
+    <Compile Include="Sources\Collection\MaterialCollectionViewCell.cs" />
+    <Compile Include="Sources\Layout\Layout.cs" />
+    <Compile Include="Sources\Extension\Material+Obj-C.cs" />
+    <Compile Include="Sources\Table\MaterialTableViewCell.cs" />
+    <Compile Include="Sources\Card\CardView.cs" />
+    <Compile Include="Sources\Extension\Material+UIImage+TintColor.cs" />
+    <Compile Include="Sources\Extension\Material+UIImage+FilterBlur.cs" />
+    <Compile Include="Sources\Extension\Material+UIImage+Blank.cs" />
+    <Compile Include="Sources\Extension\Material+UIImage+Color.cs" />
+    <Compile Include="Sources\Extension\Material+UIImage+Resize.cs" />
+    <Compile Include="Sources\View\MaterialLabel.cs" />
+    <Compile Include="Sources\View\MaterialSwitch.cs" />
+    <Compile Include="Sources\Text\TextField.cs" />
+    <Compile Include="Sources\Text\ErrorTextField.cs" />
+    <Compile Include="Sources\Navigation\RootController.cs" />
+    <Compile Include="Sources\Navigation\MenuController.cs" />
+    <Compile Include="Sources\Navigation\Menu.cs" />
+    <Compile Include="Sources\Navigation\MenuView.cs" />
+    <Compile Include="Sources\Navigation\ControlView.cs" />
+    <Compile Include="Sources\Navigation\SearchBarController.cs" />
+    <Compile Include="Sources\Navigation\Toolbar.cs" />
+    <Compile Include="Sources\Navigation\SearchBar.cs" />
+    <Compile Include="Sources\Navigation\BarView.cs" />
+    <Compile Include="Sources\Navigation\ToolBarController.cs" />
+    <Compile Include="Sources\Navigation\NavigationItem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
+    <BundleResource Include="Fonts\Roboto\Roboto-Light.ttf" />
+    <BundleResource Include="Fonts\Roboto\Roboto-Medium.ttf" />
+    <BundleResource Include="Fonts\Roboto\Roboto-Regular.ttf" />
+    <BundleResource Include="Fonts\Roboto\Roboto-Thin.ttf" />
+    <BundleResource Include="Resources\cm_add_white.png" />
+    <BundleResource Include="Resources\cm_add_white%402x.png" />
+    <BundleResource Include="Resources\cm_add_white%403x.png" />
+    <BundleResource Include="Resources\cm_search_white.png" />
+    <BundleResource Include="Resources\cm_search_white%402x.png" />
+    <BundleResource Include="Resources\cm_search_white%403x.png" />
+    <BundleResource Include="Resources\cm_settings_white.png" />
+    <BundleResource Include="Resources\cm_settings_white%402x.png" />
+    <BundleResource Include="Resources\cm_settings_white%403x.png" />
+    <BundleResource Include="Resources\cm_close_white.png" />
+    <BundleResource Include="Resources\cm_close_white%402x.png" />
+    <BundleResource Include="Resources\cm_close_white%403x.png" />
+    <BundleResource Include="Resources\ic_visibility_white.png" />
+    <BundleResource Include="Resources\ic_visibility_white%402x.png" />
+    <BundleResource Include="Resources\ic_visibility_white%403x.png" />
+    <BundleResource Include="Resources\cm_more_vert_white.png" />
+    <BundleResource Include="Resources\cm_more_vert_white%402x.png" />
+    <BundleResource Include="Resources\cm_more_vert_white%403x.png" />
+    <BundleResource Include="Resources\ic_more_vert_white.png" />
+    <BundleResource Include="Resources\ic_more_vert_white%402x.png" />
+    <BundleResource Include="Resources\ic_more_vert_white%403x.png" />
+    <BundleResource Include="Resources\ic_arrow_back_white.png" />
+    <BundleResource Include="Resources\ic_arrow_back_white%402x.png" />
+    <BundleResource Include="Resources\ic_arrow_back_white%403x.png" />
+    <BundleResource Include="Resources\ic_more_horiz_white.png" />
+    <BundleResource Include="Resources\ic_more_horiz_white%402x.png" />
+    <BundleResource Include="Resources\ic_more_horiz_white%403x.png" />
+    <BundleResource Include="Resources\cm_menu_white.png" />
+    <BundleResource Include="Resources\cm_menu_white%402x.png" />
+    <BundleResource Include="Resources\cm_menu_white%403x.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <StandardHeader Text="MIT/X11 License&#xA;&#xA;${FileName}&#xA; &#xA;Author:&#xA;      Pham Quan &lt;QuanP@fpt.com.vn, mr.pquan@gmail.com&gt; at FPT Software Service Center.&#xA;&#xA;Copyright (c) ${Year} FPT Information System.&#xA;&#xA;Permission is hereby granted, free of charge, to any person obtaining a copy&#xA;of this software and associated documentation files (the &quot;Software&quot;), to deal&#xA;in the Software without restriction, including without limitation the rights&#xA;to use, copy, modify, merge, publish, distribute, sublicense, and/or sell&#xA;copies of the Software, and to permit persons to whom the Software is&#xA;furnished to do so, subject to the following conditions:&#xA;&#xA;The above copyright notice and this permission notice shall be included in&#xA;all copies or substantial portions of the Software.&#xA;&#xA;THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR&#xA;IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,&#xA;FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE&#xA;AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER&#xA;LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,&#xA;OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN&#xA;THE SOFTWARE." IncludeInNewFiles="True" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>
