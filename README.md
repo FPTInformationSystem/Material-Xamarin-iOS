@@ -1,5 +1,5 @@
 ![Material](http://www.cosmicmind.io/MK/Material.png)
-![FPT](https://fpt.com.vn//Images/images/member_company/pu-member1.jpg)
+![FPT](https://fpt.com.vn//Images/images/member_company/pu-member1.jpg=20x20  )
 
 
 ## Welcome to Material
