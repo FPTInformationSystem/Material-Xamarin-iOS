@@ -229,7 +229,7 @@ To help template your project, checkout Material Sticker Sheet.
 
 So much more inside. Enjoy!
 
-We do not redistribute CosmidMind 's source code. We use their resources and/or idea to build this library. Use it ask your risks.
+We do not redistribute CosmidMind 's source code. We use their resources and/or idea to build this library. Use it at your risks.
 
 ## Original Library License
 See all at <http://cosmicmind.io>
