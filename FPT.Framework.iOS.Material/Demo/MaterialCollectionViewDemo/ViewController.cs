@@ -43,7 +43,7 @@ namespace MaterialCollectionViewDemo
 
 		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad();
+			ViewController.ViewDidLoad(base);
 			// Perform any additional setup after loading the view, typically from a nib.
 			prepareView();
 			prepareItems();

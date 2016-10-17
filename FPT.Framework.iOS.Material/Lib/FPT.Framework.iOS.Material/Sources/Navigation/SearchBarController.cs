@@ -62,7 +62,7 @@ namespace FPT.Framework.iOS.Material
 		{
 		}
 
-		public SearchBarController(UIViewController rootViewContrller) : base (rootViewContrller)
+		public SearchBarController(UIViewController rootViewController) : base (rootViewController)
 		{
 		}
 

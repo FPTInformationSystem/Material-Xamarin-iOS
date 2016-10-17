@@ -25,6 +25,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Collections.Generic;
 using Foundation;
 using UIKit;
 
@@ -50,9 +51,9 @@ namespace FPT.Framework.iOS.Material
 
 		public UILabel DetailLabel { get; private set; }
 
-		public UIControl[] LeftControls { get; set; }
+		public List<UIControl> LeftControls { get; set; }
 
-		public UIControl[] RightControls { get; set; }
+		public List<UIControl> RightControls { get; set; }
 
 		#endregion
 
@@ -174,23 +175,23 @@ namespace FPT.Framework.iOS.Material
 		}
 
 		/// Left side UIControls.
-		public static UIControl[] LeftControls(this UINavigationItem view)
+		public static List<UIControl> LeftControls(this UINavigationItem view)
 		{
 			return view.Item().LeftControls;
 		}
 
-		public static void SetLeftControls(this UINavigationItem view, UIControl[] leftControls)
+		public static void SetLeftControls(this UINavigationItem view, List<UIControl> leftControls)
 		{
 			view.Item().LeftControls = leftControls;
 		}
 
 		/// Right side UIControls.
-		public static UIControl[] RightControls(this UINavigationItem view)
+		public static List<UIControl> RightControls(this UINavigationItem view)
 		{
 			return view.Item().RightControls;
 		}
 
-		public static void SetRightControls(this UINavigationItem view, UIControl[] rightControls)
+		public static void SetRightControls(this UINavigationItem view, List<UIControl> rightControls)
 		{
 			view.Item().RightControls = rightControls;
 		}

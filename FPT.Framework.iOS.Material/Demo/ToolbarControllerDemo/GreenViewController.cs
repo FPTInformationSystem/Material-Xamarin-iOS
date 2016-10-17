@@ -17,7 +17,7 @@ namespace ToolbarControllerDemo
 
 		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad();
+			ViewController.ViewDidLoad(base);
 			prepareView();
 		}
 

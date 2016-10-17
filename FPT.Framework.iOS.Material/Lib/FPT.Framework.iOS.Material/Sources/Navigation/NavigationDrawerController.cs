@@ -1,6 +1,6 @@
 ﻿// MIT/X11 License
 //
-// Material+UIImage+Color.cs
+// NavigationDrawerController.cs
 //
 // Author:
 //       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
@@ -25,22 +25,41 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CoreGraphics;
+using Foundation;
 using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
+
 	public static partial class Extensions
 	{
-		public static UIImage ImageWithColor(UIColor color, CGSize size)
+		public static NavigationDrawerController NavigationDrawerController(this UIViewController viewController)
 		{
-			var rect = new CGRect(0, 0, size.Width, size.Height);
-			UIGraphics.BeginImageContextWithOptions(size, false, 0);
-			color.SetFill();
-			UIGraphics.RectFill(rect);
-			var image = UIGraphics.GetImageFromCurrentImageContext();
-			UIGraphics.EndImageContext();
-			return image;
+			while (viewController != null)
+			{
+				if (viewController is NavigationDrawerController)
+				{
+					return viewController as NavigationDrawerController;
+				}
+				viewController = viewController.ParentViewController;
+			}
+
+			return null;
 		}
+	}
+
+	public class NavigationDrawerController : RootController
+	{
+		#region CONSTRUCTORS
+
+		public NavigationDrawerController(NSCoder coder) : base(coder)
+		{
+		}
+
+		public NavigationDrawerController(UIViewController rootViewContrller) : base (rootViewContrller)
+		{
+		}
+
+		#endregion
 	}
 }
