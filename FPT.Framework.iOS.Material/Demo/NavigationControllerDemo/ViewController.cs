@@ -63,7 +63,7 @@ namespace NavigationControllerDemo
 
 		void prepareNavigationItem()
 		{
-			NavigationItem.Title = "Recipes";
+			NavigationItem.SetTitle("Recipes");
 			NavigationItem.Titlelabel().TextAlignment = UITextAlignment.Left;
 			NavigationItem.Titlelabel().Font = RobotoFont.MediumWithSize(20);
 			NavigationItem.SetLeftControls(new List<UIControl>() {

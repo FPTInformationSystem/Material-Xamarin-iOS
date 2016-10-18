@@ -44,8 +44,9 @@ namespace FPT.Framework.iOS.Material
 		{
 		}
 
-		public NavigationController(UIViewController rootViewContrller) : base(rootViewContrller)
+		public NavigationController(UIViewController rootViewContrller) : base(typeof(NavigationBar), null)
 		{
+			
 			SetViewControllers(new UIViewController[] {
 				rootViewContrller
 			}, false);
@@ -64,7 +65,10 @@ namespace FPT.Framework.iOS.Material
 				var x = this.NavigationDrawerController();
 				if (x != null)
 				{
-					
+					if (x.LeftPanGesture != null)
+						x.LeftPanGesture.RequireGestureRecognizerToFail(v);
+					if (x.RightPanGesture != null)
+						x.RightPanGesture.RequireGestureRecognizerToFail(v);
 				}
 			}
 		}

@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using CoreGraphics;
+using Foundation;
 using UIKit;
 
 namespace FPT.Framework.iOS.Material
@@ -330,12 +331,21 @@ namespace FPT.Framework.iOS.Material
 
 		#region CONSTRUCTORS
 
+		protected internal NavigationBar(IntPtr handle) : base(handle)
+		{
+		}
+
+		public NavigationBar(NSCoder coder) : base(coder)
+		{
+			PrepareView();
+		} 
+
 		public NavigationBar(CGRect frame) : base(frame)
 		{
 			PrepareView();
 		}
 
-		public NavigationBar() : base (CGRect.Empty)
+		public NavigationBar() : this (CGRect.Empty)
 		{ 
 		}
 
@@ -568,7 +578,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			if (item.ContentView() == null)
 			{
-				
+				item.SetContentView(new UIView(CGRect.Empty));
 			}
 			item.ContentView().Grid().Axis.Direction = GridAxisDirection.Vertical;
 			return item.ContentView();

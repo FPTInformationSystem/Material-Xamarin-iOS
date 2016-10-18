@@ -31,6 +31,11 @@ using UIKit;
 namespace FPT.Framework.iOS.Material
 {
 
+	public enum NavigationDrawerPosition
+	{
+		Left, Right
+	}
+
 	public static partial class Extensions
 	{
 		public static NavigationDrawerController NavigationDrawerController(this UIViewController viewController)
@@ -48,8 +53,32 @@ namespace FPT.Framework.iOS.Material
 		}
 	}
 
-	public class NavigationDrawerController : RootController
+	public abstract class NavigationDrawerControllerDelegate
 	{
+		public virtual void NavigationDrawerWillOpen(NavigationDrawerController navigationDrawerController, NavigationDrawerPosition position) { }
+	}
+
+	public class NavigationDrawerController : RootController, IUIGestureRecognizerDelegate
+	{
+
+		#region PROPERTIES
+
+		internal UIPanGestureRecognizer LeftPanGesture { get; private set;}
+
+		internal UIPanGestureRecognizer RightPanGesture { get; private set; }
+
+		internal UITapGestureRecognizer LeftTapGesture { get; private set; }
+
+		internal UITapGestureRecognizer RightTapGesture { get; private set; }
+
+		public nfloat LeftThreshold { get; set; } = 64f;
+		private nfloat leftViewThreshold { get; set; }
+
+		public nfloat RightThreshold { get; set; } = 64f;
+		private nfloat rightViewThreshold { get; set; }
+
+		#endregion
+
 		#region CONSTRUCTORS
 
 		public NavigationDrawerController(NSCoder coder) : base(coder)
