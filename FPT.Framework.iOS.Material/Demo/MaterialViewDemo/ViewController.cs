@@ -14,8 +14,9 @@ namespace MaterialViewDemo
 
 		public override void ViewDidLoad()
 		{
-			ViewController.ViewDidLoad(base);
+			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
+			prepareView();
 			prepareMaterialView();
 		}
 
@@ -25,15 +26,20 @@ namespace MaterialViewDemo
 			// Release any cached data, images, etc that aren't in use.
 		}
 
+		void prepareView()
+		{
+			View.BackgroundColor = Color.White;
+		}
+
 		private void prepareMaterialView()
 		{
 			nfloat width = 200f;
 			nfloat height = 200f;
 
-			var materialView = new MaterialView(new CGRect(0, 0, width, height));
+			var materialView = new PulseView(new CGRect(0, 0, width, height));
 			materialView.Image = UIImage.FromBundle("CosmicMindInverted");
-			materialView.Shape = MaterialShape.Circle;
-			materialView.Depth = MaterialDepth.Depth2;
+			materialView.SetShapePreset(ShapePreset.Circle);
+			materialView.SetDepthPreset(DepthPreset.Depth2);
 			materialView.Center = View.Center;
 
 			View.AddSubview(materialView);

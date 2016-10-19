@@ -139,6 +139,8 @@
     <Compile Include="Sources\Type\Offset.cs" />
     <Compile Include="Sources\Pulse\Pulse.cs" />
     <Compile Include="Sources\View\View.cs" />
+    <Compile Include="Sources\Pulse\PulseView.cs" />
+    <Compile Include="Sources\Button\Button.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />

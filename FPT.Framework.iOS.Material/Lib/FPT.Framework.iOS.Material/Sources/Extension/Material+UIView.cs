@@ -27,6 +27,7 @@
 using System;
 using UIKit;
 using CoreGraphics;
+using CoreAnimation;
 namespace FPT.Framework.iOS.Material
 {
 	public partial class Extensions
@@ -162,6 +163,16 @@ namespace FPT.Framework.iOS.Material
 			view.Layer.SetCornerRadiusPreset(value);
 		}
 
+		public static nfloat CornerRadius(this UIView view)
+		{
+			return view.Layer.CornerRadius;
+		}
+
+		public static void SetCornerRadius(this UIView view, nfloat value)
+		{
+			view.Layer.CornerRadius = value;
+		}
+
 		public static BorderWidthPreset BorderWidthPreset(this UIView view)
 		{
 			return view.Layer.BorderWidthPreset();
@@ -213,6 +224,26 @@ namespace FPT.Framework.iOS.Material
 		public static void SetZPosition(this UIView view, nfloat value)
 		{
 			view.Layer.ZPosition = value;
+		}
+
+		public static void Animate(this UIView view, CAAnimation animation)
+		{
+			view.Layer.Animate(animation);
+		}
+
+		public static void Animate(this UIView view, CAAnimation animation, bool finished)
+		{
+			view.Layer.AnimationDidStop(animation, finished);
+		}
+
+		public static void LayoutShape(this UIView view)
+		{
+			view.Layer.LayoutShape();
+		}
+
+		public static void LayoutShadowPath(this UIView view)
+		{
+			view.Layer.LayoutShadowPath();
 		}
 	}
 }

@@ -35,6 +35,8 @@ namespace FPT.Framework.iOS.Material
 	public class View : UIView
 	{
 
+		#region PROPERTIES
+
 		public CAShapeLayer VisualLayer { get; private set; } = new CAShapeLayer();
 
 		private UIImage mImage;
@@ -120,25 +122,64 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		#endregion
+
+		#region CONSTRUCTORS
+
 		public View(NSCoder coder) : base(coder)
 		{
 			ContentsGravityPreset = Gravity.ResizeAspectFill;
 			Prepare();
 		}
 
+		public View(CGRect frame) : base(frame)
+		{
+			ContentsGravityPreset = Gravity.ResizeAspectFill;
+			Prepare();
+		}
+
+		public View() : this(CGRect.Empty) { }
+
+		#endregion
+
+		#region FUNCTIONS
+
+		public override void LayoutSublayersOfLayer(CALayer layer)
+		{
+			base.LayoutSublayersOfLayer(layer);
+			if (this.Layer == layer)
+			{
+				this.LayoutShape();
+				this.LayoutVisualLayer();
+			}
+		}
+
+		public override void LayoutSubviews()
+		{
+			base.LayoutSubviews();
+			this.LayoutShadowPath();
+		}
+
 		public void Prepare()
 		{
+			ContentScaleFactor = MaterialDevice.Scale;
+			BackgroundColor = Color.White;
+			PrepareVisualLayer();
 		}
 
 		internal void PrepareVisualLayer()
 		{
-			
+			VisualLayer.ZPosition = 0;
+			VisualLayer.MasksToBounds = true;
+			Layer.AddSublayer(VisualLayer);
 		}
 
 		internal void LayoutVisualLayer()
 		{
 			VisualLayer.Frame = Bounds;
-			//VisualLayer.CornerRadius = this.cor
+			VisualLayer.CornerRadius = this.CornerRadius();
 		}
+
+		#endregion
 	}
 }

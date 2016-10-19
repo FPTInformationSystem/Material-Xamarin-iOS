@@ -1,6 +1,6 @@
 ﻿// MIT/X11 License
 //
-// Pulse.cs
+// Butto.cs
 //
 // Author:
 //       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
@@ -25,20 +25,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections.Generic;
-using CoreAnimation;
-using UIKit;
-
 namespace FPT.Framework.iOS.Material
 {
-	public class Pulse
+	public class Button
 	{
-		internal Queue<CAShapeLayer> Layers { get; set; } = new Queue<CAShapeLayer>();
-
-		internal UIColor Color = Material.Color.Grey.Base;
-
-		internal PulseAnimation Animation { get; set;} = PulseAnimation.AtPointWithBacking;
-
-		internal nfloat Opacity { get; set; } = 0.18f;
+		public Button()
+		{
+		}
 	}
 }

@@ -21,21 +21,21 @@ namespace FPT.Framework.iOS.Material
 
 	public static partial class Animation
 	{
-		internal static void pulseExpandAnimation(CALayer layer, CALayer visualLayer, UIColor pulseColor, nfloat pulseOpacity, CGPoint point, nfloat width, nfloat height, ref Queue<CAShapeLayer> pulseLayers, PulseAnimation pulseAnimation)
+		internal static void pulseExpandAnimation(CALayer layer, CALayer visualLayer, CGPoint point, nfloat width, nfloat height, Pulse pulse)
 		{
-			if (pulseAnimation != PulseAnimation.None)
+			if (pulse.Animation != PulseAnimation.None)
 			{
-				nfloat n = pulseAnimation == PulseAnimation.Center ? width < height ? width : height : width < height ? height : width;
+				nfloat n = pulse.Animation == PulseAnimation.Center ? width < height ? width : height : width < height ? height : width;
 				var bLayer = new CAShapeLayer();
 				var pLayer = new CAShapeLayer();
 				bLayer.AddSublayer(pLayer);
-				pulseLayers.Enqueue(bLayer);
+				pulse.Layers.Enqueue(bLayer);
 				visualLayer.AddSublayer(bLayer);
 				Animation.AnimationDisabled(() =>
 				{
 					bLayer.Frame = visualLayer.Bounds;
 					pLayer.Bounds = new CGRect(0, 0, n, n);
-					switch (pulseAnimation)
+					switch (pulse.Animation)
 					{
 						case PulseAnimation.Center:
 						case PulseAnimation.CenterWithBacking:
@@ -47,23 +47,23 @@ namespace FPT.Framework.iOS.Material
 							break;
 					}
 					pLayer.CornerRadius = n / 2;
-					pLayer.BackgroundColor = pulseColor.ColorWithAlpha(pulseOpacity).CGColor;
+					pLayer.BackgroundColor = pulse.Color.ColorWithAlpha(pulse.Opacity).CGColor;
 					pLayer.Transform = CATransform3D.MakeFromAffine(CGAffineTransform.MakeScale(0, 0));
 				});
 				bLayer.SetValueForKey(NSObject.FromObject(false), new NSString("animated"));
 
-				var duration = pulseAnimation == PulseAnimation.Center ? 0.16125 : 0.325;
-				switch (pulseAnimation)
+				var duration = pulse.Animation == PulseAnimation.Center ? 0.16125 : 0.325;
+				switch (pulse.Animation)
 				{
 					case PulseAnimation.CenterWithBacking:
 					case PulseAnimation.Backing:
 					case PulseAnimation.AtPointWithBacking:
-						bLayer.AddAnimation(Animation.BackgroundColor(pulseColor.ColorWithAlpha(pulseOpacity / 2), duration), null);
+						bLayer.AddAnimation(Animation.BackgroundColor(pulse.Color.ColorWithAlpha(pulse.Opacity / 2), duration), null);
 						break;
 					default:
 						break;
 				}
-				switch (pulseAnimation)
+				switch (pulse.Animation)
 				{
 					case PulseAnimation.Center:
 					case PulseAnimation.CenterWithBacking:
@@ -82,12 +82,12 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		internal static void pulseContractAnimation(CALayer layer, CALayer visualLayer, UIColor pulseColor, ref Queue<CAShapeLayer> pulseLayers, PulseAnimation pulseAnimation)
+		internal static void pulseContractAnimation(CALayer layer, CALayer visualLayer, Pulse pulse)
 		{
 			CAShapeLayer bLayer = null;
 			try
 			{
-				bLayer = pulseLayers.Dequeue();
+				bLayer = pulse.Layers.Dequeue();
 			}
 			catch (Exception) {
 				return;
@@ -103,18 +103,18 @@ namespace FPT.Framework.iOS.Material
 					if (pLayer != null)
 					{
 						var duration = 0.3125;
-						switch (pulseAnimation)
+						switch (pulse.Animation)
 						{
 							case PulseAnimation.CenterWithBacking:
 							case PulseAnimation.Backing:
 							case PulseAnimation.AtPointWithBacking:
-								bLayer.AddAnimation(Animation.BackgroundColor(pulseColor.ColorWithAlpha(0), 0.325), null);
+								bLayer.AddAnimation(Animation.BackgroundColor(pulse.Color.ColorWithAlpha(0), 0.325), null);
 								break;
 							default:
 								break;
 						}
 
-						switch (pulseAnimation)
+						switch (pulse.Animation)
 						{
 							case PulseAnimation.Center:
 							case PulseAnimation.CenterWithBacking:
@@ -122,13 +122,19 @@ namespace FPT.Framework.iOS.Material
 							case PulseAnimation.AtPoint:
 							case PulseAnimation.AtPointWithBacking:
 								pLayer.AddAnimation(Animation.AnimationGroup(new CAAnimation[] {
-									Animation.Scale(pulseAnimation == PulseAnimation.Center ? 1f : 1.325f),
-									Animation.BackgroundColor(pulseColor.ColorWithAlpha(0))
+									Animation.Scale(pulse.Animation == PulseAnimation.Center ? 1f : 1.325f),
+									Animation.BackgroundColor(pulse.Color.ColorWithAlpha(0))
 								}, duration), null);
 								break;
 							default:
 								break;
 						}
+
+						Animation.Delay(duration, () =>
+						{
+							pLayer.RemoveFromSuperLayer();
+							bLayer.RemoveFromSuperLayer();
+						});
 					}
 				});
 			}
