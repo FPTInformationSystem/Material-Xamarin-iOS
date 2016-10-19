@@ -178,8 +178,8 @@ namespace FPT.Framework.iOS.Material
 
 		public GridAxis Axis { get; private set;}
 
-		private MaterialEdgeInset mLayoutInsetPreset = MaterialEdgeInset.None;
-		public MaterialEdgeInset LayoutInsetPreset
+		private EdgeInsetsPreset mLayoutInsetPreset = EdgeInsetsPreset.None;
+		public EdgeInsetsPreset LayoutInsetPreset
 		{
 			get
 			{
@@ -192,7 +192,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		private UIEdgeInsets mLayoutInset = Convert.MaterialEdgeInsetToValue(MaterialEdgeInset.None);
+		private UIEdgeInsets mLayoutInset = Convert.MaterialEdgeInsetToValue(EdgeInsetsPreset.None);
 		public UIEdgeInsets LayoutInset
 		{
 			get
@@ -206,8 +206,8 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		private MaterialEdgeInset mContentInsetPreset = MaterialEdgeInset.None;
-		public MaterialEdgeInset ContentInsetPreset
+		private EdgeInsetsPreset mContentInsetPreset = EdgeInsetsPreset.None;
+		public EdgeInsetsPreset ContentInsetPreset
 		{
 			get
 			{
@@ -220,7 +220,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		private UIEdgeInsets mContentInset = Convert.MaterialEdgeInsetToValue(MaterialEdgeInset.None);
+		private UIEdgeInsets mContentInset = Convert.MaterialEdgeInsetToValue(EdgeInsetsPreset.None);
 		public UIEdgeInsets ContentInset
 		{
 			get

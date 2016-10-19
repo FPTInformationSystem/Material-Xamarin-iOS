@@ -49,8 +49,8 @@ namespace FPT.Framework.iOS.Material
 
 		internal CGSize ItemSize { get; set; } = CGSize.Empty;
 
-		private MaterialEdgeInset mContentInsetPreset = MaterialEdgeInset.None;
-		public MaterialEdgeInset ContentInsetPreset
+		private EdgeInsetsPreset mContentInsetPreset = EdgeInsetsPreset.None;
+		public EdgeInsetsPreset ContentInsetPreset
 		{
 			get
 			{

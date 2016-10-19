@@ -2,7 +2,7 @@
 using UIKit;
 namespace FPT.Framework.iOS.Material
 {
-	public enum MaterialEdgeInset
+	public enum EdgeInsetsPreset
 	{
 		None,
 		Square1, Square2, Square3, Square4, Square5, Square6, Square7, Square8, Square9,
@@ -12,71 +12,71 @@ namespace FPT.Framework.iOS.Material
 
 	public static partial class Convert
 	{
-		public static UIEdgeInsets MaterialEdgeInsetToValue(MaterialEdgeInset inset)
+		public static UIEdgeInsets MaterialEdgeInsetToValue(EdgeInsetsPreset inset)
 		{
 			switch (inset)
 			{
-				case MaterialEdgeInset.None:
+				case EdgeInsetsPreset.None:
 					return UIEdgeInsets.Zero;
 
 				//TallRectangle
-				case MaterialEdgeInset.Square1:
+				case EdgeInsetsPreset.Square1:
 					return new UIEdgeInsets(2, 4, 2, 4);
-				case MaterialEdgeInset.Square2:
+				case EdgeInsetsPreset.Square2:
 					return new UIEdgeInsets(8, 8, 8, 8);
-				case MaterialEdgeInset.Square3:
+				case EdgeInsetsPreset.Square3:
 					return new UIEdgeInsets(16, 16, 16, 16);
-				case MaterialEdgeInset.Square4:
+				case EdgeInsetsPreset.Square4:
 					return new UIEdgeInsets(24, 24, 24, 24);
-				case MaterialEdgeInset.Square5:
+				case EdgeInsetsPreset.Square5:
 					return new UIEdgeInsets(32, 32, 32, 32);
-				case MaterialEdgeInset.Square6:
+				case EdgeInsetsPreset.Square6:
 					return new UIEdgeInsets(40, 40, 40, 40);
-				case MaterialEdgeInset.Square7:
+				case EdgeInsetsPreset.Square7:
 					return new UIEdgeInsets(48, 48, 48, 48);
-				case MaterialEdgeInset.Square8:
+				case EdgeInsetsPreset.Square8:
 					return new UIEdgeInsets(56, 56, 56, 56);
-				case MaterialEdgeInset.Square9:
+				case EdgeInsetsPreset.Square9:
 					return new UIEdgeInsets(64, 64, 64, 64);
 
 					//rectangle
-				case MaterialEdgeInset.WideRectangle1:
-					return new UIEdgeInsets(4, 4, 4, 4);
-				case MaterialEdgeInset.WideRectangle2:
+				case EdgeInsetsPreset.WideRectangle1:
+					return new UIEdgeInsets(2, 4, 2, 4);
+				case EdgeInsetsPreset.WideRectangle2:
 					return new UIEdgeInsets(4, 8, 4, 8);
-				case MaterialEdgeInset.WideRectangle3:
+				case EdgeInsetsPreset.WideRectangle3:
 					return new UIEdgeInsets(8, 16, 8, 16);
-				case MaterialEdgeInset.WideRectangle4:
+				case EdgeInsetsPreset.WideRectangle4:
 					return new UIEdgeInsets(12, 24, 12, 24);
-				case MaterialEdgeInset.WideRectangle5:
+				case EdgeInsetsPreset.WideRectangle5:
 					return new UIEdgeInsets(16, 32, 16, 32);
-				case MaterialEdgeInset.WideRectangle6:
+				case EdgeInsetsPreset.WideRectangle6:
 					return new UIEdgeInsets(20, 40, 20, 40);
-				case MaterialEdgeInset.WideRectangle7:
+				case EdgeInsetsPreset.WideRectangle7:
 					return new UIEdgeInsets(24, 48, 24, 48);
-				case MaterialEdgeInset.WideRectangle8:
+				case EdgeInsetsPreset.WideRectangle8:
 					return new UIEdgeInsets(28, 56, 28, 56);
-				case MaterialEdgeInset.WideRectangle9:
+				case EdgeInsetsPreset.WideRectangle9:
 					return new UIEdgeInsets(32, 64, 32, 64);
 
 					//flipped rectangle
-				case MaterialEdgeInset.TallRectangle1:
+				case EdgeInsetsPreset.TallRectangle1:
 					return new UIEdgeInsets(4, 2, 4, 2);
-				case MaterialEdgeInset.TallRectangle2:
+				case EdgeInsetsPreset.TallRectangle2:
 					return new UIEdgeInsets(8, 4, 8, 4);
-				case MaterialEdgeInset.TallRectangle3:
+				case EdgeInsetsPreset.TallRectangle3:
 					return new UIEdgeInsets(16, 8, 16, 8);
-				case MaterialEdgeInset.TallRectangle4:
+				case EdgeInsetsPreset.TallRectangle4:
 					return new UIEdgeInsets(24, 12, 24, 12);
-				case MaterialEdgeInset.TallRectangle5:
+				case EdgeInsetsPreset.TallRectangle5:
 					return new UIEdgeInsets(32, 16, 32, 16);
-				case MaterialEdgeInset.TallRectangle6:
+				case EdgeInsetsPreset.TallRectangle6:
 					return new UIEdgeInsets(40, 20, 40, 20);
-				case MaterialEdgeInset.TallRectangle7:
+				case EdgeInsetsPreset.TallRectangle7:
 					return new UIEdgeInsets(48, 24, 48, 24);
-				case MaterialEdgeInset.TallRectangle8:
+				case EdgeInsetsPreset.TallRectangle8:
 					return new UIEdgeInsets(56, 28, 56, 28);
-				case MaterialEdgeInset.TallRectangle9:
+				case EdgeInsetsPreset.TallRectangle9:
 					return new UIEdgeInsets(64, 32, 64, 32);
 
 				default:

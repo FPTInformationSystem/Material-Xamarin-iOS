@@ -91,7 +91,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		public MaterialEdgeInset ContentInsetPreset
+		public EdgeInsetsPreset ContentInsetPreset
 		{
 			get
 			{

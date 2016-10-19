@@ -14,7 +14,7 @@ namespace MaterialButtonDemo
 
 		public override void ViewDidLoad()
 		{
-			ViewController.ViewDidLoad(base);
+			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 			prepareFlatButtonExample();
 			prepareFabButtonExample();
@@ -27,8 +27,8 @@ namespace MaterialButtonDemo
 			nfloat w = 200;
 			var button = new FlatButton(new CGRect((View.Bounds.Width - w) / 2, 100, w, 48));
 			button.SetTitle("Button Raised", UIControlState.Normal);
-			button.SetTitleColor(MaterialColor.Blue.Base, UIControlState.Normal);
-			button.PulseColor = MaterialColor.Blue.Base;
+			button.SetTitleColor(Color.Blue.Base, UIControlState.Normal);
+			button.PulseColor = Color.Blue.Base;
 			button.TitleLabel.Font = MaterialFont.SystemFontWithSize(24f);
 			View.AddSubview(button);
 		}
@@ -37,12 +37,10 @@ namespace MaterialButtonDemo
 		{
 			nfloat w = 64;
 			//let img: UIImage ? = MaterialIcon.cm.pen
-			var img = MaterialIcon.CM.AddWhite;
+			var img = MaterialIcon.CM.Add;
 			var button = new FabButton(new CGRect((View.Bounds.Width - w) / 2, 300, w, w));
 			button.SetImage(image: img, forState: UIControlState.Normal);
 			button.SetImage(image: img, forState: UIControlState.Highlighted);
-			//button.setImage(img, forState: .Normal)
-			//button.setImage(img, forState: .Highlighted)
 
 			// Add button to UIViewController.
 			View.AddSubview(button);
@@ -53,9 +51,10 @@ namespace MaterialButtonDemo
 			nfloat w = 200;
 			var button = new RaisedButton(new CGRect((View.Bounds.Width - w) / 2, 200, w, 48));
 			button.SetTitle(title: "Button Raised", forState: UIControlState.Normal);
-			button.SetTitleColor(color: MaterialColor.Blue.Base, forState: UIControlState.Normal);
-			button.PulseColor = MaterialColor.Blue.Base;
+			button.SetTitleColor(color: Color.White, forState: UIControlState.Normal);
+			button.PulseColor = Color.White;
 			button.TitleLabel.Font = RobotoFont.RegularWithSize(24f);
+			button.BackgroundColor = Color.Blue.Base;
 
 			// Add button to UIViewController.
 			View.AddSubview(button);

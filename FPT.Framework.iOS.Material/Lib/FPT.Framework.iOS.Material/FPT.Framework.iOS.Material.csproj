@@ -66,6 +66,7 @@
     <Folder Include="Sources\BottomTabBar\" />
     <Folder Include="Sources\Height\" />
     <Folder Include="Sources\Pulse\" />
+    <Folder Include="Sources\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,7 +84,7 @@
     <Compile Include="Sources\Device\MaterialDevice.cs" />
     <Compile Include="Sources\Type\MaterialBorder.cs" />
     <Compile Include="Sources\Type\Depth.cs" />
-    <Compile Include="Sources\Type\MaterialEdgeInset.cs" />
+    <Compile Include="Sources\Type\EdgeInsets.cs" />
     <Compile Include="Sources\Type\MaterialGravity.cs" />
     <Compile Include="Sources\Type\CornerRadiusPreset.cs" />
     <Compile Include="Sources\Type\Shape.cs" />
@@ -118,9 +119,6 @@
     <Compile Include="Sources\Text\TextField.cs" />
     <Compile Include="Sources\Text\ErrorTextField.cs" />
     <Compile Include="Sources\Navigation\RootController.cs" />
-    <Compile Include="Sources\Navigation\MenuController.cs" />
-    <Compile Include="Sources\Navigation\Menu.cs" />
-    <Compile Include="Sources\Navigation\MenuView.cs" />
     <Compile Include="Sources\Navigation\ControlView.cs" />
     <Compile Include="Sources\Navigation\SearchBarController.cs" />
     <Compile Include="Sources\Navigation\Toolbar.cs" />
@@ -141,6 +139,9 @@
     <Compile Include="Sources\Pulse\PulseView.cs" />
     <Compile Include="Sources\Button\Button.cs" />
     <Compile Include="Sources\Pulse\PulseAnimation.cs" />
+    <Compile Include="Sources\Menu\Menu.cs" />
+    <Compile Include="Sources\Menu\MenuController.cs" />
+    <Compile Include="Sources\Menu\MenuView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
