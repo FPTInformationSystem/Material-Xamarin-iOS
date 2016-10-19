@@ -72,7 +72,6 @@
     <Compile Include="Sources\Animation\MaterialAnimation.cs" />
     <Compile Include="Sources\Animation\MaterialBasicAnimation.cs" />
     <Compile Include="Sources\Animation\MaterialKeyframeAnimation.cs" />
-    <Compile Include="Sources\Animation\MaterialPulseAnimation.cs" />
     <Compile Include="Sources\Animation\MaterialTransitionAnimation.cs" />
     <Compile Include="Sources\Button\FabButton.cs" />
     <Compile Include="Sources\Button\FlatButton.cs" />
@@ -141,6 +140,7 @@
     <Compile Include="Sources\View\View.cs" />
     <Compile Include="Sources\Pulse\PulseView.cs" />
     <Compile Include="Sources\Button\Button.cs" />
+    <Compile Include="Sources\Pulse\PulseAnimation.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
