@@ -198,7 +198,7 @@ namespace FPT.Framework.iOS.Material
 
 		public static nfloat Height(this CALayer layer)
 		{
-			return layer.Frame.Width;
+			return layer.Frame.Height;
 		}
 		public static void SetHeight(this CALayer layer, nfloat value)
 		{
