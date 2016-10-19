@@ -6,7 +6,7 @@ using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
-	public static partial class MaterialAnimation
+	public static partial class Animation
 	{
 		public static CABasicAnimation BackgroundColor(UIColor color, double? duration = null)
 		{

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace FPT.Framework.iOS.Material
 {
-	public enum MaterialShape
+	public enum ShapePreset
 	{
 		None,
 		Square,

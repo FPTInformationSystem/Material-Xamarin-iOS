@@ -2,40 +2,40 @@
 using CoreAnimation;
 namespace FPT.Framework.iOS.Material
 {
-	public enum MaterialGravity
+	public enum Gravity
 	{
 		Center, Top, Bottom, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight, Resize, ResizeAspect, ResizeAspectFill
 	}
 
 	public static partial class Convert
 	{
-		public static string MaterialGravityToValue(MaterialGravity gravity)
+		public static string GravityToValue(Gravity gravity)
 		{
 			switch (gravity)
 			{
-				case MaterialGravity.Center:
+				case Gravity.Center:
 					return CALayer.GravityCenter;
-				case MaterialGravity.Top:
+				case Gravity.Top:
 					return CALayer.GravityTop;
-				case MaterialGravity.Bottom:
+				case Gravity.Bottom:
 					return CALayer.GravityBottom;
-				case MaterialGravity.Left:
+				case Gravity.Left:
 					return CALayer.GravityLeft;
-				case MaterialGravity.Right:
+				case Gravity.Right:
 					return CALayer.GravityRight;
-				case MaterialGravity.TopLeft:
+				case Gravity.TopLeft:
 					return CALayer.GravityTopLeft;
-				case MaterialGravity.TopRight:
+				case Gravity.TopRight:
 					return CALayer.GravityTopRight;
-				case MaterialGravity.BottomLeft:
+				case Gravity.BottomLeft:
 					return CALayer.GravityBottomLeft;
-				case MaterialGravity.BottomRight:
+				case Gravity.BottomRight:
 					return CALayer.GravityBottomRight;
-				case MaterialGravity.Resize:
+				case Gravity.Resize:
 					return CALayer.GravityResize;
-				case MaterialGravity.ResizeAspect:
+				case Gravity.ResizeAspect:
 					return CALayer.GravityResizeAspect;
-				case MaterialGravity.ResizeAspectFill:
+				case Gravity.ResizeAspectFill:
 					return CALayer.GravityResizeAspectFill;
 				default:
 					return default(string);

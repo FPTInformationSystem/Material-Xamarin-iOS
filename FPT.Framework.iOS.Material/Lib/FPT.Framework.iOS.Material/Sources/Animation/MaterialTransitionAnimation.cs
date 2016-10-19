@@ -86,7 +86,7 @@ namespace FPT.Framework.iOS.Material
 	}
 
 
-	public partial class MaterialAnimation
+	public partial class Animation
 	{
 		public static CATransition Transition(MaterialAnimationTransition type, MaterialAnimationTransitionSubType? direction = null, double? duration = null)
 		{

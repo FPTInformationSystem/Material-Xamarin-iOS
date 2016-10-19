@@ -28,11 +28,11 @@ namespace FPT.Framework.iOS.Material
 		}
 	}
 
-	public abstract class MaterialAnimationDelegate : MaterialDelegate
-	{
-		public virtual void materialAnimationDidStart(CAAnimation animation) { }
-		public virtual void materialAnimationDidStop(CAAnimation animation, bool finished) { }
-	}
+	//public abstract class MaterialAnimationDelegate : MaterialDelegate
+	//{
+	//	public virtual void materialAnimationDidStart(CAAnimation animation) { }
+	//	public virtual void materialAnimationDidStop(CAAnimation animation, bool finished) { }
+	//}
 
 	public enum MaterialAnimationFillMode
 	{
@@ -41,7 +41,7 @@ namespace FPT.Framework.iOS.Material
 
 	public delegate void MaterialAnimationDelayCancelBlock(bool cancel);
 
-	public static partial class MaterialAnimation
+	public static partial class Animation
 	{
 		private const int NSEC_PER_SEC = 1000000000;
 

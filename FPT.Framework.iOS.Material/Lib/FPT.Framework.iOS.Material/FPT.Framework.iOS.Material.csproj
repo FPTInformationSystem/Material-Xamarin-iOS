@@ -63,6 +63,9 @@
     <Folder Include="Sources\Table\" />
     <Folder Include="Sources\Card\" />
     <Folder Include="Sources\Text\" />
+    <Folder Include="Sources\BottomTabBar\" />
+    <Folder Include="Sources\Height\" />
+    <Folder Include="Sources\Pulse\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,16 +78,16 @@
     <Compile Include="Sources\Button\FlatButton.cs" />
     <Compile Include="Sources\Button\MaterialButton.cs" />
     <Compile Include="Sources\Button\RaisedButton.cs" />
-    <Compile Include="Sources\Color\MaterialColor.cs" />
+    <Compile Include="Sources\Color\Color.cs" />
     <Compile Include="Sources\Font\MaterialFont.cs" />
-    <Compile Include="Sources\Layer\MaterialLayer.cs" />
+    <Compile Include="Sources\Layer\Layer.cs" />
     <Compile Include="Sources\Device\MaterialDevice.cs" />
     <Compile Include="Sources\Type\MaterialBorder.cs" />
-    <Compile Include="Sources\Type\MaterialDepth.cs" />
+    <Compile Include="Sources\Type\Depth.cs" />
     <Compile Include="Sources\Type\MaterialEdgeInset.cs" />
     <Compile Include="Sources\Type\MaterialGravity.cs" />
-    <Compile Include="Sources\Type\MaterialRadius.cs" />
-    <Compile Include="Sources\Type\MaterialShape.cs" />
+    <Compile Include="Sources\Type\CornerRadiusPreset.cs" />
+    <Compile Include="Sources\Type\Shape.cs" />
     <Compile Include="Sources\Type\MaterialSpacing.cs" />
     <Compile Include="Sources\Font\RobotoFont.cs" />
     <Compile Include="Sources\Icon\MaterialIcon.cs" />
@@ -129,6 +132,13 @@
     <Compile Include="Sources\Navigation\NavigationController.cs" />
     <Compile Include="Sources\Navigation\NavigationDrawerController.cs" />
     <Compile Include="Sources\Navigation\NavigationBar.cs" />
+    <Compile Include="Sources\BottomTabBar\BottomTabBar.cs" />
+    <Compile Include="Sources\Extension\Material+UIView.cs" />
+    <Compile Include="Sources\Extension\Material+CALayer.cs" />
+    <Compile Include="Sources\Height\HeightPreset.cs" />
+    <Compile Include="Sources\Type\Offset.cs" />
+    <Compile Include="Sources\Pulse\Pulse.cs" />
+    <Compile Include="Sources\View\View.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />

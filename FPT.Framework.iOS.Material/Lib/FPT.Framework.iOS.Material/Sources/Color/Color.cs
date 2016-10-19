@@ -3,7 +3,7 @@ using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
-	public static class MaterialColor
+	public static class Color
 	{
 		public static UIColor Clear
 		{
@@ -35,7 +35,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				get
 				{
-					return MaterialColor.Black.ColorWithAlpha(0.87f);
+					return Color.Black.ColorWithAlpha(0.87f);
 				}
 			}
 
@@ -43,7 +43,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				get
 				{
-					return MaterialColor.Black.ColorWithAlpha(0.54f);
+					return Color.Black.ColorWithAlpha(0.54f);
 				}
 			}
 
@@ -51,7 +51,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				get
 				{
-					return MaterialColor.Black.ColorWithAlpha(0.38f);
+					return Color.Black.ColorWithAlpha(0.38f);
 				}
 			}
 
@@ -59,7 +59,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				get
 				{
-					return MaterialColor.Black.ColorWithAlpha(0.12f);
+					return Color.Black.ColorWithAlpha(0.12f);
 				}
 			}
 		}
@@ -70,7 +70,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				get
 				{
-					return MaterialColor.White;
+					return Color.White;
 				}
 			}
 
@@ -78,7 +78,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				get
 				{
-					return MaterialColor.White.ColorWithAlpha(0.7f);
+					return Color.White.ColorWithAlpha(0.7f);
 				}
 			}
 
@@ -86,7 +86,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				get
 				{
-					return MaterialColor.White.ColorWithAlpha(0.5f);
+					return Color.White.ColorWithAlpha(0.5f);
 				}
 			}
 
@@ -94,7 +94,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				get
 				{
-					return MaterialColor.White.ColorWithAlpha(0.12f);
+					return Color.White.ColorWithAlpha(0.12f);
 				}
 			}
 		}

@@ -29,7 +29,7 @@ using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
-	public class MaterialCollectionViewDelegate : UICollectionViewDelegate, MaterialDelegate
+	public class MaterialCollectionViewDelegate : UICollectionViewDelegate
 	{
 	}
 }

@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolbarControllerDemo", "De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigationControllerDemo", "Demo\NavigationControllerDemo\NavigationControllerDemo.csproj", "{1DBD1813-4703-4C50-B95E-99585B688A66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayerDemo", "Demo\LayerDemo\LayerDemo.csproj", "{E890DF70-59DF-40F4-86CF-633AFF43F3FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -203,6 +205,14 @@ Global
 		{1DBD1813-4703-4C50-B95E-99585B688A66}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{1DBD1813-4703-4C50-B95E-99585B688A66}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{1DBD1813-4703-4C50-B95E-99585B688A66}.Debug|iPhone.Build.0 = Debug|iPhone
+		{E890DF70-59DF-40F4-86CF-633AFF43F3FC}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{E890DF70-59DF-40F4-86CF-633AFF43F3FC}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{E890DF70-59DF-40F4-86CF-633AFF43F3FC}.Release|iPhone.ActiveCfg = Release|iPhone
+		{E890DF70-59DF-40F4-86CF-633AFF43F3FC}.Release|iPhone.Build.0 = Release|iPhone
+		{E890DF70-59DF-40F4-86CF-633AFF43F3FC}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{E890DF70-59DF-40F4-86CF-633AFF43F3FC}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{E890DF70-59DF-40F4-86CF-633AFF43F3FC}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{E890DF70-59DF-40F4-86CF-633AFF43F3FC}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26C75516-374F-487F-8014-3B57C463C87A} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
@@ -224,5 +234,6 @@ Global
 		{6E67A907-AEF0-4A95-A263-41217B769676} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{D1FDCD9D-16B0-43CD-A2A0-484087F8D0F1} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{1DBD1813-4703-4C50-B95E-99585B688A66} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
+		{E890DF70-59DF-40F4-86CF-633AFF43F3FC} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 	EndGlobalSection
 EndGlobal

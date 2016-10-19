@@ -19,7 +19,7 @@ namespace FPT.Framework.iOS.Material
 		AtPointWithBacking
 	}
 
-	public static partial class MaterialAnimation
+	public static partial class Animation
 	{
 		internal static void pulseExpandAnimation(CALayer layer, CALayer visualLayer, UIColor pulseColor, nfloat pulseOpacity, CGPoint point, nfloat width, nfloat height, ref Queue<CAShapeLayer> pulseLayers, PulseAnimation pulseAnimation)
 		{
@@ -31,7 +31,7 @@ namespace FPT.Framework.iOS.Material
 				bLayer.AddSublayer(pLayer);
 				pulseLayers.Enqueue(bLayer);
 				visualLayer.AddSublayer(bLayer);
-				MaterialAnimation.AnimationDisabled(() =>
+				Animation.AnimationDisabled(() =>
 				{
 					bLayer.Frame = visualLayer.Bounds;
 					pLayer.Bounds = new CGRect(0, 0, n, n);
@@ -58,7 +58,7 @@ namespace FPT.Framework.iOS.Material
 					case PulseAnimation.CenterWithBacking:
 					case PulseAnimation.Backing:
 					case PulseAnimation.AtPointWithBacking:
-						bLayer.AddAnimation(MaterialAnimation.BackgroundColor(pulseColor.ColorWithAlpha(pulseOpacity / 2), duration), null);
+						bLayer.AddAnimation(Animation.BackgroundColor(pulseColor.ColorWithAlpha(pulseOpacity / 2), duration), null);
 						break;
 					default:
 						break;
@@ -70,12 +70,12 @@ namespace FPT.Framework.iOS.Material
 					case PulseAnimation.CenterRadialBeyondBounds:
 					case PulseAnimation.AtPoint:
 					case PulseAnimation.AtPointWithBacking:
-						pLayer.AddAnimation(MaterialAnimation.Scale(1, duration), null);
+						pLayer.AddAnimation(Animation.Scale(1, duration), null);
 						break;
 					default:
 						break;
 				}
-				MaterialAnimation.Delay(duration, () =>
+				Animation.Delay(duration, () =>
 				{
 					bLayer.SetValueForKey(NSObject.FromObject(true), new NSString("animated"));
 				});
@@ -97,7 +97,7 @@ namespace FPT.Framework.iOS.Material
 				var test = bLayer.ValueForKey(new NSString("animated")) as NSNumber;
 				var animated = test.BoolValue;
 
-				MaterialAnimation.Delay(animated ? 0 : 0.15, () =>
+				Animation.Delay(animated ? 0 : 0.15, () =>
 				{
 					var pLayer = bLayer.Sublayers[0] as CAShapeLayer;
 					if (pLayer != null)
@@ -108,7 +108,7 @@ namespace FPT.Framework.iOS.Material
 							case PulseAnimation.CenterWithBacking:
 							case PulseAnimation.Backing:
 							case PulseAnimation.AtPointWithBacking:
-								bLayer.AddAnimation(MaterialAnimation.BackgroundColor(pulseColor.ColorWithAlpha(0), 0.325), null);
+								bLayer.AddAnimation(Animation.BackgroundColor(pulseColor.ColorWithAlpha(0), 0.325), null);
 								break;
 							default:
 								break;
@@ -121,9 +121,9 @@ namespace FPT.Framework.iOS.Material
 							case PulseAnimation.CenterRadialBeyondBounds:
 							case PulseAnimation.AtPoint:
 							case PulseAnimation.AtPointWithBacking:
-								pLayer.AddAnimation(MaterialAnimation.AnimationGroup(new CAAnimation[] {
-									MaterialAnimation.Scale(pulseAnimation == PulseAnimation.Center ? 1f : 1.325f),
-									MaterialAnimation.BackgroundColor(pulseColor.ColorWithAlpha(0))
+								pLayer.AddAnimation(Animation.AnimationGroup(new CAAnimation[] {
+									Animation.Scale(pulseAnimation == PulseAnimation.Center ? 1f : 1.325f),
+									Animation.BackgroundColor(pulseColor.ColorWithAlpha(0))
 								}, duration), null);
 								break;
 							default:

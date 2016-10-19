@@ -260,7 +260,7 @@ namespace FPT.Framework.iOS.Material
 
 		internal void prepareLayer()
 		{
-			TextColor = MaterialColor.Black;
+			TextColor = Color.Black;
 			TextAlignment = UITextAlignment.Left;
 			Wrapped = true;
 			ContentsScale = MaterialDevice.Scale;

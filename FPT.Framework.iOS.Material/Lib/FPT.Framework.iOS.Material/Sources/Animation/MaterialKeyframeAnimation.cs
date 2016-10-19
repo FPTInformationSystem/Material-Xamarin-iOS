@@ -28,7 +28,7 @@ namespace FPT.Framework.iOS.Material
 		None, Auto, AutoReverse
 	}
 
-	public static partial class MaterialAnimation
+	public static partial class Animation
 	{
 		public static CAKeyFrameAnimation Path(UIBezierPath bezierPath, MaterialAnimationRotationMode mode = MaterialAnimationRotationMode.Auto, double? duration = null)
 		{
