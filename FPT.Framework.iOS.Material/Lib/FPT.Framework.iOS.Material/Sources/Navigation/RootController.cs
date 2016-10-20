@@ -63,7 +63,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		public UIViewController RootViewController { get; private set; }
+		public UIViewController RootViewController { get; internal set; }
 
 		#endregion
 
@@ -81,18 +81,18 @@ namespace FPT.Framework.iOS.Material
 		*/
 		public RootController(NSCoder coder) : base(coder)
 		{
-			PrepareView();
+			Prepare();
 		}
 
 		public RootController(string nibName, NSBundle bundle) : base(nibName, bundle)
 		{
-			PrepareView();
+			Prepare();
 		}
 
-		public RootController(UIViewController rootViewController) : base(null, null)
+		public RootController(UIViewController rootViewController)// : base(null, null)
 		{
 			this.RootViewController = rootViewController;
-			PrepareView();
+			Prepare();
 		}
 
 		#endregion
@@ -156,7 +156,7 @@ namespace FPT.Framework.iOS.Material
 		The super.prepareView method should always be called immediately
 		when subclassing.
 		*/
-		public virtual void PrepareView()
+		public virtual void Prepare()
 		{
 			View.ClipsToBounds = true;
 			View.ContentScaleFactor = MaterialDevice.Scale;

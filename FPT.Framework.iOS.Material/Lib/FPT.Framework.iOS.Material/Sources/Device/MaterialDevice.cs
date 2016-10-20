@@ -39,6 +39,14 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		public static UIUserInterfaceIdiom UserInterfaceIdiom
+		{
+			get
+			{
+				return UIDevice.CurrentDevice.UserInterfaceIdiom;
+			}
+		}
+
 		public static bool IsLandscape
 		{
 			get

@@ -70,6 +70,7 @@
     <Folder Include="Sources\Bar\" />
     <Folder Include="Sources\Toolbar\" />
     <Folder Include="Sources\TabBar\" />
+    <Folder Include="Sources\StatusBar\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Sources\Toolbar\Toolbar.cs" />
     <Compile Include="Sources\Toolbar\ToolBarController.cs" />
     <Compile Include="Sources\TabBar\TabBar.cs" />
+    <Compile Include="Sources\StatusBar\StatusBarController.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />

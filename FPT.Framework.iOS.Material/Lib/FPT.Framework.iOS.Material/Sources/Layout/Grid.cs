@@ -247,7 +247,6 @@ namespace FPT.Framework.iOS.Material
 			{
 				mInterimSpacePreset = value;
 				InterimSpace = Convert.InterimSpacePresetToValue(mInterimSpacePreset);
-
 			}
 		}
 
@@ -293,9 +292,7 @@ namespace FPT.Framework.iOS.Material
 			Axis = new GridAxis(this);
 		}
 
-		protected Grid(IntPtr ptr) : base()
-		{
-		}
+		protected Grid(IntPtr ptr) : base() { }
 
 		#endregion
 
@@ -383,7 +380,6 @@ namespace FPT.Framework.iOS.Material
 							v.SetY(((nfloat)ro) * h + ContentEdgeInset.Top + LayoutEdgeInsets.Top);
 							v.SetWidth(w * ((nfloat)c) - InterimSpace);
 							v.SetHeight(h * ((nfloat)r) - InterimSpace);
-
 						}
 						break;
 					default:
@@ -408,7 +404,6 @@ namespace FPT.Framework.iOS.Material
 			});
 
 			return ObjCRuntime.Runtime.GetNSObject(v) as Grid;
-
 		}
 
 		public static EdgeInsetsPreset LayoutEdgeInsetsPreset(this UIView view)
