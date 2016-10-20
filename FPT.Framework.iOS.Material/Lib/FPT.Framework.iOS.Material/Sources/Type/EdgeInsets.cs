@@ -12,16 +12,16 @@ namespace FPT.Framework.iOS.Material
 
 	public static partial class Convert
 	{
-		public static UIEdgeInsets MaterialEdgeInsetToValue(EdgeInsetsPreset inset)
+		public static UIEdgeInsets EdgeInsetsPresetToValue(EdgeInsetsPreset preset)
 		{
-			switch (inset)
+			switch (preset)
 			{
 				case EdgeInsetsPreset.None:
 					return UIEdgeInsets.Zero;
 
 				//TallRectangle
 				case EdgeInsetsPreset.Square1:
-					return new UIEdgeInsets(2, 4, 2, 4);
+					return new UIEdgeInsets(4, 4, 4, 4);
 				case EdgeInsetsPreset.Square2:
 					return new UIEdgeInsets(8, 8, 8, 8);
 				case EdgeInsetsPreset.Square3:

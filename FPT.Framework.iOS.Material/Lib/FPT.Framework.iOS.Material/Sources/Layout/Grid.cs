@@ -42,9 +42,7 @@ namespace FPT.Framework.iOS.Material
 
 		#region PROPERTIES
 
-		private Grid Grid { get; set;}
-
-		public bool Inerited { get; set; } = false;
+		private Grid Grid { get; set; }
 
 		public GridAxisDirection Direction { get; set; } = GridAxisDirection.Horizontal;
 
@@ -58,7 +56,7 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mRows = value;
-				Grid.ReloadLayout();
+				Grid.Reload();
 			}
 		}
 
@@ -72,7 +70,7 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mColumns = value;
-				Grid.ReloadLayout();
+				Grid.Reload();
 			}
 		}
 
@@ -109,7 +107,7 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mRows = value;
-				Grid.ReloadLayout();
+				Grid.Reload();
 			}
 		}
 
@@ -123,7 +121,7 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mColumns = value;
-				Grid.ReloadLayout();
+				Grid.Reload();
 			}
 		}
 
@@ -146,6 +144,10 @@ namespace FPT.Framework.iOS.Material
 
 		#region PROPERTIES
 
+		public bool Deferred { get; set; } = false;
+
+		internal UIView Context { get; set; }
+
 		private int mRows;
 		public int Rows
 		{
@@ -156,7 +158,7 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mRows = value;
-				ReloadLayout();
+				Reload();
 			}
 		}
 
@@ -170,100 +172,100 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mColumns = value;
-				ReloadLayout();
+				Reload();
 			}
 		}
 
-		public GridOffset Offset { get; private set;}
+		public GridOffset Offset { get; private set; }
 
-		public GridAxis Axis { get; private set;}
+		public GridAxis Axis { get; private set; }
 
-		private EdgeInsetsPreset mLayoutInsetPreset = EdgeInsetsPreset.None;
-		public EdgeInsetsPreset LayoutInsetPreset
+		private EdgeInsetsPreset mLayoutEdgeInsetsPreset = EdgeInsetsPreset.None;
+		public EdgeInsetsPreset LayoutEdgeInsetsPreset
 		{
 			get
 			{
-				return mLayoutInsetPreset;
+				return mLayoutEdgeInsetsPreset;
 			}
 			set
 			{
-				mLayoutInsetPreset = value;
-				LayoutInset = Convert.MaterialEdgeInsetToValue(mLayoutInsetPreset);
+				mLayoutEdgeInsetsPreset = value;
+				LayoutEdgeInsets = Convert.EdgeInsetsPresetToValue(mLayoutEdgeInsetsPreset);
 			}
 		}
 
-		private UIEdgeInsets mLayoutInset = Convert.MaterialEdgeInsetToValue(EdgeInsetsPreset.None);
-		public UIEdgeInsets LayoutInset
+		private UIEdgeInsets mLayoutEdgeInsets = Convert.EdgeInsetsPresetToValue(EdgeInsetsPreset.None);
+		public UIEdgeInsets LayoutEdgeInsets
 		{
 			get
 			{
-				return mLayoutInset;
+				return mLayoutEdgeInsets;
 			}
 			set
 			{
-				mLayoutInset = value;
-				ReloadLayout();
+				mLayoutEdgeInsets = value;
+				Reload();
 			}
 		}
 
-		private EdgeInsetsPreset mContentInsetPreset = EdgeInsetsPreset.None;
-		public EdgeInsetsPreset ContentInsetPreset
+		private EdgeInsetsPreset mContentEdgeInsetPreset = EdgeInsetsPreset.None;
+		public EdgeInsetsPreset ContentEdgeInsetPreset
 		{
 			get
 			{
-				return mContentInsetPreset;
+				return mContentEdgeInsetPreset;
 			}
 			set
 			{
-				mContentInsetPreset = value;
-				ContentInset = Convert.MaterialEdgeInsetToValue(mContentInsetPreset);
+				mContentEdgeInsetPreset = value;
+				ContentEdgeInset = Convert.EdgeInsetsPresetToValue(mContentEdgeInsetPreset);
 			}
 		}
 
-		private UIEdgeInsets mContentInset = Convert.MaterialEdgeInsetToValue(EdgeInsetsPreset.None);
-		public UIEdgeInsets ContentInset
+		private UIEdgeInsets mContentEdgeInset = Convert.EdgeInsetsPresetToValue(EdgeInsetsPreset.None);
+		public UIEdgeInsets ContentEdgeInset
 		{
 			get
 			{
-				return mContentInset;
+				return mContentEdgeInset;
 			}
 			set
 			{
-				mContentInset = value;
-				ReloadLayout();
+				mContentEdgeInset = value;
+				Reload();
 			}
 		}
 
-		private MaterialSpacing mSpacingPreset = MaterialSpacing.None;
-		public MaterialSpacing SpacingPreset
+		private InterimSpacePreset mInterimSpacePreset = InterimSpacePreset.None;
+		public InterimSpacePreset InterimSpacePreset
 		{
 			get
 			{
-				return mSpacingPreset;
+				return mInterimSpacePreset;
 			}
 			set
 			{
-				mSpacingPreset = value;
-				Spacing = Convert.MaterialSpacingToValue(mSpacingPreset);
+				mInterimSpacePreset = value;
+				InterimSpace = Convert.InterimSpacePresetToValue(mInterimSpacePreset);
 
 			}
 		}
 
-		private nfloat mSpacing;
-		public nfloat Spacing
+		private nfloat mInterimSpace;
+		public nfloat InterimSpace
 		{
 			get
 			{
-				return mSpacing;
+				return mInterimSpace;
 			}
 			set
 			{
-				mSpacing = value;
-				ReloadLayout();
+				mInterimSpace = value;
+				Reload();
 			}
 		}
 
-		private List<UIView> mViews;
+		private List<UIView> mViews = new List<UIView>();
 		public List<UIView> Views
 		{
 			get
@@ -273,17 +275,20 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mViews = value;
-				ReloadLayout();
+				Reload();
 			}
 		}
 
+		#endregion
+
 		#region CONSTRUCTORS
 
-		public Grid(int rows = 12, int columns = 12, nfloat spacing = default(nfloat))
+		public Grid(UIView context, int rows = 0, int columns = 0, nfloat interimSpace = default(nfloat))
 		{
+			this.Context = context;
 			this.Rows = rows;
 			this.Columns = columns;
-			this.Spacing = spacing;
+			this.InterimSpace = interimSpace;
 			Offset = new GridOffset(this);
 			Axis = new GridAxis(this);
 		}
@@ -294,71 +299,98 @@ namespace FPT.Framework.iOS.Material
 
 		#endregion
 
-		#endregion
-
 		#region FUNCTIONS
 
-		public void ReloadLayout()
+		public void Begin()
 		{
-			var v = Views;
-			if (v != null)
+			Deferred = true;
+		}
+		public void Commit()
+		{
+			Deferred = false;
+			Reload();
+		}
+
+		public void Reload()
+		{
+			if (Deferred) return;
+
+			var count = Views.Count;
+
+			if (count <= 0) return;
+
+			var n = 0;
+			var i = 0;
+			foreach (var v in Views)
 			{
-				var gc = Axis.Inerited ? Columns : Axis.Columns;
-				var gr = Axis.Inerited ? Rows : Axis.Rows;
-				var n = 0;
-				for (var i = 0; i < v.Count; i++)
+				var canvas = Context;
+				if (canvas == null) return;
+
+				if (canvas != v.Superview)
 				{
-					var view = v[i];
-					var sv = (view as UIKit.UIView).Superview;
-					if (sv != null)
-					{
-						sv.LayoutIfNeeded();
-						switch (Axis.Direction)
-						{
-							case GridAxisDirection.Horizontal:
-								{
-									nfloat w = (sv.Bounds.Width - ContentInset.Left - ContentInset.Right - LayoutInset.Left + Spacing) / ((nfloat) gc);
-									int c = view.Grid().Columns;
-									int co = view.Grid().Offset.Columns;
-									nfloat vh = sv.Bounds.Height - ContentInset.Top - ContentInset.Bottom - LayoutInset.Top - LayoutInset.Bottom;
-									nfloat vl = ((nfloat)i + n + co) * w + ContentInset.Left + LayoutInset.Left;
-									nfloat vw = w * ((nfloat)c) - Spacing;
-									(view as UIKit.UIView).Frame = new CGRect(vl, ContentInset.Top + LayoutInset.Top, vw, vh);
-									n += c + co - 1;
-								}
-								break;
-							case GridAxisDirection.Vertical:
-								{
-									nfloat h = (sv.Bounds.Height - ContentInset.Top - ContentInset.Bottom - LayoutInset.Top - LayoutInset.Bottom + Spacing) / ((nfloat) gr);
-									int r = view.Grid().Rows;
-									int ro = view.Grid().Offset.Rows;
-									nfloat vw = sv.Bounds.Width - ContentInset.Left - ContentInset.Right - LayoutInset.Left - LayoutInset.Right;
-									nfloat vt = ((nfloat)i + n + ro) * h + ContentInset.Top + LayoutInset.Top;
-									nfloat vh = h * ((nfloat)r) - Spacing;
-									(view as UIKit.UIView).Frame = new CGRect(ContentInset.Left + LayoutInset.Left, vt, vw, vh);
-									n += r + ro - 1;
-								}
-								break;
-							case GridAxisDirection.None:
-								{
-									nfloat w = (sv.Bounds.Width - ContentInset.Left - ContentInset.Right - LayoutInset.Left - LayoutInset.Right + Spacing) / ((nfloat) gc);
-									int c = view.Grid().Columns;
-									int co = view.Grid().Offset.Columns;
-									nfloat h = (sv.Bounds.Height - ContentInset.Top - ContentInset.Bottom - LayoutInset.Top - LayoutInset.Bottom + Spacing) / ((nfloat) gr);
-									int r = view.Grid().Rows;
-									int ro = view.Grid().Offset.Rows;
-									nfloat vt = ((nfloat)ro) * h + ContentInset.Top + LayoutInset.Top;
-									nfloat vl = ((nfloat)co) * w + ContentInset.Left + LayoutInset.Left;
-									nfloat vh = h * ((nfloat)r) - Spacing;
-									nfloat vw = w * ((nfloat)c) - Spacing;
-									(view as UIKit.UIView).Frame = new CGRect(vl, vt, vw, vh);
-								}
-								break;
-							default:
-								break;
-						}
-					}
+					v.RemoveFromSuperview();
+					canvas.AddSubview(v);
 				}
+
+				// Forces the views to adjust accordingly to size changes, ie: UILabel.
+				if (v is UILabel)
+				{
+					(v as UILabel).SizeToFit();
+				}
+				switch (Axis.Direction)
+				{
+					case GridAxisDirection.Horizontal:
+						{
+							int c = v.Grid().Columns == 0 ? Axis.Columns / count : v.Grid().Columns;
+							int co = v.Grid().Offset.Columns;
+							nfloat w = (canvas.Bounds.Width - ContentEdgeInset.Left - ContentEdgeInset.Right - LayoutEdgeInsets.Left + InterimSpace) / ((nfloat)Axis.Columns);
+
+							v.SetX(((nfloat)i + n + co) * w + ContentEdgeInset.Left + LayoutEdgeInsets.Left);
+							v.SetY(ContentEdgeInset.Top + LayoutEdgeInsets.Top);
+							v.SetWidth(w * ((nfloat)c) - InterimSpace);
+							v.SetHeight(canvas.Bounds.Height - ContentEdgeInset.Top - ContentEdgeInset.Bottom - LayoutEdgeInsets.Top - LayoutEdgeInsets.Bottom);
+
+							n += c + co - 1;
+						}
+						break;
+					case GridAxisDirection.Vertical:
+						{
+							int r = v.Grid().Rows == 0 ? Axis.Rows / count : v.Grid().Rows;
+							int ro = v.Grid().Offset.Rows;
+							nfloat h = (canvas.Bounds.Height - ContentEdgeInset.Top - ContentEdgeInset.Bottom - LayoutEdgeInsets.Top - LayoutEdgeInsets.Bottom + InterimSpace) / ((nfloat)Axis.Rows);
+
+							v.SetX(ContentEdgeInset.Left + LayoutEdgeInsets.Left);
+							v.SetY(((nfloat)i + n + ro) * h + ContentEdgeInset.Top + LayoutEdgeInsets.Top);
+							v.SetWidth(canvas.Bounds.Width - ContentEdgeInset.Left - ContentEdgeInset.Right - LayoutEdgeInsets.Left - LayoutEdgeInsets.Right);
+							v.SetHeight(h * ((nfloat)r) - InterimSpace);
+
+							n += r + ro - 1;
+						}
+						break;
+					case GridAxisDirection.None:
+						{
+							int r = v.Grid().Rows == 0? Axis.Rows/count : v.Grid().Rows;
+							int ro = v.Grid().Offset.Rows;
+
+							int c = v.Grid().Columns == 0? Axis.Columns/count: v.Grid().Columns;
+							int co = v.Grid().Offset.Columns;
+
+
+							nfloat w = (canvas.Bounds.Width - ContentEdgeInset.Left - ContentEdgeInset.Right - LayoutEdgeInsets.Left - LayoutEdgeInsets.Right + InterimSpace) / ((nfloat)Axis.Columns);
+							nfloat h = (canvas.Bounds.Height - ContentEdgeInset.Top - ContentEdgeInset.Bottom - LayoutEdgeInsets.Top - LayoutEdgeInsets.Bottom + InterimSpace) / ((nfloat)Axis.Rows);
+
+							v.SetX(((nfloat)co) * w + ContentEdgeInset.Left + LayoutEdgeInsets.Left);
+							v.SetY(((nfloat)ro) * h + ContentEdgeInset.Top + LayoutEdgeInsets.Top);
+							v.SetWidth(w * ((nfloat)c) - InterimSpace);
+							v.SetHeight(h * ((nfloat)r) - InterimSpace);
+
+						}
+						break;
+					default:
+						break;
+				}
+
+				i += 1;
 			}
 		}
 
@@ -372,11 +404,29 @@ namespace FPT.Framework.iOS.Material
 		{
 			var v = MaterialObjC.MaterialAssociatedObject(view.Handle, sGridKey.Handle, () =>
 			{
-				return new Grid().Handle;
+				return new Grid(view).Handle;
 			});
 
 			return ObjCRuntime.Runtime.GetNSObject(v) as Grid;
 
+		}
+
+		public static EdgeInsetsPreset LayoutEdgeInsetsPreset(this UIView view)
+		{
+			return view.Grid().LayoutEdgeInsetsPreset;
+		}
+		public static void SetLayoutEdgeInsetsPreset(this UIView view, EdgeInsetsPreset value)
+		{
+			view.Grid().LayoutEdgeInsetsPreset = value;
+		}
+
+		public static UIEdgeInsets LayoutEdgeInsets(this UIView view)
+		{
+			return view.Grid().LayoutEdgeInsets;
+		}
+		public static void SetLayoutEdgeInsets(this UIView view, UIEdgeInsets value)
+		{
+			view.Grid().LayoutEdgeInsets = value;
 		}
 	}
 }

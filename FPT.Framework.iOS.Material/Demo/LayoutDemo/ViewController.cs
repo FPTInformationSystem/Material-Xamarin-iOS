@@ -15,7 +15,7 @@ namespace LayoutDemo
 
 		public override void ViewDidLoad()
 		{
-			ViewController.ViewDidLoad(base);
+			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 			prepareView();
 			prepareAlignToParentHorizontallyAndVerticallyExample();
@@ -24,28 +24,28 @@ namespace LayoutDemo
 
 		private void prepareView()
 		{
-			View.BackgroundColor = MaterialColor.White;
+			View.BackgroundColor = Color.White;
 		}
 
 		private void prepareAlignToParentHorizontallyAndVerticallyExample()
 		{
 			var label1 = new UILabel();
-			label1.BackgroundColor = MaterialColor.Red.Base;
+			label1.BackgroundColor = Color.Red.Base;
 			label1.Text = "A";
 			label1.TextAlignment = UITextAlignment.Center;
 
 			var label2 = new UILabel();
-			label2.BackgroundColor = MaterialColor.Green.Base;
+			label2.BackgroundColor = Color.Green.Base;
 			label2.Text = "B";
 			label2.TextAlignment = UITextAlignment.Center;
 
 			var label3 = new UILabel();
-			label3.BackgroundColor = MaterialColor.Blue.Base;
+			label3.BackgroundColor = Color.Blue.Base;
 			label3.Text = "C";
 			label3.TextAlignment = UITextAlignment.Center;
 
 			var label4 = new UILabel();
-			label4.BackgroundColor = MaterialColor.Yellow.Base;
+			label4.BackgroundColor = Color.Yellow.Base;
 			label4.Text = "D";
 			label4.TextAlignment = UITextAlignment.Center;
 
@@ -64,7 +64,7 @@ namespace LayoutDemo
 			nfloat length = 100f;
 
 			var labelCX = new UILabel();
-			labelCX.BackgroundColor = MaterialColor.Grey.Base;
+			labelCX.BackgroundColor = Color.Grey.Base;
 			labelCX.Text = "CenterX";
 			labelCX.TextAlignment = UITextAlignment.Center;
 			labelCX.Layer.CornerRadius = length / 2.0f;
@@ -73,7 +73,7 @@ namespace LayoutDemo
 			View.Layout(labelCX).Width(length).Height(length).CenterHorizontally();
 
 			var labelCY = new UILabel();
-			labelCY.BackgroundColor = MaterialColor.Grey.Base;
+			labelCY.BackgroundColor = Color.Grey.Base;
 			labelCY.Text = "CenterY";
 			labelCY.TextAlignment = UITextAlignment.Center;
 			labelCY.Layer.CornerRadius = length / 2.0f;
@@ -82,7 +82,7 @@ namespace LayoutDemo
 			View.Layout(labelCY).Width(length).Height(length).CenterVertically();
 
 			var labelCXY = new UILabel();
-			labelCXY.BackgroundColor = MaterialColor.Grey.Base;
+			labelCXY.BackgroundColor = Color.Grey.Base;
 			labelCXY.Text = "CenterXY";
 			labelCXY.TextAlignment = UITextAlignment.Center;
 			labelCXY.Layer.CornerRadius = length / 2.0f;

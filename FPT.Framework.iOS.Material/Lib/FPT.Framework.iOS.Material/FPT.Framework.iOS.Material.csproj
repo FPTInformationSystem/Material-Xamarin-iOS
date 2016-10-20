@@ -67,6 +67,9 @@
     <Folder Include="Sources\Height\" />
     <Folder Include="Sources\Pulse\" />
     <Folder Include="Sources\Menu\" />
+    <Folder Include="Sources\Bar\" />
+    <Folder Include="Sources\Toolbar\" />
+    <Folder Include="Sources\TabBar\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,10 +91,9 @@
     <Compile Include="Sources\Type\MaterialGravity.cs" />
     <Compile Include="Sources\Type\CornerRadiusPreset.cs" />
     <Compile Include="Sources\Type\Shape.cs" />
-    <Compile Include="Sources\Type\MaterialSpacing.cs" />
+    <Compile Include="Sources\Type\InterimSpacePreset.cs" />
     <Compile Include="Sources\Font\RobotoFont.cs" />
-    <Compile Include="Sources\Icon\MaterialIcon.cs" />
-    <Compile Include="Sources\Navigation\TabBar.cs" />
+    <Compile Include="Sources\Icon\Icon.cs" />
     <Compile Include="Sources\Layer\MaterialTextLayer.cs" />
     <Compile Include="Sources\Extension\Material+UIFont.cs" />
     <Compile Include="Sources\View\MaterialView.cs" />
@@ -121,10 +123,8 @@
     <Compile Include="Sources\Navigation\RootController.cs" />
     <Compile Include="Sources\Navigation\ControlView.cs" />
     <Compile Include="Sources\Navigation\SearchBarController.cs" />
-    <Compile Include="Sources\Navigation\Toolbar.cs" />
     <Compile Include="Sources\Navigation\SearchBar.cs" />
     <Compile Include="Sources\Navigation\BarView.cs" />
-    <Compile Include="Sources\Navigation\ToolBarController.cs" />
     <Compile Include="Sources\Navigation\NavigationItem.cs" />
     <Compile Include="Sources\Navigation\NavigationController.cs" />
     <Compile Include="Sources\Navigation\NavigationDrawerController.cs" />
@@ -142,6 +142,10 @@
     <Compile Include="Sources\Menu\Menu.cs" />
     <Compile Include="Sources\Menu\MenuController.cs" />
     <Compile Include="Sources\Menu\MenuView.cs" />
+    <Compile Include="Sources\Bar\Bar.cs" />
+    <Compile Include="Sources\Toolbar\Toolbar.cs" />
+    <Compile Include="Sources\Toolbar\ToolBarController.cs" />
+    <Compile Include="Sources\TabBar\TabBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
@@ -179,6 +183,12 @@
     <BundleResource Include="Resources\cm_menu_white.png" />
     <BundleResource Include="Resources\cm_menu_white%402x.png" />
     <BundleResource Include="Resources\cm_menu_white%403x.png" />
+    <BundleResource Include="Resources\cm_share_white.png" />
+    <BundleResource Include="Resources\cm_share_white%402x.png" />
+    <BundleResource Include="Resources\cm_share_white%403x.png" />
+    <BundleResource Include="Resources\ic_favorite_white.png" />
+    <BundleResource Include="Resources\ic_favorite_white%402x.png" />
+    <BundleResource Include="Resources\ic_favorite_white%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>

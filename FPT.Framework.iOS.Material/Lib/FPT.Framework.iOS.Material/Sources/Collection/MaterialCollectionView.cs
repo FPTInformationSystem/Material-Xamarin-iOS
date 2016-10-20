@@ -127,7 +127,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		public MaterialSpacing SpacingPreset
+		public InterimSpacePreset SpacingPreset
 		{
 			get
 			{

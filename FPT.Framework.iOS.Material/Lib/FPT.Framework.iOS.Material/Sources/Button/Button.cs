@@ -103,7 +103,7 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mContentEdgeInsetsPreset = value;
-				var Value = Convert.MaterialEdgeInsetToValue(mContentEdgeInsetsPreset);
+				var Value = Convert.EdgeInsetsPresetToValue(mContentEdgeInsetsPreset);
 				ContentEdgeInsets = new UIEdgeInsets(Value.Top, Value.Left, Value.Bottom, Value.Right);
 			}
 		}

@@ -31,10 +31,22 @@
 //using UIKit;
 //namespace FPT.Framework.iOS.Material
 //{
-//	public class CardView : MaterialPulseView
+//	public class CardView : PulseView
 //	{
 
 //		#region PROPERTIES
+
+//		/// Will layout the view.
+//		public bool WillLayout
+//		{
+//			get
+//			{
+//				return 0 < this.Width() && Superview != null;
+//			}
+//		}
+
+//		/// A container view for subviews.
+//		public UIView Container { get; private set; } = new UIView();
 
 //		internal CAShapeLayer DividerLayer { get; set;}
 

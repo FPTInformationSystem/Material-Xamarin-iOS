@@ -57,8 +57,8 @@ namespace FPT.Framework.iOS.Material
 		}
 
 		/// A preset wrapper around spacing.
-		private MaterialSpacing mSpacingPreset = MaterialSpacing.None;
-		public MaterialSpacing SpacingPreset
+		private InterimSpacePreset mSpacingPreset = InterimSpacePreset.None;
+		public InterimSpacePreset SpacingPreset
 		{
 			get
 			{
@@ -67,7 +67,7 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mSpacingPreset = value;
-				mSpacing = Convert.MaterialSpacingToValue(value);
+				mSpacing = Convert.InterimSpacePresetToValue(value);
 			}
 		}
 

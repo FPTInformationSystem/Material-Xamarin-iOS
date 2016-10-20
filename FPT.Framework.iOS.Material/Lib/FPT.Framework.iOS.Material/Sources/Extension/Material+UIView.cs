@@ -39,7 +39,7 @@ namespace FPT.Framework.iOS.Material
 		}
 		public static void SetX(this UIView view, nfloat value)
 		{
-			view.SetX(value);
+			view.Layer.SetX(value);
 		}
 
 		public static nfloat Y(this UIView view)
@@ -57,7 +57,7 @@ namespace FPT.Framework.iOS.Material
 		}
 		public static void SetWidth(this UIView view, nfloat value)
 		{
-			view.SetWidth(value);
+			view.Layer.SetWidth(value);
 		}
 
 		public static nfloat Height(this UIView view)
@@ -67,6 +67,15 @@ namespace FPT.Framework.iOS.Material
 		public static void SetHeight(this UIView view, nfloat value)
 		{
 			view.Layer.SetHeight(value);
+		}
+
+		public static HeightPreset HeightPreset(this UIView view)
+		{
+			return view.Layer.HeightPreset();
+		}
+		public static void SetHeightPreset(this UIView view, HeightPreset value)
+		{
+			view.Layer.SetHeightPreset(value);
 		}
 
 		public static ShapePreset ShapePreset(this UIView view)

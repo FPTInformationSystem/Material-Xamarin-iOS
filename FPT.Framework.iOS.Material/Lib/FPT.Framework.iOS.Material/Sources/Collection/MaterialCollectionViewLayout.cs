@@ -72,8 +72,8 @@ namespace FPT.Framework.iOS.Material
 
 		public UICollectionViewScrollDirection ScrollDirection { get; set; } = UICollectionViewScrollDirection.Vertical;
 
-		private MaterialSpacing mSpacingPreset = MaterialSpacing.None;
-		public MaterialSpacing SpacingPreset 
+		private InterimSpacePreset mSpacingPreset = InterimSpacePreset.None;
+		public InterimSpacePreset SpacingPreset 
 		{
 			get
 			{
@@ -82,7 +82,7 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mSpacingPreset = value;
-				Spacing = Convert.MaterialSpacingToValue(mSpacingPreset);
+				Spacing = Convert.InterimSpacePresetToValue(mSpacingPreset);
 			}
 		}
 

@@ -160,7 +160,7 @@ namespace FPT.Framework.iOS.Material
 			this.LayoutShadowPath();
 		}
 
-		public void Prepare()
+		public virtual void Prepare()
 		{
 			ContentScaleFactor = MaterialDevice.Scale;
 			BackgroundColor = Color.White;

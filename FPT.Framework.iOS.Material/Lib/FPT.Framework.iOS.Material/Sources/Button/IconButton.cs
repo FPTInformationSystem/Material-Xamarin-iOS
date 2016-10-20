@@ -26,6 +26,8 @@
 // THE SOFTWARE.
 using System;
 using CoreGraphics;
+using UIKit;
+
 namespace FPT.Framework.iOS.Material
 {
 	public class IconButton : Button
@@ -34,6 +36,8 @@ namespace FPT.Framework.iOS.Material
 		public IconButton(CGRect frame) : base(frame) { }
 
 		public IconButton() : base() { }
+
+		public IconButton(UIImage image, UIColor tintColor = null) : base(image, tintColor) { }
 
 		public override void Prepare()
 		{
