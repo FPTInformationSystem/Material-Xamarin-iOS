@@ -246,7 +246,7 @@ namespace FPT.Framework.iOS.Material
 			Reload();
 		}
 
-		public void Reload()
+		public virtual void Reload()
 		{
 			var lc = 0;
 			var rc = 0;

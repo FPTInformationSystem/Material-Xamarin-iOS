@@ -263,7 +263,7 @@ namespace FPT.Framework.iOS.Material
 			TextColor = Color.Black;
 			TextAlignment = UITextAlignment.Left;
 			Wrapped = true;
-			ContentsScale = MaterialDevice.Scale;
+			ContentsScale = Device.Scale;
 			LineBreakMode = UILineBreakMode.WordWrap;
 		}
 

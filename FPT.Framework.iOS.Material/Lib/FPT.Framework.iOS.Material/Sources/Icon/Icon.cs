@@ -110,7 +110,13 @@ namespace FPT.Framework.iOS.Material
 				}
 			}
 
-
+			public static UIImage Star
+			{
+				get
+				{
+					return Material.Icon.icon("cm_star_white");
+				}
+			}
 
 			public static UIImage Search
 			{

@@ -49,7 +49,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			var effectImage = self;
 
-			nfloat screenScale = MaterialDevice.Scale;
+			nfloat screenScale = Device.Scale;
 			var imageRect = new CGRect(CGPoint.Empty, self.Size);
 			var hasBlur = blurRadius > nfloat.Epsilon;
 			var hasSaturationChange = NMath.Abs(saturationDeltaFactor - 1f) > nfloat.Epsilon;

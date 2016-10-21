@@ -1,6 +1,6 @@
 ﻿// MIT/X11 License
 //
-// Material+UIImage+Resize.cs
+// Display.cs
 //
 // Author:
 //       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
@@ -25,44 +25,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CoreGraphics;
-using UIKit;
 namespace FPT.Framework.iOS.Material
 {
-	public static partial class Extensions
+	public enum Display
 	{
-
-		private static UIImage internalResize(this UIImage self, nfloat tw = default(nfloat), nfloat th = default(nfloat))
-		{
-			nfloat? w = null, h = null;
-
-			if (tw > 0)
-			{
-				h = self.Size.Height * tw / self.Size.Width;
-			}
-			else if (th > 0)
-			{
-				w = self.Size.Width * th / self.Size.Height;
-			}
-
-			UIImage g;
-			var t = new CGRect(0, 0, w ?? tw, h ?? th);
-			UIGraphics.BeginImageContextWithOptions(t.Size, false, Device.Scale);
-			self.Draw(t, CGBlendMode.Normal, 1f);
-			g = UIGraphics.GetImageFromCurrentImageContext();
-			UIGraphics.EndImageContext();
-
-			return g;
-		}
-		
-		public static UIImage ResizeToWidth(this UIImage self, nfloat width)
-		{
-			return self.internalResize(width, 0);
-		}
-
-		public static UIImage ResizeToHeight(this UIImage self, nfloat height)
-		{
-			return self.internalResize(0, height);
-		}
+		Partial, Full
 	}
 }

@@ -8,7 +8,7 @@ using Foundation;
 namespace ToolbarControllerDemo
 {
 	[Register("ViewController")]
-	partial class ViewController
+	partial class RootViewController
 	{
 		void ReleaseDesignerOutlets()
 		{

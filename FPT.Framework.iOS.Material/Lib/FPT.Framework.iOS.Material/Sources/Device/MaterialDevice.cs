@@ -10,7 +10,7 @@ namespace FPT.Framework.iOS.Material
 		iPad, iPhone, TV, Unspecified
 	}
 
-	public static class MaterialDevice
+	public static class Device
 	{
 
 		public static string Model

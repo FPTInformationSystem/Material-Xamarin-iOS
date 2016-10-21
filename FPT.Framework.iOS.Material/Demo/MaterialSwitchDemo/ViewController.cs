@@ -4,11 +4,11 @@ using UIKit;
 
 namespace MaterialSwitchDemo
 {
-	public partial class ViewController : UIViewController, MaterialSwitchDelegate
+	public partial class ViewController : UIViewController, SwitchDelegate
 	{
 
-		private MaterialView topView { get; set; } = new MaterialView();
-		private MaterialView bottomView { get; set; } = new MaterialView();
+		private View topView { get; set; } = new View();
+		private View bottomView { get; set; } = new View();
 
 		protected ViewController(IntPtr handle) : base(handle)
 		{
@@ -17,7 +17,7 @@ namespace MaterialSwitchDemo
 
 		public override void ViewDidLoad()
 		{
-			ViewController.ViewDidLoad(base);
+			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 			prepareView();
 			prepareLightContentMaterialSwitch();
@@ -32,9 +32,9 @@ namespace MaterialSwitchDemo
 
 		void prepareView()
 		{
-			View.BackgroundColor = MaterialColor.White;
+			View.BackgroundColor = Color.White;
 
-			bottomView.BackgroundColor = MaterialColor.Grey.Darken4;
+			bottomView.BackgroundColor = Color.Grey.Darken4;
 
 			View.Layout().Horizontally(topView);
 			View.Layout().Horizontally(bottomView);
@@ -45,13 +45,13 @@ namespace MaterialSwitchDemo
 
 		void prepareLightContentMaterialSwitch()
 		{
-			var c1 = new MaterialSwitch(state: MaterialSwitchState.Off, style: MaterialSwitchStyle.LightContent, size: MaterialSwitchSize.Small);
+			var c1 = new Switch(state: SwitchState.Off, style: SwitchStyle.LightContent, size: SwitchSize.Small);
 			c1.Delegate = this;
 
-			var c2 = new MaterialSwitch(state: MaterialSwitchState.On, style: MaterialSwitchStyle.LightContent);
+			var c2 = new Switch(state: SwitchState.On, style: SwitchStyle.LightContent);
 			c2.Delegate = this;
 
-			var c3 = new MaterialSwitch(state: MaterialSwitchState.Off, style: MaterialSwitchStyle.LightContent, size: MaterialSwitchSize.Large);
+			var c3 = new Switch(state: SwitchState.Off, style: SwitchStyle.LightContent, size: SwitchSize.Large);
 			c3.Delegate = this;
 
 			topView.Layout().Horizontally(c1);
@@ -65,13 +65,13 @@ namespace MaterialSwitchDemo
 
 		void prepareDefaultMaterialSwitch()
 		{
-			var c1 = new MaterialSwitch(state: MaterialSwitchState.Off, style: MaterialSwitchStyle.Default, size: MaterialSwitchSize.Small);
+			var c1 = new Switch(state: SwitchState.Off, style: SwitchStyle.Default, size: SwitchSize.Small);
 			c1.Delegate = this;
 
-			var c2 = new MaterialSwitch(state: MaterialSwitchState.On, style: MaterialSwitchStyle.Default);
+			var c2 = new Switch(state: SwitchState.On, style: SwitchStyle.Default);
 			c2.Delegate = this;
 
-			var c3 = new MaterialSwitch(state: MaterialSwitchState.Off, style: MaterialSwitchStyle.Default, size: MaterialSwitchSize.Large);
+			var c3 = new Switch(state: SwitchState.Off, style: SwitchStyle.Default, size: SwitchSize.Large);
 			c3.Delegate = this;
 
 			bottomView.Layout().Horizontally(c1);
@@ -83,7 +83,7 @@ namespace MaterialSwitchDemo
 			});
 		}
 
-		public void MaterialSwitchStateChanged(MaterialSwitch control)
+		public void SwitchStateChanged(Switch control)
 		{
 			var str = String.Format("MaterialSwitch - Style: {0}, Size: {1}, State: {2}, On: {3}, Selected: {4},  Highlighted: {5}",
 									control.SwitchStyle, control.SwitchSize, control.SwitchState, control.On, control.Selected, control.Highlighted

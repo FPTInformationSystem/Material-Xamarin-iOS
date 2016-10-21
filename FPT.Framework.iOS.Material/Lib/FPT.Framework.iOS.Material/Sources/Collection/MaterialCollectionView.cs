@@ -177,7 +177,7 @@ namespace FPT.Framework.iOS.Material
 
 		public virtual void prepareView()
 		{
-			ContentScaleFactor = MaterialDevice.Scale;
+			ContentScaleFactor = Device.Scale;
 			BackgroundColor = Color.Clear;
 			ContentInset = UIEdgeInsets.Zero;
 		}

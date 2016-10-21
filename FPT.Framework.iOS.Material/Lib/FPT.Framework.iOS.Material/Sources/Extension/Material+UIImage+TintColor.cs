@@ -34,7 +34,7 @@ namespace FPT.Framework.iOS.Material
 	{
 		public static UIImage TintWithColor(this UIImage image, UIColor color)
 		{
-			UIGraphics.BeginImageContextWithOptions(image.Size, false, MaterialDevice.Scale);
+			UIGraphics.BeginImageContextWithOptions(image.Size, false, Device.Scale);
 			var context = UIGraphics.GetCurrentContext();
 
 			context.ScaleCTM(1f, -1f);

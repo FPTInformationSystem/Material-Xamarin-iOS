@@ -71,6 +71,7 @@
     <Folder Include="Sources\Toolbar\" />
     <Folder Include="Sources\TabBar\" />
     <Folder Include="Sources\StatusBar\" />
+    <Folder Include="Sources\Root\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,10 +119,9 @@
     <Compile Include="Sources\Extension\Material+UIImage+Color.cs" />
     <Compile Include="Sources\Extension\Material+UIImage+Resize.cs" />
     <Compile Include="Sources\View\MaterialLabel.cs" />
-    <Compile Include="Sources\View\MaterialSwitch.cs" />
+    <Compile Include="Sources\View\Switch.cs" />
     <Compile Include="Sources\Text\TextField.cs" />
     <Compile Include="Sources\Text\ErrorTextField.cs" />
-    <Compile Include="Sources\Navigation\RootController.cs" />
     <Compile Include="Sources\Navigation\ControlView.cs" />
     <Compile Include="Sources\Navigation\SearchBarController.cs" />
     <Compile Include="Sources\Navigation\SearchBar.cs" />
@@ -148,6 +148,8 @@
     <Compile Include="Sources\Toolbar\ToolBarController.cs" />
     <Compile Include="Sources\TabBar\TabBar.cs" />
     <Compile Include="Sources\StatusBar\StatusBarController.cs" />
+    <Compile Include="Sources\Root\RootController.cs" />
+    <Compile Include="Sources\Root\Display.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
@@ -191,6 +193,9 @@
     <BundleResource Include="Resources\ic_favorite_white.png" />
     <BundleResource Include="Resources\ic_favorite_white%402x.png" />
     <BundleResource Include="Resources\ic_favorite_white%403x.png" />
+    <BundleResource Include="Resources\cm_star_white.png" />
+    <BundleResource Include="Resources\cm_star_white%402x.png" />
+    <BundleResource Include="Resources\cm_star_white%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>

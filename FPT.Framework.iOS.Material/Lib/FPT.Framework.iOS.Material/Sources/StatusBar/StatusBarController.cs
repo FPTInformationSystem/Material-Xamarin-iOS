@@ -82,7 +82,7 @@ namespace FPT.Framework.iOS.Material
 		public override void LayoutSubviews()
 		{
 			base.LayoutSubviews();
-			StatusBar.Hidden = MaterialDevice.IsLandscape && MaterialDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone;
+			StatusBar.Hidden = Device.IsLandscape && Device.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone;
 			RootViewController.View.Frame = View.Bounds;
 		}
 

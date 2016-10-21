@@ -39,11 +39,11 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return MaterialDevice.StatusBarStyle;
+				return Device.StatusBarStyle;
 			}
 			set
 			{
-				MaterialDevice.StatusBarStyle = value;
+				Device.StatusBarStyle = value;
 			}
 		}
 
@@ -89,7 +89,7 @@ namespace FPT.Framework.iOS.Material
 			Prepare();
 		}
 
-		public RootController(UIViewController rootViewController)// : base(null, null)
+		public RootController(UIViewController rootViewController) : base()
 		{
 			this.RootViewController = rootViewController;
 			Prepare();
@@ -139,7 +139,7 @@ namespace FPT.Framework.iOS.Material
 					s.RootViewController = toViewController;
 					s.RootViewController.View.ClipsToBounds = true;
 					s.RootViewController.View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-					s.RootViewController.View.ContentScaleFactor = MaterialDevice.Scale;
+					s.RootViewController.View.ContentScaleFactor = Device.Scale;
 					if (completion != null)
 					{
 						completion(finished);
@@ -159,7 +159,7 @@ namespace FPT.Framework.iOS.Material
 		public virtual void Prepare()
 		{
 			View.ClipsToBounds = true;
-			View.ContentScaleFactor = MaterialDevice.Scale;
+			View.ContentScaleFactor = Device.Scale;
 			prepareRootViewController();
 		}
 
@@ -187,7 +187,7 @@ namespace FPT.Framework.iOS.Material
 				v.DidMoveToParentViewController(this);
 				v.View.ClipsToBounds = true;
 				v.View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-				v.View.ContentScaleFactor = MaterialDevice.Scale;
+				v.View.ContentScaleFactor = Device.Scale;
 			}
 		}
 

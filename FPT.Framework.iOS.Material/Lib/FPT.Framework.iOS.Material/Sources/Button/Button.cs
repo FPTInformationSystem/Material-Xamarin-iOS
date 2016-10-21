@@ -251,7 +251,7 @@ namespace FPT.Framework.iOS.Material
 
 		public virtual void Prepare()
 		{
-			ContentScaleFactor = MaterialDevice.Scale;
+			ContentScaleFactor = Device.Scale;
 			ContentEdgeInsetsPreset = EdgeInsetsPreset.None;
 			PrepareVisualLayer();
 		}

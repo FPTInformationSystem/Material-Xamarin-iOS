@@ -3,11 +3,18 @@ using UIKit;
 using FPT.Framework.iOS.Material;
 using ObjCRuntime;
 using Foundation;
+using System.Collections.Generic;
 
 namespace ToolbarControllerDemo
 {
-	public class AppToolbarController : ToolBarController
+	public class AppToolbarController : ToolbarController
 	{
+
+		#region PROPERTIES
+		private IconButton menuButton;
+		private IconButton starButton;
+		private IconButton searchButton;
+		#endregion
 
 		#region CONSTRUCTORS
 
@@ -19,74 +26,45 @@ namespace ToolbarControllerDemo
 
 		#region FUNCTIONS
 
-		public override void PrepareView()
+		public override void Prepare()
 		{
-			base.PrepareView();
-			StatusBarStyle = UIStatusBarStyle.LightContent;
+			base.Prepare();
+			prepareMenuButton();
+			prepareStarButton();
+			prepareSearchButton();
+			prepareStatusBar();
 			prepareToolbar();
 		}
 
-		[Export("handleMenuButton")]
-		private void handleMenuButton()
+		void prepareMenuButton()
 		{
-
-			//TransitionFromRootViewController(RootViewController is YellowViewController ? new GreenViewController() : new YellowViewController());
-			if (RootViewController is YellowViewController)
-			{
-				TransitionFromRootViewController(new GreenViewController());
-			}
-			else
-			{
-				TransitionFromRootViewController(new YellowViewController());
-			}
-
+			menuButton = new IconButton(Icon.CM.Menu, Color.White);
+			menuButton.PulseColor = Color.White;
 		}
 
-		[Export("handleSearchButton")]
-		private void handleSearchButton()
+		void prepareStarButton()
 		{
-			floatingViewController = new GreenViewController();
-			MaterialAnimation.Delay(1.5, () =>
-			{
-				this.floatingViewController = null;
-			});
+			starButton = new IconButton(Icon.CM.Star, Color.White);
+			starButton.PulseColor = Color.White;
+		}
+
+		void prepareSearchButton()
+		{
+			searchButton = new IconButton(Icon.CM.Search, Color.White);
+			searchButton.PulseColor = Color.White;
+		}
+
+		void prepareStatusBar()
+		{
+			StatusBarStyle = UIStatusBarStyle.LightContent;
+			StatusBar.BackgroundColor = Color.Blue.Darken3;
 		}
 
 		private void prepareToolbar()
 		{
-			Toolbar.Title = "Material";
-			Toolbar.TitleLabel.TextColor = MaterialColor.White;
-
-			Toolbar.Detail = "Build Beautiful Software";
-			Toolbar.DetailLabel.TextAlignment = UITextAlignment.Left;
-			Toolbar.DetailLabel.TextColor = MaterialColor.White;
-
-			var image = MaterialIcon.CM.Menu;
-
-			var menuButton = new IconButton();
-			menuButton.TintColor = MaterialColor.White;
-			menuButton.PulseColor = MaterialColor.White;
-			menuButton.SetImage(image, UIControlState.Normal);
-			menuButton.SetImage(image, UIControlState.Highlighted);
-			menuButton.AddTarget(this, new Selector("handleMenuButton"), UIControlEvent.TouchUpInside);
-
-			var switchControl = new MaterialSwitch(MaterialSwitchState.Off, MaterialSwitchStyle.LightContent, MaterialSwitchSize.Small);
-
-			image = MaterialIcon.CM.Search;
-			var searchButton = new IconButton();
-			searchButton.TintColor = MaterialColor.White;
-			searchButton.PulseColor = MaterialColor.White;
-			searchButton.SetImage(image, UIControlState.Normal);
-			searchButton.SetImage(image, UIControlState.Highlighted);
-			searchButton.AddTarget(this, new Selector("handleSearchButton"), UIControlEvent.TouchUpInside);
-
-			Toolbar.BackgroundColor = MaterialColor.Blue.Base;
-			Toolbar.LeftControls = new UIControl[] {
-				menuButton
-			};
-			Toolbar.RightControls = new UIControl[] {
-				switchControl, searchButton
-			};
+			Toolbar.BackgroundColor = Color.Blue.Darken2;
+			Toolbar.LeftViews = new List<UIView>() { menuButton };
+			Toolbar.RightViews = new List<UIView>() { starButton, searchButton };
 		}
 
 		#endregion

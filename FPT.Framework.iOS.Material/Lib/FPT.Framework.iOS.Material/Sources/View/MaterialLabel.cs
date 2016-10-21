@@ -154,14 +154,14 @@ namespace FPT.Framework.iOS.Material
 		public MaterialLabel(Foundation.NSCoder coder) : base(coder)
 		{
 			Wrapped = true;
-			ContentsScale = MaterialDevice.Scale;
+			ContentsScale = Device.Scale;
 			prepareView();
 		}
 
 		public MaterialLabel(CGRect frame) : base(frame)
 		{
 			Wrapped = true;
-			ContentsScale = Material.MaterialDevice.Scale;
+			ContentsScale = Material.Device.Scale;
 			prepareView();
 		}
 
@@ -176,7 +176,7 @@ namespace FPT.Framework.iOS.Material
 
 		public virtual void prepareView()
 		{
-			ContentScaleFactor = MaterialDevice.Scale;
+			ContentScaleFactor = Device.Scale;
 			TextAlignment = UITextAlignment.Left;
 		}
 
