@@ -83,11 +83,14 @@ namespace MaterialSwitchDemo
 			});
 		}
 
-		public void SwitchStateChanged(Switch control)
+		public void SwitchStateChanged(Switch control, SwitchState state)
 		{
 			var str = String.Format("MaterialSwitch - Style: {0}, Size: {1}, State: {2}, On: {3}, Selected: {4},  Highlighted: {5}",
 									control.SwitchStyle, control.SwitchSize, control.SwitchState, control.On, control.Selected, control.Highlighted
 								   );
+			Console.WriteLine(str);
+
+			str = String.Format("Switch changed to {0}", state);
 			Console.WriteLine(str);
 		}
 	}

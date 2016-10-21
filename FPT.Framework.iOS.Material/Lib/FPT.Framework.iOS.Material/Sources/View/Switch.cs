@@ -50,7 +50,7 @@ namespace FPT.Framework.iOS.Material
 
 	public interface SwitchDelegate
 	{
-		void SwitchStateChanged(Switch control);
+		void SwitchStateChanged(Switch control, SwitchState state);
 	}
 
 	public class Switch : UIControl
@@ -465,7 +465,7 @@ namespace FPT.Framework.iOS.Material
 						}
 						if (s.Delegate != null)
 						{
-							s.Delegate.SwitchStateChanged(this);
+							s.Delegate.SwitchStateChanged(this, this.internalSwitchState);
 						}
 					});
 				}
@@ -480,7 +480,7 @@ namespace FPT.Framework.iOS.Material
 					}
 					if (Delegate != null)
 					{
-						Delegate.SwitchStateChanged(this);
+						Delegate.SwitchStateChanged(this, this.internalSwitchState);
 					}
 				}
 			}

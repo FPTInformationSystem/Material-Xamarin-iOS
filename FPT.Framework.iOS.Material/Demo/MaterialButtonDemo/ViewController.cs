@@ -37,7 +37,7 @@ namespace MaterialButtonDemo
 		{
 			nfloat w = 64;
 			//let img: UIImage ? = MaterialIcon.cm.pen
-			var img = MaterialIcon.CM.Add;
+			var img = Icon.CM.Add;
 			var button = new FabButton(new CGRect((View.Bounds.Width - w) / 2, 300, w, w));
 			button.SetImage(image: img, forState: UIControlState.Normal);
 			button.SetImage(image: img, forState: UIControlState.Highlighted);
@@ -63,7 +63,7 @@ namespace MaterialButtonDemo
 		private void prepareIconButtonExample()
 		{
 			nfloat w = 64f;
-			var img = MaterialIcon.CM.Search;
+			var img = Icon.CM.Search;
 			var button = new IconButton(new CGRect((View.Bounds.Width - w) / 2, 400, w, w));
 			button.SetImage(image: img, forState: UIControlState.Normal);
 			button.SetImage(image: img, forState: UIControlState.Highlighted);
