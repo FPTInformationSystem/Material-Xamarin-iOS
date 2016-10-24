@@ -19,7 +19,7 @@ namespace TextFieldDemo
 
 		public override void ViewDidLoad()
 		{
-			ViewController.ViewDidLoad(base);
+			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 			prepareView();
 			prepareNameField();
@@ -30,7 +30,7 @@ namespace TextFieldDemo
 
 		void prepareView()
 		{
-			View.BackgroundColor = MaterialColor.White;
+			View.BackgroundColor = Color.White;
 		}
 
 		void prepareNameField()
@@ -53,9 +53,9 @@ namespace TextFieldDemo
 			emailField.EnableClearIconButton = true;
 			emailField.Delegate = new ViewControllerTextFieldDelegate(this);
 
-			emailField.PlaceholderColor = MaterialColor.Amber.Darken4;
-			emailField.PlaceholderActiveColor = MaterialColor.Pink.Base;
-			emailField.DividerColor = MaterialColor.Cyan.Base;
+			emailField.PlaceholderNormalColor = Color.Amber.Darken4;
+			emailField.PlaceholderActiveColor = Color.Pink.Base;
+			emailField.DividerNormalColor = Color.Cyan.Base;
 
 			View.AddSubview(emailField);
 		}
@@ -69,7 +69,7 @@ namespace TextFieldDemo
 			passwordField.EnableVisibilityIconButton = true;
 
 			// Setting the visibilityFlatButton color.
-			passwordField.VisibilityIconButton.TintColor = MaterialColor.Green.Base.ColorWithAlpha(passwordField.SecureTextEntry ? 0.38f : 0.54f);
+			passwordField.VisibilityIconButton.TintColor = Color.Green.Base.ColorWithAlpha(passwordField.SecureTextEntry ? 0.38f : 0.54f);
 
 			View.Layout(passwordField).Top(200).Horizontally(left: 40, right: 40);
 		}
@@ -94,7 +94,7 @@ namespace TextFieldDemo
 			{
 				if (textField is ErrorTextField)
 				{
-					(textField as ErrorTextField).RevealError = true;
+					(textField as ErrorTextField).IsErrorRevealed = true;
 				}
 				return true;
 			}
@@ -113,7 +113,7 @@ namespace TextFieldDemo
 			{
 				if (textField is ErrorTextField)
 				{
-					(textField as ErrorTextField).RevealError = false;
+					(textField as ErrorTextField).IsErrorRevealed = false;
 				}
 			}
 
@@ -121,7 +121,7 @@ namespace TextFieldDemo
 			{
 				if (textField is ErrorTextField)
 				{
-					(textField as ErrorTextField).RevealError = false;
+					(textField as ErrorTextField).IsErrorRevealed = false;
 				}
 				return true;
 			}
@@ -130,7 +130,7 @@ namespace TextFieldDemo
 			{
 				if (textField is ErrorTextField)
 				{
-					(textField as ErrorTextField).RevealError = false;
+					(textField as ErrorTextField).IsErrorRevealed = false;
 				}
 				return true;
 			}

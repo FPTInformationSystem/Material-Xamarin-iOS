@@ -72,6 +72,7 @@
     <Folder Include="Sources\TabBar\" />
     <Folder Include="Sources\StatusBar\" />
     <Folder Include="Sources\Root\" />
+    <Folder Include="Sources\Divider\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Sources\StatusBar\StatusBarController.cs" />
     <Compile Include="Sources\Root\RootController.cs" />
     <Compile Include="Sources\Root\Display.cs" />
+    <Compile Include="Sources\Divider\Divider.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
