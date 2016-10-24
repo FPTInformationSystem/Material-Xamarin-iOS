@@ -35,6 +35,14 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		public static UIImage Email
+		{
+			get
+			{
+				return Material.Icon.icon("ic_email_white");
+			}
+		}
+
 		public static UIImage Favorite
 		{
 			get
@@ -56,6 +64,14 @@ namespace FPT.Framework.iOS.Material
 			get
 			{
 				return Material.Icon.icon("ic_more_vert_white");
+			}
+		}
+
+		public static UIImage Phone
+		{
+			get
+			{
+				return Material.Icon.icon("ic_phone_white");
 			}
 		}
 

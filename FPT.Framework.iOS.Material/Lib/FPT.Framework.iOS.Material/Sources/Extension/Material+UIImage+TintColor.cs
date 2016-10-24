@@ -45,10 +45,11 @@ namespace FPT.Framework.iOS.Material
 			var rect = new CGRect(0, 0, image.Size.Width, image.Size.Height);
 			context.ClipToMask(rect, image.CGImage);
 			color.SetFill();
+			context.FillRect(rect);
 
 			var result = UIGraphics.GetImageFromCurrentImageContext();
 			UIGraphics.EndImageContext();
-			return result;
+			return result.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
 		}
 	}
 }

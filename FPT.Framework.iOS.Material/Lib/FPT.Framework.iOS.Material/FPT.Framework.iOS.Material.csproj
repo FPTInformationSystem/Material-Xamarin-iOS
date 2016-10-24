@@ -198,6 +198,12 @@
     <BundleResource Include="Resources\cm_star_white.png" />
     <BundleResource Include="Resources\cm_star_white%402x.png" />
     <BundleResource Include="Resources\cm_star_white%403x.png" />
+    <BundleResource Include="Resources\ic_phone_white.png" />
+    <BundleResource Include="Resources\ic_phone_white%402x.png" />
+    <BundleResource Include="Resources\ic_phone_white%403x.png" />
+    <BundleResource Include="Resources\ic_email_white.png" />
+    <BundleResource Include="Resources\ic_email_white%402x.png" />
+    <BundleResource Include="Resources\ic_email_white%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>

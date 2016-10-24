@@ -45,7 +45,9 @@ namespace FPT.Framework.iOS.Material
 
 	public class TextField : UITextField
 	{
-		
+
+		private NSObject TextFieldContext = new NSObject();
+
 		#region VARIABLES
 
 		//private TextFieldAnimationDelegate mAnimationDelegate;
@@ -71,7 +73,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		public bool IsPlaceholderAnimated { get; set; } = false;
+		public bool IsPlaceholderAnimated { get; set; } = true;
 
 		public bool IsAnimating { get; private set; } = false;
 
@@ -133,7 +135,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		private UIColor mDividerActiveColor;
+		private UIColor mDividerActiveColor = Color.Blue.Base;
 		public UIColor DividerActiveColor
 		{
 			get
@@ -201,7 +203,12 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		public UILabel PlaceholderLabel { get; private set; } = new UILabel(CGRect.Empty);
+		public UILabel PlaceholderLabel {
+			[Export("placeholderLabel", ArgumentSemantic.Retain)]
+			get;
+			[Export("setPlaceholderLabel:", ArgumentSemantic.Retain)]
+			private set;
+		} = new UILabel(CGRect.Empty);
 
 		private UIColor mPlaceholderNormalColor = Color.DarkText.Others;
 		public UIColor PlaceholderNormalColor
@@ -257,7 +264,12 @@ namespace FPT.Framework.iOS.Material
 
 		public nfloat PlaceholderVerticalOffset { get; set; } = 0;
 
-		public UILabel DetailLabel { get; set; } = new UILabel(CGRect.Empty);
+		public UILabel DetailLabel { 
+			[Export("detailLabel", ArgumentSemantic.Retain)]
+			get;
+			[Export("setDetailLabel:", ArgumentSemantic.Retain)]
+			set; 
+		} = new UILabel(CGRect.Empty);
 
 		public String Detail
 		{
@@ -316,7 +328,7 @@ namespace FPT.Framework.iOS.Material
 		/// A reference to the clearIconButton.
 		public IconButton ClearIconButton { get; private set; }
 
-		public bool EnableClearIconButton
+		public bool IsClearIconButtonEnabled
 		{
 			get
 			{
@@ -371,7 +383,7 @@ namespace FPT.Framework.iOS.Material
 		/// A reference to the visibilityIconButton.
 		public IconButton VisibilityIconButton { get; private set; }
 
-		public bool EnableVisibilityIconButton
+		public bool IsVisibilityIconButtonEnabled
 		{
 			get
 			{
@@ -425,9 +437,30 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
+		{
+			if (keyPath.ToString() == "placeholderLabel.text")
+			{
+				updatePlaceholderLabelColor();
+				return;
+			}
+			if (keyPath.ToString() == "detailLabel.text")
+			{
+				updateDetailLabelColor();
+				return;
+			}
+
+			base.ObserveValue(keyPath, ofObject, change, context);
+		}
+
 		#endregion
 
 		#region CONSTRUCTORS
+		~TextField()
+		{
+			RemoveObserver(this, "placeholderLabel.text");
+			RemoveObserver(this, "detailLabel.text");
+		}
 
 		public TextField() : this(CGRect.Empty)
 		{
@@ -470,7 +503,7 @@ namespace FPT.Framework.iOS.Material
 		}
 
 		// Live updates the textField text.
-		[Export("handleEditingChanged:textField")]
+		[Export("handleEditingChanged:")]
 		public void handleEditingChanged(UITextField textField)
 		{
 			if (Delegate != null && Delegate is TextFieldDelegate)
@@ -626,14 +659,20 @@ namespace FPT.Framework.iOS.Material
 
 		private void dividerEditingDidBeginAnimation()
 		{
-			placeholderEditingDidEndAnimation();
-			dividerEditingDidBeginAnimation();
+			//placeholderEditingDidEndAnimation();
+			//dividerEditingDidBeginAnimation();
+
+			this.SetDividerThickness(DividerActiveHeight);
+			this.SetDividerColor(DividerActiveColor);
 		}
 
 		private void dividerEditingDidEndAnimation()
 		{
-			placeholderEditingDidEndAnimation();
-			dividerEditingDidEndAnimation();
+			//placeholderEditingDidEndAnimation();
+			//dividerEditingDidEndAnimation();
+
+			this.SetDividerThickness(DividerNormalHeight);
+			this.SetDividerColor(DividerNormalColor);
 		}
 
 		private void placeholderEditingDidBeginAnimation()
@@ -681,22 +720,16 @@ namespace FPT.Framework.iOS.Material
 				UIView.Animate(duration: 0.15f,
 					animation: () =>
 					{
-						var v = this;
-						v.PlaceholderLabel.Transform = CGAffineTransform.MakeIdentity();
-						var frame = v.PlaceholderLabel.Frame;
-						frame.X = 0;
-						frame.Y = 0;
-						v.PlaceholderLabel.Frame = frame;
-						v.PlaceholderLabel.TextColor = v.PlaceholderNormalColor;
+						var s = this;
+						s.PlaceholderLabel.Transform = CGAffineTransform.MakeIdentity();
+						s.PlaceholderLabel.SetX(s.LeftViewWidth);
+						s.PlaceholderLabel.SetY(0);
+						s.PlaceholderLabel.TextColor = s.PlaceholderNormalColor;
 					},
 	                completion: () =>
 					{
 						IsAnimating = false;
 				 	});
-			}
-			else if (!IsEditing)
-			{
-				PlaceholderLabel.TextColor = PlaceholderNormalColor;
 			}
 		}
 
@@ -707,8 +740,10 @@ namespace FPT.Framework.iOS.Material
 
 		private void preparePlaceholderLabel()
 		{
+			Font = RobotoFont.RegularWithSize(16);
 			PlaceholderNormalColor = Color.DarkText.Others;
 			AddSubview(PlaceholderLabel);
+			AddObserver(this, "placeholderLabel.text", default(NSKeyValueObservingOptions), TextFieldContext.Handle);
 		}
 
 		private void prepareDetailLabel()
@@ -716,6 +751,7 @@ namespace FPT.Framework.iOS.Material
 			DetailLabel.Font = RobotoFont.RegularWithSize(12f);
 			DetailColor = Color.DarkText.Others;
 			AddSubview(DetailLabel);
+			AddObserver(this, "detailLabel.text", default(NSKeyValueObservingOptions), TextFieldContext.Handle);
 		}
 
 		private void prepareLeftView()
@@ -726,7 +762,7 @@ namespace FPT.Framework.iOS.Material
 		private void prepareTargetHandlers()
 		{
 			AddTarget(this, new Selector("handleEditingDidBegin"), UIControlEvent.EditingDidBegin);
-			AddTarget(this, new Selector("handleEditingChanged"), UIControlEvent.EditingDidEnd);
+			AddTarget(this, new Selector("handleEditingChanged:"), UIControlEvent.EditingDidEnd);
 			AddTarget(this, new Selector("handleEditingDidEnd"), UIControlEvent.EditingDidEnd);
 		}
 

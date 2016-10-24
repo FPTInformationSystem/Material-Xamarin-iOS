@@ -27,12 +27,14 @@
 
 using System;
 using CoreGraphics;
+using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
 	public class RaisedButton : Button
 	{
 		public RaisedButton(CGRect frame) : base(frame) { }
+		public RaisedButton(String title, UIColor tintColor = null) : base(title, tintColor) { }
 
 		public override void Prepare()
 		{

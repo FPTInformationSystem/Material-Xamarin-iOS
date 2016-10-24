@@ -8,9 +8,11 @@ namespace TextFieldDemo
 	public partial class ViewController : UIViewController
 	{
 
-		private TextField nameField { get; set;}
-		private ErrorTextField emailField { get; set;}
-		private TextField passwordField { get; set;}
+		private TextField nameField { get; set; }
+		private ErrorTextField emailField { get; set; }
+		private TextField passwordField { get; set; }
+
+		nfloat constant = 32;
 
 		protected ViewController(IntPtr handle) : base(handle)
 		{
@@ -21,16 +23,17 @@ namespace TextFieldDemo
 		{
 			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
-			prepareView();
+
+			View.BackgroundColor = Color.Grey.Lighten5;
 			prepareNameField();
 			prepareEmailField();
 			preparePasswordField();
 			prepareResignResponderButton();
 		}
 
-		void prepareView()
+		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
 		{
-			View.BackgroundColor = Color.White;
+			emailField.SetWidth(View.Height() - 2 * constant);
 		}
 
 		void prepareNameField()
@@ -39,23 +42,34 @@ namespace TextFieldDemo
 			nameField.Text = "Quan P";
 			nameField.Placeholder = "Name";
 			nameField.Detail = "Your given name";
-			nameField.TextAlignment = UITextAlignment.Center;
-			nameField.ClearButtonMode = UITextFieldViewMode.WhileEditing;
+			nameField.IsClearIconButtonEnabled = true;
 
-			View.Layout(nameField).Top(40).Horizontally(left: 40, right: 40);
+			var leftView = new UIImageView();
+			leftView.Image = Icon.Phone.TintWithColor(Color.Blue.Base);
+
+			nameField.LeftView = leftView;
+			nameField.LeftViewMode = UITextFieldViewMode.Always;
+
+			View.Layout(nameField).Top(4 * constant).Horizontally(left: constant, right: constant);
 		}
 
 		void prepareEmailField()
 		{
-			emailField = new ErrorTextField(new CGRect(40, 120, View.Bounds.Width - 80, 32));
+			emailField = new ErrorTextField(new CGRect(constant, 7*constant, View.Width() - 2*constant, constant));
 			emailField.Placeholder = "Email";
 			emailField.Detail = "Error, incorrect email";
-			emailField.EnableClearIconButton = true;
+			emailField.IsClearIconButtonEnabled = true;
 			emailField.Delegate = new ViewControllerTextFieldDelegate(this);
 
-			emailField.PlaceholderNormalColor = Color.Amber.Darken4;
-			emailField.PlaceholderActiveColor = Color.Pink.Base;
-			emailField.DividerNormalColor = Color.Cyan.Base;
+			var leftView = new UIImageView();
+			leftView.Image = Icon.Email.TintWithColor(Color.Blue.Base);
+
+			emailField.LeftView = leftView;
+			emailField.LeftViewMode = UITextFieldViewMode.Always;
+
+			//emailField.PlaceholderNormalColor = Color.Amber.Darken4;
+			//emailField.PlaceholderActiveColor = Color.Pink.Base;
+			//emailField.DividerNormalColor = Color.Cyan.Base;
 
 			View.AddSubview(emailField);
 		}
@@ -66,74 +80,80 @@ namespace TextFieldDemo
 			passwordField.Placeholder = "Password";
 			passwordField.Detail = "At least 8 characters";
 			passwordField.ClearButtonMode = UITextFieldViewMode.WhileEditing;
-			passwordField.EnableVisibilityIconButton = true;
+			passwordField.IsClearIconButtonEnabled = true;
+			passwordField.IsVisibilityIconButtonEnabled = true;
 
 			// Setting the visibilityFlatButton color.
 			passwordField.VisibilityIconButton.TintColor = Color.Green.Base.ColorWithAlpha(passwordField.SecureTextEntry ? 0.38f : 0.54f);
 
-			View.Layout(passwordField).Top(200).Horizontally(left: 40, right: 40);
+			View.Layout(passwordField).Top(10*constant).Horizontally(left: constant, right: constant);
 		}
 
 		void prepareResignResponderButton()
 		{
-			nameField.ResignFirstResponder();
-			emailField.ResignFirstResponder();
-			passwordField.ResignFirstResponder();
+			var btn = new RaisedButton("Resign", Color.Blue.Base);
+			btn.TouchUpInside += (sender, e) =>
+			{
+				nameField.ResignFirstResponder();
+				emailField.ResignFirstResponder();
+				passwordField.ResignFirstResponder();
+			};
+			View.Layout(btn).Width(100).Height(constant).Top(24).Right(24);
+		}
+	}
+
+	public class ViewControllerTextFieldDelegate : TextFieldDelegate
+	{
+		ViewController mParent;
+
+		public ViewControllerTextFieldDelegate(ViewController parent) : base()
+		{
+			mParent = parent;
 		}
 
-		public class ViewControllerTextFieldDelegate : TextFieldDelegate
+		public override bool ShouldReturn(UITextField textField)
 		{
-			ViewController mParent;
-
-			public ViewControllerTextFieldDelegate(ViewController parent) : base()
+			if (textField is ErrorTextField)
 			{
-				mParent = parent;
+				(textField as ErrorTextField).IsErrorRevealed = true;
 			}
+			return true;
+		}
 
-			public override bool ShouldReturn(UITextField textField)
-			{
-				if (textField is ErrorTextField)
-				{
-					(textField as ErrorTextField).IsErrorRevealed = true;
-				}
-				return true;
-			}
+		public override bool ShouldBeginEditing(UITextField textField)
+		{
+			return true;
+		}
 
-			public override bool ShouldBeginEditing(UITextField textField)
-			{
-				return true;
-			}
+		public override bool ShouldEndEditing(UITextField textField)
+		{
+			return true;
+		}
 
-			public override bool ShouldEndEditing(UITextField textField)
+		public override void EditingEnded(UITextField textField)
+		{
+			if (textField is ErrorTextField)
 			{
-				return true;
+				(textField as ErrorTextField).IsErrorRevealed = false;
 			}
+		}
 
-			public override void EditingEnded(UITextField textField)
+		public override bool ShouldClear(UITextField textField)
+		{
+			if (textField is ErrorTextField)
 			{
-				if (textField is ErrorTextField)
-				{
-					(textField as ErrorTextField).IsErrorRevealed = false;
-				}
+				(textField as ErrorTextField).IsErrorRevealed = false;
 			}
+			return true;
+		}
 
-			public override bool ShouldClear(UITextField textField)
+		public override bool ShouldChangeCharacters(UITextField textField, Foundation.NSRange range, string replacementString)
+		{
+			if (textField is ErrorTextField)
 			{
-				if (textField is ErrorTextField)
-				{
-					(textField as ErrorTextField).IsErrorRevealed = false;
-				}
-				return true;
+				(textField as ErrorTextField).IsErrorRevealed = false;
 			}
-
-			public override bool ShouldChangeCharacters(UITextField textField, Foundation.NSRange range, string replacementString)
-			{
-				if (textField is ErrorTextField)
-				{
-					(textField as ErrorTextField).IsErrorRevealed = false;
-				}
-				return true;
-			}
+			return true;
 		}
 	}
 }
