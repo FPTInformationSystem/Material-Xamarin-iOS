@@ -1,6 +1,6 @@
 ﻿// MIT/X11 License
 //
-// FlatButton.cs
+// PageTabBarController.cs
 //
 // Author:
 //       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
@@ -24,26 +24,68 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
 using System;
-using CoreGraphics;
-using UIKit;
+using CoreAnimation;
+using Foundation;
 
 namespace FPT.Framework.iOS.Material
 {
-	public class FlatButton : Button
+
+	public class PageTabBarItem : FlatButton
 	{
-		public FlatButton(CGRect frame) : base(frame) { }
+	}
 
-		public FlatButton() : base() { }
+	public class PageTabBar : TabBar
+	{
+	}
 
-		public FlatButton(String title, UIColor tintColor = null) : base(title, tintColor) { }
+	public partial class Extensions
+	{
+
+		static NSObject sPageTabBarItemKey = new NSObject();
+		internal static PageTabBarItem PageTabBarItem(this CALayer layer)
+		{
+			var v = MaterialObjC.MaterialAssociatedObject(layer.Handle, sPageTabBarItemKey.Handle, () =>
+			{
+				return new MaterialLayer(layer).Handle;
+			});
+
+			return ObjCRuntime.Runtime.GetNSObject(v) as PageTabBarItem;
+
+		}
+
+		internal static void SetPageTabBarItem(this CALayer layer, PageTabBarItem value)
+		{
+			MaterialObjC.MaterialAssociatedObject(layer.Handle, sPageTabBarItemKey.Handle, value.Handle);
+
+		}
+	}
+
+	public class PageTabBarController : RootController
+	{
+
+		#region PROPERTOES
+
+		//PageTa
+
+		#endregion
+
+		public PageTabBarController(NSCoder coder) : base(coder)
+		{
+			Prepare();
+		}
+
+		#region FUNCTIONS
 
 		public override void Prepare()
 		{
 			base.Prepare();
-			this.SetCornerRadiusPreset(CornerRadiusPreset.Radius1);
-			this.ContentEdgeInsetsPreset = EdgeInsetsPreset.WideRectangle3;
 		}
+
+		private void preparePageTabBar()
+		{
+		}
+
+		#endregion
 	}
 }

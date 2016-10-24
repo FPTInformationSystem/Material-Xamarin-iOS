@@ -1,169 +1,265 @@
-﻿
-//// MIT/X11 License
-////
-//// TabBar.cs
-////
-//// Author:
-////       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
-////
-//// Copyright (c) 2016 FPT Information System.
-////
-//// Permission is hereby granted, free of charge, to any person obtaining a copy
-//// of this software and associated documentation files (the "Software"), to deal
-//// in the Software without restriction, including without limitation the rights
-//// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//// copies of the Software, and to permit persons to whom the Software is
-//// furnished to do so, subject to the following conditions:
-////
-//// The above copyright notice and this permission notice shall be included in
-//// all copies or substantial portions of the Software.
-////
-//// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//// THE SOFTWARE.
-//using System;
-//using System.Collections.Generic;
-//using CoreGraphics;
-//using Foundation;
-//using ObjCRuntime;
-//using UIKit;
+﻿// MIT/X11 License
+//
+// TabBar.cs
+//
+// Author:
+//       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
+//
+// Copyright (c) 2016 FPT Information System.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using CoreGraphics;
+using Foundation;
+using ObjCRuntime;
+using UIKit;
 
-//namespace FPT.Framework.iOS.Material
-//{
+namespace FPT.Framework.iOS.Material
+{
 
-//	public enum TabBarLineAlignment
-//	{
-//		Top, Bottom
-//	}
+	public enum TabBarLineAlignment
+	{
+		Top, Bottom
+	}
 
-//	public class TabBar : MaterialView
-//	{
+	public class TabBarDelegate
+	{
+		public virtual void WillSelect(TabBar tabBar, UIButton button) { }
+		public virtual void DidSelect(TabBar tabBar, UIButton button) { }
+	}
 
-//		#region PROPERTIES
+	public class TabBar : Bar
+	{
 
-//		public UIView Line
-//		{
-//			get; private set;
-//		}
+		#region PROPERTIES
+		/// A boolean indicating if the TabBar line is in an animation state.
+		public bool IsAnimating { get; internal set; } = false;
 
-//		private TabBarLineAlignment mLineAlignment = TabBarLineAlignment.Bottom;
-//		public TabBarLineAlignment LineAlignment
-//		{
-//			get
-//			{
-//				return mLineAlignment;
-//			}
-//			set
-//			{
-//				mLineAlignment = value;
-//				LayoutSubviews();
-//			}
-//		}
+		/// A delegation reference.
+		public TabBarDelegate Delegate { get; set; }
 
-//		public bool WillRenderView
-//		{
-//			get
-//			{
-//				return 0 < Width;
-//			}
-//		}
+		/// The currently selected button.
+		public UIButton Selected {get; internal set;}
 
-//		private UIButton[] mButtons;
-//		public UIButton[] Buttons
-//		{
-//			get
-//			{
-//				return mButtons;
-//			}
-//			set
-//			{
-//				if (mButtons != null && mButtons != value)
-//				{
-//					foreach (var b in mButtons)
-//					{
-//						b.RemoveFromSuperview();
-//					}
-//				}
-//				mButtons = value;
-//				if (mButtons != null)
-//				{
-//					foreach (var b in mButtons)
-//					{
-//						AddSubview(b);
-//				}
-//				}
-//			}
-//		}
+		/// Buttons.
+		private List<UIButton> mButtons = new List<UIButton>();
+		public List<UIButton> Buttons
+		{
+			get
+			{
+				return mButtons;
+			}
+			set
+			{
+				foreach (var b in Buttons)
+				{
+					b.RemoveFromSuperview();
+				}
 
-//		#endregion
+				mButtons = value;
 
-//		#region FUNCTIONS
+				CenterViews = Buttons.Cast<UIView>().ToList();
 
-//		public override void LayoutSubviews()
-//		{
-//			base.LayoutSubviews();
-//			if (WillRenderView)
-//			{
-//				var v = Buttons;
-//				if (v.Length > 0)
-//				{
-//					int columns = this.Grid().Axis.Columns / v.Length;
-//					foreach (var b in v)
-//					{
-//						b.Grid().Columns = columns;
-//						b.ContentEdgeInsets = UIEdgeInsets.Zero;
-//						b.Layer.CornerRadius = 0;
-//						b.TouchUpInside -= handleButton;
-//						b.TouchUpInside += handleButton;
-//						//b.RemoveTarget(this, new Selector(
-//					}
-//					this.Grid().Views = new List<UIView>(v);
-//					Line.Frame = new CGRect(0, LineAlignment == TabBarLineAlignment.Bottom ? Height - 3 : 0, v[0].Frame.Width, 3);
-//				}
-//			}
-//		}
+				LayoutSubviews();
+			}
+		}
 
-//		private void handleButton(object sender, EventArgs e)
-//		{
-//			UIButton button = sender as UIButton;
-//			UIView.Animate(0.25f, () =>
-//			{
-//				var frame = this.Line.Frame;
-//				frame.X = button.Frame.X;
-//				frame.Width = button.Frame.Width;
-//				this.Line.Frame = frame;
-//			});
-//		}
+		private bool mIsLineAnimated = true;
+		public bool IsLineAnimated
+		{
+			get
+			{
+				return mIsLineAnimated;
+			}
+			set
+			{
+				mIsLineAnimated = value;
+				foreach (var b in Buttons)
+				{
+					if (IsLineAnimated)
+					{
+						prepareLineAnimationHandler(b);
+					}
+					else
+					{
+						removeLineAnimationHandler(b);
+					}
+				}
+			}
+		}
 
-//		public override void PrepareView()
-//		{
-//			base.PrepareView();
-//			AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
-//			ContentScaleFactor = MaterialDevice.Scale;
-//			prepareBottomLayer();
-//		}
+		internal UIView Line { get; set;}
 
-//		private void prepareBottomLayer()
-//		{
-//			Line = new UIView();
-//			Line.BackgroundColor = MaterialColor.Yellow.Base;
-//			AddSubview(Line);
-//		}
+		public UIColor LineColor
+		{
+			get
+			{
+				return Line.BackgroundColor;
+			}
+			set
+			{
+				Line.BackgroundColor = value;
+			}
+		}
 
-//		#endregion
+		private TabBarLineAlignment mLineAlignment = TabBarLineAlignment.Bottom;
+		public TabBarLineAlignment LineAlignment
+		{
+			get
+			{
+				return mLineAlignment;
+			}
+			set
+			{
+				mLineAlignment = value;
+			}
+		}
 
-//		#region CONSTRUCTORS
+		public nfloat LineHeight
+		{
+			get
+			{
+				return Line.Height();
+			}
+			set
+			{
+				Line.SetHeight(value);
+			}
+		}
 
-//		public TabBar() : this(CGRect.Empty) { }
+		#endregion
 
-//		public TabBar(Foundation.NSCoder coder) : base(coder) { }
+		#region FUNCTIONS
 
-//		public TabBar(CGRect frame) : base(frame) { }
+		public override void LayoutSubviews()
+		{
+			base.LayoutSubviews();
+			if (WillLayout && 0 < Buttons.Count)
+			{
+				foreach (var b in Buttons)
+				{
+					b.Grid().Columns = 0;
+					b.SetCornerRadius(0);
+					b.ContentEdgeInsets = UIEdgeInsets.Zero;
 
-//		#endregion
-//	}
-//}
+					if (IsLineAnimated)
+					{
+						prepareLineAnimationHandler(b);
+					}
+				}
+
+				ContentView.Grid().Reload();
+
+				if (Selected == null)
+				{
+					Selected = Buttons[0];
+				}
+
+				Line.Frame = new CGRect(Selected.X(), LineAlignment == TabBarLineAlignment.Bottom? this.Height() - LineHeight : 0, Selected.Width(), LineHeight);
+			}
+		}
+
+		[Export("handleButton:")]
+		internal void handleButton(UIButton button)
+		{
+			Animate(button);
+		}
+
+		public void Select(int atIndex, Action<UIButton> completion = null)
+		{
+			if (-1 < atIndex && atIndex < Buttons.Count)
+			{
+				Animate(Buttons[atIndex], completion);
+			}
+		}
+
+		public void Animate(UIButton toButton, Action<UIButton> completion = null)
+		{
+			var button = toButton;
+			if (Delegate != null)
+			{
+				Delegate.WillSelect(this, button);
+			}
+			Selected = button;
+			IsAnimating = true;
+
+			UIView.Animate(0.25f, () =>
+			{
+				var s = this;
+				var point = s.Line.Center;
+				point.X = button.Center.X;
+				s.Line.Center = point;
+				s.Line.SetWidth(button.Width());
+
+			}, () =>
+			{
+				var s = this;
+				s.IsAnimating = false;
+				if (s.Delegate != null)
+				{
+					s.Delegate.DidSelect(s, button);
+				}
+				if (completion != null)
+				{
+					completion(button);
+				}
+			});
+		}
+
+		public override void Prepare()
+		{
+			base.Prepare();
+			this.SetHeightPreset(HeightPreset.Normal);
+			ContentEdgeInsetsPreset = EdgeInsetsPreset.None;
+			InterimSpacePreset = InterimSpacePreset.None;
+			prepareLine();
+			prepareDivider();
+		}
+
+		private void prepareLine()
+		{
+			Line = new UIView();
+			Line.SetZPosition(6000);
+			LineColor = Color.BlueGrey.Lighten3;
+			LineHeight = 3;
+			AddSubview(Line);
+		}
+
+		private void prepareDivider()
+		{
+			this.SetDividerAlignment(DividerAlignment.Top);
+		}
+
+		private void prepareLineAnimationHandler(UIButton button)
+		{
+			removeLineAnimationHandler(button);
+			button.AddTarget(this, new Selector("handleButton:"), UIControlEvent.TouchUpInside);
+		}
+
+		private void removeLineAnimationHandler(UIButton button)
+		{
+			button.RemoveTarget(this, new Selector("handleButton:"), UIControlEvent.TouchUpInside);
+		}
+
+		#endregion
+
+	}
+}

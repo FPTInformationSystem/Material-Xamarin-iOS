@@ -197,7 +197,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			return view.Divider().Alignment;
 		}
-		public static void SetDividerColor(this UIView view, DividerAlignment value)
+		public static void SetDividerAlignment(this UIView view, DividerAlignment value)
 		{
 			view.Divider().Alignment = value;
 		}

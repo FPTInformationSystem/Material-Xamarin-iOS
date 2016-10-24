@@ -202,6 +202,8 @@ namespace FPT.Framework.iOS.Material
 					}
 				}
 
+				mCenterViews = value;
+
 				LayoutSubviews();
 			}
 		}

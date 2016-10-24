@@ -73,6 +73,7 @@
     <Folder Include="Sources\StatusBar\" />
     <Folder Include="Sources\Root\" />
     <Folder Include="Sources\Divider\" />
+    <Folder Include="Sources\Page\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,11 +148,12 @@
     <Compile Include="Sources\Bar\Bar.cs" />
     <Compile Include="Sources\Toolbar\Toolbar.cs" />
     <Compile Include="Sources\Toolbar\ToolBarController.cs" />
-    <Compile Include="Sources\TabBar\TabBar.cs" />
     <Compile Include="Sources\StatusBar\StatusBarController.cs" />
     <Compile Include="Sources\Root\RootController.cs" />
     <Compile Include="Sources\Root\Display.cs" />
     <Compile Include="Sources\Divider\Divider.cs" />
+    <Compile Include="Sources\Page\PageTabBarController.cs" />
+    <Compile Include="Sources\TabBar\TabBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
