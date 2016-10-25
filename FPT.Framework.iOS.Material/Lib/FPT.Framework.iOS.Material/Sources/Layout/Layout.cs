@@ -809,7 +809,7 @@ namespace FPT.Framework.iOS.Material
 		static NSObject sLayoutKey = new NSObject();
 		public static Layout Layout(this UIView view)
 		{
-			var v = MaterialObjC.MaterialAssociatedObject(view.Handle, sLayoutKey.Handle, () =>
+			var v = MaterialObjC.AssociatedObject(view.Handle, sLayoutKey.Handle, () =>
 			{
 				return new Layout(view).Handle;
 			});

@@ -160,11 +160,11 @@ namespace FPT.Framework.iOS.Material
 		{
 			View.ClipsToBounds = true;
 			View.ContentScaleFactor = Device.Scale;
-			prepareRootViewController();
+			PrepareRootViewController();
 		}
 
 		/// A method that prepares the rootViewController.
-		private void prepareRootViewController()
+		internal virtual void PrepareRootViewController()
 		{
 			prepareViewControllerWithinContainer(RootViewController, View);
 		}

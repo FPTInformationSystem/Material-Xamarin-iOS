@@ -136,7 +136,7 @@ namespace FPT.Framework.iOS.Material
 		static NSObject sMaterialLayerKey = new NSObject();
 		internal static MaterialLayer MaterialLayer(this CALayer layer)
 		{
-			var v = MaterialObjC.MaterialAssociatedObject(layer.Handle, sMaterialLayerKey.Handle, () =>
+			var v = MaterialObjC.AssociatedObject(layer.Handle, sMaterialLayerKey.Handle, () =>
 			{
 				return new MaterialLayer(layer).Handle;
 			});

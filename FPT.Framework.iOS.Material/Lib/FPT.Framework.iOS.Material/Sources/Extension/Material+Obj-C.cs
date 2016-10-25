@@ -32,7 +32,7 @@ namespace FPT.Framework.iOS.Material
 {
 	public static class MaterialObjC
 	{
-		public static IntPtr MaterialAssociatedObject(IntPtr receiver, IntPtr key, Func<IntPtr> initializer)
+		public static IntPtr AssociatedObject(IntPtr receiver, IntPtr key, Func<IntPtr> initializer)
 		{
 			var v = Messaging.objc_getAssociatedObject(receiver, key);
 			if (v != IntPtr.Zero)

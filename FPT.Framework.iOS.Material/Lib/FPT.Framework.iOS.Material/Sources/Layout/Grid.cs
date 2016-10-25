@@ -398,7 +398,7 @@ namespace FPT.Framework.iOS.Material
 		static NSObject sGridKey = new NSObject();
 		public static Grid Grid(this UIView view)
 		{
-			var v = MaterialObjC.MaterialAssociatedObject(view.Handle, sGridKey.Handle, () =>
+			var v = MaterialObjC.AssociatedObject(view.Handle, sGridKey.Handle, () =>
 			{
 				return new Grid(view).Handle;
 			});

@@ -375,6 +375,14 @@ namespace FPT.Framework.iOS.Material
 		public static class BlueGrey
 		{
 
+			public static UIColor Lighten5
+			{
+				get
+				{
+					return new UIColor(red: 236f / 255f, green: 239f / 255f, blue: 241f / 255f, alpha: 1);
+				}
+			}
+
 			public static UIColor Lighten4
 			{
 				get

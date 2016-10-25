@@ -170,7 +170,7 @@ namespace FPT.Framework.iOS.Material
 		static NSObject sDividerKey = new NSObject();
 		public static Divider Divider(this UIView view)
 		{
-			var v = MaterialObjC.MaterialAssociatedObject(view.Handle, sDividerKey.Handle, () =>
+			var v = MaterialObjC.AssociatedObject(view.Handle, sDividerKey.Handle, () =>
 			{
 				return new Divider(view).Handle;
 			});

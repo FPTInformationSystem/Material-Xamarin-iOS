@@ -53,6 +53,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LegacyDemo", "LegacyDemo", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFieldDemo", "Demo\TextFieldDemo\TextFieldDemo.csproj", "{EFCFADBF-DAD6-4DE1-88DC-8EB376BDC876}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageTabBarControllerDemo", "Demo\PageTabBarControllerDemo\PageTabBarControllerDemo.csproj", "{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -245,6 +247,14 @@ Global
 		{EFCFADBF-DAD6-4DE1-88DC-8EB376BDC876}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{EFCFADBF-DAD6-4DE1-88DC-8EB376BDC876}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{EFCFADBF-DAD6-4DE1-88DC-8EB376BDC876}.Debug|iPhone.Build.0 = Debug|iPhone
+		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}.Release|iPhone.ActiveCfg = Release|iPhone
+		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}.Release|iPhone.Build.0 = Release|iPhone
+		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26C75516-374F-487F-8014-3B57C463C87A} = {C49F73A3-6958-486A-8089-DB6961B0708D}
@@ -271,5 +281,6 @@ Global
 		{FCFA19C9-6C79-47CA-A5DC-91AC3AAE3372} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{C49F73A3-6958-486A-8089-DB6961B0708D} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{EFCFADBF-DAD6-4DE1-88DC-8EB376BDC876} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
+		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 	EndGlobalSection
 EndGlobal
