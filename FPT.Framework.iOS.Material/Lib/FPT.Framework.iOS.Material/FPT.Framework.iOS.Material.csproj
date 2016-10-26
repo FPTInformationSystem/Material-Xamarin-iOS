@@ -114,7 +114,7 @@
     <Compile Include="Sources\Layout\Layout.cs" />
     <Compile Include="Sources\Extension\Material+Obj-C.cs" />
     <Compile Include="Sources\Table\MaterialTableViewCell.cs" />
-    <Compile Include="Sources\Card\CardView.cs" />
+    <Compile Include="Sources\Card\Card.cs" />
     <Compile Include="Sources\Extension\Material+UIImage+TintColor.cs" />
     <Compile Include="Sources\Extension\Material+UIImage+FilterBlur.cs" />
     <Compile Include="Sources\Extension\Material+UIImage+Blank.cs" />

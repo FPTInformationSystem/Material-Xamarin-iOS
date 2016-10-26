@@ -106,6 +106,10 @@ namespace FPT.Framework.iOS.Material
 
 		#endregion
 
+		public PulseView(Foundation.NSCoder coder) : base(coder)
+		{
+		}
+
 		public PulseView() : base()
 		{
 		}
