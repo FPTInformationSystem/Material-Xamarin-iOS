@@ -144,17 +144,17 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		private EdgeInsetsPreset mContentViewInsetPreset = EdgeInsetsPreset.None;
-		public EdgeInsetsPreset ContentViewInsetPreset
+		private EdgeInsetsPreset mContentViewEdgeInsetPreset = EdgeInsetsPreset.None;
+		public EdgeInsetsPreset ContentViewEdgeInsetPreset
 		{
 			get
 			{
-				return mContentViewInsetPreset;
+				return mContentViewEdgeInsetPreset;
 			}
 			set
 			{
-				mContentViewInsetPreset = value;
-				ContentViewEdgeInsets = Convert.EdgeInsetsPresetToValue(mContentViewInsetPreset);
+				mContentViewEdgeInsetPreset = value;
+				ContentViewEdgeInsets = Convert.EdgeInsetsPresetToValue(mContentViewEdgeInsetPreset);
 			}
 		}
 
@@ -253,8 +253,8 @@ namespace FPT.Framework.iOS.Material
 
 		public void Reload()
 		{
-			RemoveConstraints(Constraints);
-			foreach (var v in Subviews)
+			Container.RemoveConstraints(Container.Constraints);
+			foreach (var v in Container.Subviews)
 			{
 				v.RemoveFromSuperview();
 			}
@@ -301,12 +301,18 @@ namespace FPT.Framework.iOS.Material
 
 				if (ContentView != null)
 				{
+					metrics["contentViewBottom"] = NSNumber.FromNFloat((metrics["contentViewBottom"] as NSNumber).FloatValue + BottomBarEdgeInsets.Top);
+					format += "-[bottomBar]-(bottomBarBottom)";
 				}
 				else if (Toolbar != null)
 				{
+					metrics["toolbarBottom"] = NSNumber.FromNFloat((metrics["toolbarBottom"] as NSNumber).FloatValue + BottomBarEdgeInsets.Top);
+					format += "-[bottomBar]-(bottomBarBottom)";
 				}
 				else
 				{
+					metrics["bottomBarTop"] = NSNumber.FromNFloat(BottomBarEdgeInsets.Top);
+					format += "-(bottomBarTop)-[bottomBar]-(bottomBarBottom)";
 				}
 
 				views["bottomBar"] = BottomBar;

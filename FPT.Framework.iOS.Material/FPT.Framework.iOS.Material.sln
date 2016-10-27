@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFieldDemo", "Demo\TextF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageTabBarControllerDemo", "Demo\PageTabBarControllerDemo\PageTabBarControllerDemo.csproj", "{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardDemo", "Demo\CardDemo\CardDemo.csproj", "{E75D6F78-1001-4C26-B915-426EAA67DC09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -255,6 +257,14 @@ Global
 		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12}.Debug|iPhone.Build.0 = Debug|iPhone
+		{E75D6F78-1001-4C26-B915-426EAA67DC09}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{E75D6F78-1001-4C26-B915-426EAA67DC09}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{E75D6F78-1001-4C26-B915-426EAA67DC09}.Release|iPhone.ActiveCfg = Release|iPhone
+		{E75D6F78-1001-4C26-B915-426EAA67DC09}.Release|iPhone.Build.0 = Release|iPhone
+		{E75D6F78-1001-4C26-B915-426EAA67DC09}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{E75D6F78-1001-4C26-B915-426EAA67DC09}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{E75D6F78-1001-4C26-B915-426EAA67DC09}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{E75D6F78-1001-4C26-B915-426EAA67DC09}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26C75516-374F-487F-8014-3B57C463C87A} = {C49F73A3-6958-486A-8089-DB6961B0708D}
@@ -282,5 +292,6 @@ Global
 		{C49F73A3-6958-486A-8089-DB6961B0708D} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{EFCFADBF-DAD6-4DE1-88DC-8EB376BDC876} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
+		{E75D6F78-1001-4C26-B915-426EAA67DC09} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 	EndGlobalSection
 EndGlobal

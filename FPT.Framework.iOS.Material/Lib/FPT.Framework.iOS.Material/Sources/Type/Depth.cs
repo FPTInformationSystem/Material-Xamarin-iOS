@@ -12,15 +12,15 @@ namespace FPT.Framework.iOS.Material
 				case DepthPreset.None:
 					return null;
 				case DepthPreset.Depth1:
-				return new Depth(new UIOffset(0, 1), 0.3f, 0.5f);
+				return new Depth(new UIOffset(0, 0.5f), 0.3f, 0.5f);
 				case DepthPreset.Depth2:
-					return new Depth(new UIOffset(0, 2), 0.3f, 1);
+					return new Depth(new UIOffset(0, 1), 0.3f, 1);
 				case DepthPreset.Depth3:
-					return new Depth(new UIOffset(0, 3), 0.3f, 2);
+					return new Depth(new UIOffset(0, 2), 0.3f, 2);
 				case DepthPreset.Depth4:
 					return new Depth(new UIOffset(0, 4), 0.3f, 4);
 				case DepthPreset.Depth5:
-					return new Depth(new UIOffset(0, 5), 0.3f, 8);
+					return new Depth(new UIOffset(0, 8), 0.3f, 8);
 				default:
 					return new Depth(UIOffset.Zero, 0, 0);
 			}
