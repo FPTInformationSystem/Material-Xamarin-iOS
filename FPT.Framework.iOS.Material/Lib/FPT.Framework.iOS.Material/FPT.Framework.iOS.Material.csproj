@@ -103,14 +103,13 @@
     <Compile Include="Sources\View\MaterialView.cs" />
     <Compile Include="Sources\View\MaterialPulseView.cs" />
     <Compile Include="Sources\Button\IconButton.cs" />
-    <Compile Include="Sources\Collection\MaterialDataSourceItem.cs" />
-    <Compile Include="Sources\Collection\MaterialCollectionReusableView.cs" />
-    <Compile Include="Sources\Collection\MaterialCollectionView.cs" />
-    <Compile Include="Sources\Collection\MaterialCollectionViewLayout.cs" />
-    <Compile Include="Sources\Collection\MaterialCollectionViewDelegate.cs" />
-    <Compile Include="Sources\Collection\MaterialCollectionViewDataSource.cs" />
+    <Compile Include="Sources\Collection\CollectionDataSourceItem.cs" />
+    <Compile Include="Sources\Collection\CollectionReusableView.cs" />
+    <Compile Include="Sources\Collection\CollectionViewCell.cs" />
+    <Compile Include="Sources\Collection\CollectionViewLayout.cs" />
+    <Compile Include="Sources\Collection\CollectionViewDelegate.cs" />
+    <Compile Include="Sources\Collection\CollectionViewDataSource.cs" />
     <Compile Include="Sources\Layout\Grid.cs" />
-    <Compile Include="Sources\Collection\MaterialCollectionViewCell.cs" />
     <Compile Include="Sources\Layout\Layout.cs" />
     <Compile Include="Sources\Extension\Material+Obj-C.cs" />
     <Compile Include="Sources\Table\MaterialTableViewCell.cs" />
@@ -154,6 +153,7 @@
     <Compile Include="Sources\Divider\Divider.cs" />
     <Compile Include="Sources\Page\PageTabBarController.cs" />
     <Compile Include="Sources\TabBar\TabBar.cs" />
+    <Compile Include="Sources\Collection\CollectionView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
@@ -206,6 +206,9 @@
     <BundleResource Include="Resources\ic_email_white.png" />
     <BundleResource Include="Resources\ic_email_white%402x.png" />
     <BundleResource Include="Resources\ic_email_white%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Sources\Collection\CollectionView.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>

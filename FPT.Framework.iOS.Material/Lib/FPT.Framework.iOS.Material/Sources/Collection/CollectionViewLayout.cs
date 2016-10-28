@@ -33,7 +33,7 @@ using Foundation;
 
 namespace FPT.Framework.iOS.Material
 {
-	public class MaterialCollectionViewLayout : UICollectionViewLayout
+	public class CollectionViewLayout : UICollectionViewLayout
 	{
 		#region PROPERTIES
 
@@ -49,51 +49,51 @@ namespace FPT.Framework.iOS.Material
 
 		internal CGSize ItemSize { get; set; } = CGSize.Empty;
 
-		private EdgeInsetsPreset mContentInsetPreset = EdgeInsetsPreset.None;
-		public EdgeInsetsPreset ContentInsetPreset
+		private EdgeInsetsPreset mContentEdgeInsetsPreset = EdgeInsetsPreset.None;
+		public EdgeInsetsPreset ContentEdgeInsetsPreset
 		{
 			get
 			{
-				return mContentInsetPreset;
+				return mContentEdgeInsetsPreset;
 			}
 			set
 			{
-				mContentInsetPreset = value;
+				mContentEdgeInsetsPreset = value;
 			}
 		}
 
-		public UIEdgeInsets ContentInset { get; set; } = UIEdgeInsets.Zero;
+		public UIEdgeInsets ContentEdgeInsets { get; set; } = UIEdgeInsets.Zero;
 
 		public CGSize ContentSize { get; private set; } = CGSize.Empty;
 
 		public List<Tuple<UICollectionViewLayoutAttributes, NSIndexPath>> LayoutItems { get; private set; } = new List<Tuple<UICollectionViewLayoutAttributes, NSIndexPath>>();
 
-		public List<MaterialDataSourceItem> DataSourceItems { get; private set; } = new List<MaterialDataSourceItem>();
+		public List<CollectionDataSourceItem> DataSourceItems { get; private set; } = new List<CollectionDataSourceItem>();
 
 		public UICollectionViewScrollDirection ScrollDirection { get; set; } = UICollectionViewScrollDirection.Vertical;
 
-		private InterimSpacePreset mSpacingPreset = InterimSpacePreset.None;
-		public InterimSpacePreset SpacingPreset 
+		private InterimSpacePreset mInterimSpacePreset = InterimSpacePreset.None;
+		public InterimSpacePreset InterimSpacePreset 
 		{
 			get
 			{
-				return mSpacingPreset;
+				return mInterimSpacePreset;
 			}
 			set
 			{
-				mSpacingPreset = value;
-				Spacing = Convert.InterimSpacePresetToValue(mSpacingPreset);
+				mInterimSpacePreset = value;
+				InterimSpace = Convert.InterimSpacePresetToValue(mInterimSpacePreset);
 			}
 		}
 
-		public nfloat Spacing { get; set; } = 0;
+		public nfloat InterimSpace { get; set; } = 0;
 
 
 		#endregion
 
 		#region CONSTRUCTORS
 
-		public MaterialCollectionViewLayout() : base()
+		public CollectionViewLayout() : base()
 		{
 		}
 
@@ -123,15 +123,15 @@ namespace FPT.Framework.iOS.Material
 
 			if (0 < ItemSize.Width && 0 < ItemSize.Height)
 			{
-				attributes.Frame = new CGRect(Offset.X, Offset.Y, ItemSize.Width - ContentInset.Left - ContentInset.Right, ItemSize.Height - ContentInset.Top - ContentInset.Bottom);
+				attributes.Frame = new CGRect(Offset.X, Offset.Y, ItemSize.Width - ContentEdgeInsets.Left - ContentEdgeInsets.Right, ItemSize.Height - ContentEdgeInsets.Top - ContentEdgeInsets.Bottom);
 			}
 			else if (ScrollDirection == UICollectionViewScrollDirection.Vertical)
 			{
-				attributes.Frame = new CGRect(ContentInset.Left, Offset.Y, CollectionView.Bounds.Width - ContentInset.Left - ContentInset.Right, item.Height == null ? CollectionView.Bounds.Height : item.Height.Value);
+				attributes.Frame = new CGRect(ContentEdgeInsets.Left, Offset.Y, CollectionView.Bounds.Width - ContentEdgeInsets.Left - ContentEdgeInsets.Right, item.Height == null ? CollectionView.Bounds.Height : item.Height.Value);
 			}
 			else
 			{
-				attributes.Frame = new CGRect(Offset.X, ContentInset.Top, item.Width == null? CollectionView.Bounds.Width : item.Width.Value, CollectionView.Bounds.Height - ContentInset.Top - ContentInset.Bottom);
+				attributes.Frame = new CGRect(Offset.X, ContentEdgeInsets.Top, item.Width == null? CollectionView.Bounds.Width : item.Width.Value, CollectionView.Bounds.Height - ContentEdgeInsets.Top - ContentEdgeInsets.Bottom);
 			}
 
 
@@ -167,9 +167,9 @@ namespace FPT.Framework.iOS.Material
 		public override void PrepareLayout()
 		{
 			var dataSource = CollectionView.DataSource;
-			if (dataSource != null && dataSource is MaterialCollectionViewDataSource)
+			if (dataSource != null && dataSource is CollectionViewDataSource)
 			{
-				prepareLayoutForItems((dataSource as MaterialCollectionViewDataSource).Items());
+				prepareLayoutForItems((dataSource as CollectionViewDataSource).Items());
 			}
 		}
 
@@ -178,15 +178,18 @@ namespace FPT.Framework.iOS.Material
 			return proposedContentOffset;
 		}
 
-		private void prepareLayoutForItems(List<MaterialDataSourceItem> dataSourceItems)
+		private void prepareLayoutForItems(List<CollectionDataSourceItem> dataSourceItems)
 		{
+
+			DataSourceItems = dataSourceItems;
+
 			LayoutItems.RemoveAll((obj) =>
 			{
 				return true;
 			});
 
-			mOffset.X = ContentInset.Left;
-			mOffset.Y = ContentInset.Top;
+			mOffset.X = ContentEdgeInsets.Left;
+			mOffset.Y = ContentEdgeInsets.Top;
 
 			NSIndexPath indexPath;
 
@@ -196,15 +199,15 @@ namespace FPT.Framework.iOS.Material
 				indexPath = NSIndexPath.FromItemSection(item: i, section: 0);
 				LayoutItems.Add(new Tuple<UICollectionViewLayoutAttributes, NSIndexPath>(LayoutAttributesForItem(indexPath), indexPath));
 
-				mOffset.X += Spacing;
+				mOffset.X += InterimSpace;
 				mOffset.X += item.Width == null ? ItemSize.Width : item.Width.Value;
 
-				mOffset.Y += Spacing;
+				mOffset.Y += InterimSpace;
 				mOffset.Y += item.Height == null ? ItemSize.Height : item.Height.Value;
 			}
 
-			mOffset.Y += ContentInset.Right - Spacing;
-			mOffset.Y += ContentInset.Bottom - Spacing;
+			mOffset.Y += ContentEdgeInsets.Right - InterimSpace;
+			mOffset.Y += ContentEdgeInsets.Bottom - InterimSpace;
 
 			if (0 < ItemSize.Width && 0 < ItemSize.Height)
 			{

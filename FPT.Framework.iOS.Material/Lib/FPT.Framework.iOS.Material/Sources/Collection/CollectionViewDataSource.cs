@@ -1,6 +1,6 @@
 ﻿// MIT/X11 License
 //
-// MaterialCollectionViewDelegate.cs
+// MaterialCollectionViewDataSource.cs
 //
 // Author:
 //       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
@@ -25,11 +25,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Collections.Generic;
 using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
-	public class MaterialCollectionViewDelegate : UICollectionViewDelegate
+	public abstract class CollectionViewDataSource : UICollectionViewDataSource
 	{
+		public abstract List<CollectionDataSourceItem> Items();
 	}
 }

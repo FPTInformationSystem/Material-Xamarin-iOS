@@ -87,11 +87,11 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return this.Grid().ContentEdgeInset;
+				return this.Grid().ContentEdgeInsets;
 			}
 			set
 			{
-				this.Grid().ContentEdgeInset = value;
+				this.Grid().ContentEdgeInsets = value;
 			}
 		}
 

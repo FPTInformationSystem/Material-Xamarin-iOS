@@ -8,7 +8,7 @@ namespace MaterialCollectionViewDemo
 {
 	public partial class ViewController : UIViewController
 	{
-		class ViewControllerDataSource : MaterialCollectionViewDataSource
+		class ViewControllerDataSource : CollectionViewDataSource
 		{
 			private ViewController mParent;
 
@@ -19,22 +19,28 @@ namespace MaterialCollectionViewDemo
 
 			public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
 			{
-				throw new NotImplementedException();
+				CollectionViewCell cell = collectionView.DequeueReusableCell("CollectionViewCell", indexPath) as CollectionViewCell;
+
+				var item = mParent.DataSourceItems[(int)indexPath.Item];
+
+				cell.BackgroundColor = Color.White;
+
+				return cell;
 			}
 
 			public override nint GetItemsCount(UICollectionView collectionView, nint section)
 			{
-				throw new NotImplementedException();
+				return mParent.DataSourceItems.Count;
 			}
 
-			public override List<MaterialDataSourceItem> Items()
+			public override List<CollectionDataSourceItem> Items()
 			{
 				return mParent.DataSourceItems;
 			}
 		}
 
-		private List<MaterialDataSourceItem> DataSourceItems { get; set; }
-		private MaterialCollectionView CollectionView { get; set; }
+		private List<CollectionDataSourceItem> DataSourceItems { get; set; }
+		private CollectionView CollectionView { get; set; }
 
 		protected ViewController(IntPtr handle) : base(handle)
 		{
@@ -43,7 +49,7 @@ namespace MaterialCollectionViewDemo
 
 		public override void ViewDidLoad()
 		{
-			ViewController.ViewDidLoad(base);
+			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 			prepareView();
 			prepareItems();
@@ -52,26 +58,38 @@ namespace MaterialCollectionViewDemo
 
 		private void prepareView()
 		{
-			View.BackgroundColor = MaterialColor.Grey.Lighten3;
+			View.BackgroundColor = Color.Grey.Lighten3;
 		}
 
 		private void prepareItems()
 		{
-			DataSourceItems = new List<MaterialDataSourceItem>() {
-				new MaterialDataSourceItem(data: new object {
+			DataSourceItems = new List<CollectionDataSourceItem>() {
+				new CollectionDataSourceItem(data: new  {
+					placeholder = "Field Placeholder",
+					detailLabelHidden = false
+				}, height: 80f),
+				new CollectionDataSourceItem(data: new  {
+					placeholder = "Field Placeholder",
+					detailLabelHidden = false
+				}, height: 80f),
+				new CollectionDataSourceItem(data: new  {
+					placeholder = "Field Placeholder",
+					detailLabelHidden = false
 				}, height: 80f)
 			};
 		}
 
 		private void prepareCollectionView()
 		{
-			CollectionView = new MaterialCollectionView(frame: View.Bounds);
-			CollectionView.RegisterClassForCell(typeof(MaterialCollectionViewCell), "MaterialCollectionViewCell");
+			CollectionView = new CollectionView(frame: View.Bounds);
+			CollectionView.RegisterClassForCell(typeof(CollectionViewCell), "CollectionViewCell");
 			CollectionView.DataSource = new ViewControllerDataSource(this);
-			CollectionView.ContentInset.Top = 100;
-			CollectionView.Spacing = 16f;
+			var edgeInsets = CollectionView.ContentEdgeInsets;
+			edgeInsets.Top = 100;
+			CollectionView.ContentEdgeInsets = edgeInsets;
+			CollectionView.InterimSpace = 16f;
 
-
+			View.Layout(CollectionView).Edges();
 
 		}
 	}

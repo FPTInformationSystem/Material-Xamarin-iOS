@@ -218,20 +218,20 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mContentEdgeInsetPreset = value;
-				ContentEdgeInset = Convert.EdgeInsetsPresetToValue(mContentEdgeInsetPreset);
+				ContentEdgeInsets = Convert.EdgeInsetsPresetToValue(mContentEdgeInsetPreset);
 			}
 		}
 
-		private UIEdgeInsets mContentEdgeInset = Convert.EdgeInsetsPresetToValue(EdgeInsetsPreset.None);
-		public UIEdgeInsets ContentEdgeInset
+		private UIEdgeInsets mContentEdgeInsets = Convert.EdgeInsetsPresetToValue(EdgeInsetsPreset.None);
+		public UIEdgeInsets ContentEdgeInsets
 		{
 			get
 			{
-				return mContentEdgeInset;
+				return mContentEdgeInsets;
 			}
 			set
 			{
-				mContentEdgeInset = value;
+				mContentEdgeInsets = value;
 				Reload();
 			}
 		}
@@ -340,12 +340,12 @@ namespace FPT.Framework.iOS.Material
 						{
 							int c = v.Grid().Columns == 0 ? Axis.Columns / count : v.Grid().Columns;
 							int co = v.Grid().Offset.Columns;
-							nfloat w = (canvas.Bounds.Width - ContentEdgeInset.Left - ContentEdgeInset.Right - LayoutEdgeInsets.Left + InterimSpace) / ((nfloat)Axis.Columns);
+							nfloat w = (canvas.Bounds.Width - ContentEdgeInsets.Left - ContentEdgeInsets.Right - LayoutEdgeInsets.Left + InterimSpace) / ((nfloat)Axis.Columns);
 
-							v.SetX(((nfloat)i + n + co) * w + ContentEdgeInset.Left + LayoutEdgeInsets.Left);
-							v.SetY(ContentEdgeInset.Top + LayoutEdgeInsets.Top);
+							v.SetX(((nfloat)i + n + co) * w + ContentEdgeInsets.Left + LayoutEdgeInsets.Left);
+							v.SetY(ContentEdgeInsets.Top + LayoutEdgeInsets.Top);
 							v.SetWidth(w * ((nfloat)c) - InterimSpace);
-							v.SetHeight(canvas.Bounds.Height - ContentEdgeInset.Top - ContentEdgeInset.Bottom - LayoutEdgeInsets.Top - LayoutEdgeInsets.Bottom);
+							v.SetHeight(canvas.Bounds.Height - ContentEdgeInsets.Top - ContentEdgeInsets.Bottom - LayoutEdgeInsets.Top - LayoutEdgeInsets.Bottom);
 
 							n += c + co - 1;
 						}
@@ -354,11 +354,11 @@ namespace FPT.Framework.iOS.Material
 						{
 							int r = v.Grid().Rows == 0 ? Axis.Rows / count : v.Grid().Rows;
 							int ro = v.Grid().Offset.Rows;
-							nfloat h = (canvas.Bounds.Height - ContentEdgeInset.Top - ContentEdgeInset.Bottom - LayoutEdgeInsets.Top - LayoutEdgeInsets.Bottom + InterimSpace) / ((nfloat)Axis.Rows);
+							nfloat h = (canvas.Bounds.Height - ContentEdgeInsets.Top - ContentEdgeInsets.Bottom - LayoutEdgeInsets.Top - LayoutEdgeInsets.Bottom + InterimSpace) / ((nfloat)Axis.Rows);
 
-							v.SetX(ContentEdgeInset.Left + LayoutEdgeInsets.Left);
-							v.SetY(((nfloat)i + n + ro) * h + ContentEdgeInset.Top + LayoutEdgeInsets.Top);
-							v.SetWidth(canvas.Bounds.Width - ContentEdgeInset.Left - ContentEdgeInset.Right - LayoutEdgeInsets.Left - LayoutEdgeInsets.Right);
+							v.SetX(ContentEdgeInsets.Left + LayoutEdgeInsets.Left);
+							v.SetY(((nfloat)i + n + ro) * h + ContentEdgeInsets.Top + LayoutEdgeInsets.Top);
+							v.SetWidth(canvas.Bounds.Width - ContentEdgeInsets.Left - ContentEdgeInsets.Right - LayoutEdgeInsets.Left - LayoutEdgeInsets.Right);
 							v.SetHeight(h * ((nfloat)r) - InterimSpace);
 
 							n += r + ro - 1;
@@ -373,11 +373,11 @@ namespace FPT.Framework.iOS.Material
 							int co = v.Grid().Offset.Columns;
 
 
-							nfloat w = (canvas.Bounds.Width - ContentEdgeInset.Left - ContentEdgeInset.Right - LayoutEdgeInsets.Left - LayoutEdgeInsets.Right + InterimSpace) / ((nfloat)Axis.Columns);
-							nfloat h = (canvas.Bounds.Height - ContentEdgeInset.Top - ContentEdgeInset.Bottom - LayoutEdgeInsets.Top - LayoutEdgeInsets.Bottom + InterimSpace) / ((nfloat)Axis.Rows);
+							nfloat w = (canvas.Bounds.Width - ContentEdgeInsets.Left - ContentEdgeInsets.Right - LayoutEdgeInsets.Left - LayoutEdgeInsets.Right + InterimSpace) / ((nfloat)Axis.Columns);
+							nfloat h = (canvas.Bounds.Height - ContentEdgeInsets.Top - ContentEdgeInsets.Bottom - LayoutEdgeInsets.Top - LayoutEdgeInsets.Bottom + InterimSpace) / ((nfloat)Axis.Rows);
 
-							v.SetX(((nfloat)co) * w + ContentEdgeInset.Left + LayoutEdgeInsets.Left);
-							v.SetY(((nfloat)ro) * h + ContentEdgeInset.Top + LayoutEdgeInsets.Top);
+							v.SetX(((nfloat)co) * w + ContentEdgeInsets.Left + LayoutEdgeInsets.Left);
+							v.SetY(((nfloat)ro) * h + ContentEdgeInsets.Top + LayoutEdgeInsets.Top);
 							v.SetWidth(w * ((nfloat)c) - InterimSpace);
 							v.SetHeight(h * ((nfloat)r) - InterimSpace);
 						}
