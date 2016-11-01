@@ -121,8 +121,6 @@ namespace FPT.Framework.iOS.Material
 			RootViewController.View.Frame = View.Bounds;
 		}
 
-		private static NSObject sToolbarContext = new NSObject();
-
 		public override void Prepare()
 		{
 			base.Prepare();

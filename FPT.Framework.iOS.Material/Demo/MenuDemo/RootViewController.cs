@@ -60,14 +60,14 @@ namespace MenuDemo
 
 		private void prepareAddButton()
 		{
-			addButton = new FabButton(Icon.CM.Clear);
+			addButton = new FabButton(Icon.CM.Add);
 			addButton.AddTarget(this, new Selector("handleToggleMenu"), UIControlEvent.TouchUpInside);
 		}
 
 		private void prepareAudioLibraryButton()
 		{
 			audioLibraryMenuItem = new MenuItem();
-			audioLibraryMenuItem.Button.Image = Icon.CM.Add;
+			audioLibraryMenuItem.Button.Image = Icon.CM.AudioLibrary;
 			audioLibraryMenuItem.Button.BackgroundColor = Color.Green.Base;
 			audioLibraryMenuItem.Button.SetDepthPreset(DepthPreset.Depth1);
 			audioLibraryMenuItem.Title = "Audio Library";
@@ -81,7 +81,7 @@ namespace MenuDemo
 		private void prepareBellButton()
 		{
 			reminderMenuItem = new MenuItem();
-			reminderMenuItem.Button.Image = Icon.CM.Add;
+			reminderMenuItem.Button.Image = Icon.CM.Bell;
 			reminderMenuItem.Button.BackgroundColor = Color.Green.Base;
 			reminderMenuItem.Button.SetDepthPreset(DepthPreset.Depth1);
 			reminderMenuItem.Title = "Audio Library";

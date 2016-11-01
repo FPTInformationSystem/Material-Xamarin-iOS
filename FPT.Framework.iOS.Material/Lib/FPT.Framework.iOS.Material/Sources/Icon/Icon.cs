@@ -100,7 +100,21 @@ namespace FPT.Framework.iOS.Material
 				}
 			}
 
+			public static UIImage AudioLibrary
+			{
+				get
+				{
+					return Material.Icon.icon("cm_audio_library_white");
+				}
+			}
 
+			public static UIImage Bell
+			{
+				get
+				{
+					return Material.Icon.icon("cm_bell_white");
+				}
+			}
 
 			public static UIImage Clear
 			{

@@ -207,6 +207,12 @@
     <BundleResource Include="Resources\ic_email_white.png" />
     <BundleResource Include="Resources\ic_email_white%402x.png" />
     <BundleResource Include="Resources\ic_email_white%403x.png" />
+    <BundleResource Include="Resources\cm_audio_library_white.png" />
+    <BundleResource Include="Resources\cm_audio_library_white%402x.png" />
+    <BundleResource Include="Resources\cm_audio_library_white%403x.png" />
+    <BundleResource Include="Resources\cm_bell_white.png" />
+    <BundleResource Include="Resources\cm_bell_white%402x.png" />
+    <BundleResource Include="Resources\cm_bell_white%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Sources\Collection\CollectionView.xib" />

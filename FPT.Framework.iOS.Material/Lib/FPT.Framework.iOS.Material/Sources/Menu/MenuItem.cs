@@ -74,6 +74,20 @@ namespace FPT.Framework.iOS.Material
 
 		public void ShowTitleLabel()
 		{
+			var interimSpace = Convert.InterimSpacePresetToValue(InterimSpacePreset.InterimSpacing6);
+
+			TitleLabel.SizeToFit();
+			TitleLabel.SetWidth(TitleLabel.Width() + 1.5f * interimSpace);
+			TitleLabel.SetHeight(TitleLabel.Height() + interimSpace/2);
+			TitleLabel.SetY((this.Height() - TitleLabel.Height()) / 2);
+			TitleLabel.SetX(-TitleLabel.Width() - interimSpace);
+			TitleLabel.Alpha = 0;
+			TitleLabel.Hidden = false;
+
+			UIView.Animate(0.25f, () =>
+			{
+				this.TitleLabel.Alpha = 1;
+			});
 		}
 
 		public void HideTitleLabel()
