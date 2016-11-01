@@ -31,8 +31,6 @@ namespace MenuDemo
 		{
 			base.ViewDidAppear(animated);
 			prepareMenuController();
-
-			//this.MenuController().OpenMennu();
 		}
 
 		[Export("handleToggleMenu")]

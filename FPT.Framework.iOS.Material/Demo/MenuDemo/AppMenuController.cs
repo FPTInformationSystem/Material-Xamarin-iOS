@@ -39,8 +39,8 @@ namespace MenuDemo
 		private void prepareMenu()
 		{
 			Menu.BaseSize = baseSize;
-
-			View.Layout(Menu).Size(baseSize).Bottom(bottomInset).Right(rightInset);
+			//Menu.Direction = MenuDirection.Down;
+			View.Layout(Menu).Size(baseSize).Center();// Bottom(bottomInset).Right(rightInset);
 		}
 	}
 }
