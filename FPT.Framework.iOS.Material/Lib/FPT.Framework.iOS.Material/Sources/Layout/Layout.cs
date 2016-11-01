@@ -26,6 +26,7 @@
 // THE SOFTWARE.
 using System;
 using System.Collections.Generic;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 
@@ -124,7 +125,7 @@ namespace FPT.Framework.iOS.Material
 			return this.Height(v, height);
 		}
 
-		public Layout Size(UIView child, nfloat width, nfloat height)
+		public Layout Size(UIView child, CGSize size)
 		{
 			var v = Parent;
 			if (v == null)
@@ -132,18 +133,22 @@ namespace FPT.Framework.iOS.Material
 				return debugParentNotAvailableMessage();
 			}
 			this.Child = child;
-			Layout.Size(Parent, Child, width, height);
+			Layout.Size(Parent, Child, size);
 			return this;
 		}
 
-		public Layout Size(nfloat width, nfloat height)
+		public Layout Size(CGSize? size = null)
 		{
 			var v = Child;
 			if (v == null)
 			{
 				return debugChildNotAvailableMessage();
 			}
-			return this.Size(v, width, height);
+			if (size == null)
+			{
+				size = CGSize.Empty;
+			}
+			return this.Size(v, size.Value);
 		}
 
 		public Layout Horizontally(UIView[] children, nfloat left = default(nfloat), nfloat right = default(nfloat), nfloat spacing = default(nfloat))
@@ -510,10 +515,10 @@ namespace FPT.Framework.iOS.Material
 				constant: height));
 		}
 
-		public static void Size(UIView parent, UIView child, nfloat width = default(nfloat), nfloat height = default(nfloat))
+		public static void Size(UIView parent, UIView child, CGSize? size)
 		{
-			Layout.Width(parent, child, width);
-			Layout.Width(parent, child, height);
+			Layout.Width(parent, child, size.Value.Width);
+			Layout.Height(parent, child, size.Value.Height);
 		}
 
 		public static void Horizontally(UIView parent, UIView[] children, nfloat left = default(nfloat), nfloat right = default(nfloat), nfloat spacing = default(nfloat))

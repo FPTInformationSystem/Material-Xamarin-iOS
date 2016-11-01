@@ -154,6 +154,7 @@
     <Compile Include="Sources\Page\PageTabBarController.cs" />
     <Compile Include="Sources\TabBar\TabBar.cs" />
     <Compile Include="Sources\Collection\CollectionView.cs" />
+    <Compile Include="Sources\Menu\MenuItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />

@@ -306,7 +306,6 @@ namespace FPT.Framework.iOS.Material
 			VisualLayer.ZPosition = 0;
 			VisualLayer.MasksToBounds = true;
 			Layer.AddSublayer(VisualLayer);
-			CAShapeLayer test = new CAShapeLayer();
 		}
 
 		internal void LayoutVisualLayer()

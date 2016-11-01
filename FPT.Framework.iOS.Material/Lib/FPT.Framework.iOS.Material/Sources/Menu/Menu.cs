@@ -26,6 +26,7 @@
 // THE SOFTWARE.
 using System;
 using CoreGraphics;
+using Foundation;
 using UIKit;
 
 namespace FPT.Framework.iOS.Material
@@ -33,61 +34,51 @@ namespace FPT.Framework.iOS.Material
 
 	public enum MenuDirection { Up, Down, Left, Right }
 
-	public class Menu
+	public class MenuDelegate
+	{
+		public virtual void TappedAt(Menu menu, CGPoint point, bool isOutside) { }
+	}
+
+	public class Menu : View
 	{
 
 		#region PROPERTOES
 
 		/// A Boolean that indicates if the menu is open or not.
-		public bool Opened { get; private set; } = false;
+		public bool IsOpened { get; private set; } = false;
 
-		/// The rectangular bounds that the menu animates.
-		private CGPoint mOrigin;
-		public CGPoint Origin
-		{
-			get
-			{
-				return mOrigin;
-			}
-			set
-			{
-				mOrigin = value;
-				ReloadLayout();
-			}
-		}
+		/// Enables the animations for the Menu.
+		public bool IsEnabled { get; set; } = true;
 
 		/// A preset wrapper around spacing.
-		private InterimSpacePreset mSpacingPreset = InterimSpacePreset.None;
-		public InterimSpacePreset SpacingPreset
+		private InterimSpacePreset mInterimSpacePreset = InterimSpacePreset.None;
+		public InterimSpacePreset InterimSpacePreset
 		{
 			get
 			{
-				return mSpacingPreset;
+				return mInterimSpacePreset;
 			}
 			set
 			{
-				mSpacingPreset = value;
-				mSpacing = Convert.InterimSpacePresetToValue(value);
+				mInterimSpacePreset = value;
+				mInterimSpace = Convert.InterimSpacePresetToValue(value);
 			}
 		}
 
 		/// The space between views.
-		private nfloat mSpacing;
-		public nfloat Spacing
+		private nfloat mInterimSpace;
+		public nfloat InterimSpace
 		{
 			get
 			{
-				return mSpacing;
+				return mInterimSpace;
 			}
 			set
 			{
-				mSpacing = value;
-				ReloadLayout();
+				mInterimSpace = value;
+				Reload();
 			}
 		}
-
-		/// Enables the animations for the Menu.
-		public bool Enabled { get; set; } = true;
 
 		/// The direction in which the animation opens the menu.
 		private MenuDirection mDirection = MenuDirection.Up;
@@ -100,9 +91,11 @@ namespace FPT.Framework.iOS.Material
 			set
 			{
 				mDirection = value;
-				ReloadLayout();
+				Reload();
 			}
 		}
+
+		public MenuDelegate Delegate { get; set;}
 
 		/// An Array of UIViews.
 		private UIView[] mViews;
@@ -114,52 +107,88 @@ namespace FPT.Framework.iOS.Material
 			}
 			set
 			{
+				if (mViews != null)
+				{
+					foreach (var v in mViews)
+					{
+						v.RemoveFromSuperview();
+					}
+				}
 				mViews = value;
-				ReloadLayout();
+				if (mViews != null)
+				{
+					foreach (var v in mViews)
+					{
+						AddSubview(v);
+					}
+				}
+				Reload();
 			}
 		}
+
+		/// An Optional base view size.
+		public CGSize BaseSize { get; set; } = new CGSize(48, 48);
 
 		/// Size of views, not including the first view.
 		public CGSize ItemSize { get; set; } = new CGSize(48, 48);
 
-		/// An Optional base view size.
-		public CGSize? BaseSize { get; set; }
-
 		#endregion
 
 		#region CONSTRUCTORS
+		public Menu(NSCoder coder) : base(coder) { }
 
-		/**
-		Initializer.
-		- Parameter origin: The origin position of the Menu.
-		- Parameter spacing: The spacing size between views.
-		*/
-		public Menu(CGPoint origin, nfloat spacing)
-		{
-			this.Origin = origin;
-			this.Spacing = spacing;
-		}
+		public Menu(CGRect frame) : base(frame) { }
 
-		public Menu(CGPoint origin, nfloat? spacing = null)
-		{
-			spacing = spacing == null ? 16f : spacing;
-			this.Origin = origin;
-			this.Spacing = spacing.Value;
-		}
+		//public Menu(CGPoint point) : base(new CGRect(point, CGSize.Empty)) { }
 
-		/// Convenience initializer.
-		public Menu() : this(CGPoint.Empty)
-		{
-		}
+		public Menu() : this(CGRect.Empty) { }
 
 		#endregion
 
 		#region FUNCTIONS
 
-		/// Reload the view layout.
-		public void ReloadLayout()
+		public override UIKit.UIView HitTest(CGPoint point, UIEvent uievent)
 		{
-			Opened = false;
+			/**
+			Since the subviews will be outside the bounds of this view,
+			we need to look at the subviews to see if we have a hit.
+			*/
+			if (Hidden)
+			{
+				return null;
+			}
+
+			if (IsOpened)
+			{
+				foreach (var v in Subviews)
+				{
+					var p = v.ConvertPointFromView(point, this);
+					if (v.Bounds.Contains(p))
+					{
+						Delegate.TappedAt(this, point, false);
+						return v.HitTest(p, uievent);
+					}
+				}
+
+				if (Delegate != null)
+				{
+					Delegate.TappedAt(this, point, true);
+				}
+			}
+			return base.HitTest(point, uievent);
+		}
+
+		public override void Prepare()
+		{
+			base.Prepare();
+			BackgroundColor = null;
+			InterimSpacePreset = InterimSpacePreset.InterimSpacing6;
+		}
+
+		/// Reload the view layout.
+		public void Reload()
+		{
+			IsOpened = false;
 			layoutButtons();
 		}
 
@@ -176,7 +205,7 @@ namespace FPT.Framework.iOS.Material
 		public void Open(double duration = 0.15, double delay = 0, nfloat? usingSpringWithDamping = null, nfloat initialSpringVelocity = default(nfloat), UIViewAnimationOptions options = default(UIViewAnimationOptions), Action<UIView> animations = null, Action<UIView> completion = null)
 		{
 			usingSpringWithDamping = usingSpringWithDamping ?? 0.5f;
-			if (Enabled)
+			if (IsEnabled)
 			{
 				disable();
 				switch (Direction)
@@ -218,7 +247,7 @@ namespace FPT.Framework.iOS.Material
 		public void Close(double duration = 0.15, double delay = 0, nfloat? usingSpringWithDamping = null, nfloat initialSpringVelocity = default(nfloat), UIViewAnimationOptions options = default(UIViewAnimationOptions), Action<UIView> animations = null, Action<UIView> completion = null)
 		{
 			usingSpringWithDamping = usingSpringWithDamping ?? 0.5f;
-			if (Enabled)
+			if (IsEnabled)
 			{
 				disable();
 				switch (Direction)
@@ -281,9 +310,7 @@ namespace FPT.Framework.iOS.Material
 						{
 							var s = this;
 							view.Alpha = 1;
-							var frame = view.Frame;
-							frame.Y = baseView.Frame.Y - ((nfloat)i) * s.ItemSize.Height - ((nfloat)i) * s.Spacing;
-							view.Frame = frame;
+							view.SetY(baseView.Y() - ((nfloat)i) * s.ItemSize.Height - ((nfloat)i) * s.InterimSpace);
 							if (animations != null)
 							{
 								animations(view);
@@ -294,7 +321,7 @@ namespace FPT.Framework.iOS.Material
 							s.enable(view);
 							if (view == v[v.Length - 1])
 							{
-								s.Opened = true;
+								s.IsOpened = true;
 							}
 							if (completion != null)
 							{
@@ -337,11 +364,8 @@ namespace FPT.Framework.iOS.Material
 						options: options,
 						animations: () =>
 						{
-							var s = this;
 							view.Alpha = 0;
-							var frame = view.Frame;
-							frame.Y = s.Origin.Y;
-							view.Frame = frame;
+							view.SetY(baseView.Y());
 							if (animations != null)
 							{
 								animations(view);
@@ -353,7 +377,7 @@ namespace FPT.Framework.iOS.Material
 							s.enable(view);
 							if (view == v[v.Length - 1])
 							{
-								s.Opened = false;
+								s.IsOpened = false;
 							}
 							if (completion != null)
 							{
@@ -389,7 +413,7 @@ namespace FPT.Framework.iOS.Material
 					var view = v[i];
 					view.Hidden = false;
 
-					var h = BaseSize == null ? ItemSize.Height : BaseSize.Value.Height;
+					var h = BaseSize.Height;
 					UIView.AnimateNotify(duration: ((double)i) * duration,
 						delay: delay,
 						springWithDampingRatio: usingSpringWithDamping,
@@ -399,9 +423,7 @@ namespace FPT.Framework.iOS.Material
 						{
 							var s = this;
 							view.Alpha = 1;
-							var frame = view.Frame;
-							frame.Y = baseView.Frame.Y + h + ((nfloat)i - 1) * s.ItemSize.Height + ((nfloat)i) * s.Spacing;
-							view.Frame = frame;
+							view.SetY(baseView.Y() + h + ((nfloat)i - 1) * s.ItemSize.Height + ((nfloat)i) * s.InterimSpace);
 							if (animations != null)
 							{
 								animations(view);
@@ -412,7 +434,7 @@ namespace FPT.Framework.iOS.Material
 							s.enable(view);
 							if (view == v[v.Length - 1])
 							{
-								s.Opened = true;
+								s.IsOpened = true;
 							}
 							if (completion != null)
 							{
@@ -448,7 +470,7 @@ namespace FPT.Framework.iOS.Material
 					var view = v[i];
 					view.Hidden = false;
 
-					var h = BaseSize == null ? ItemSize.Height : BaseSize.Value.Height;
+					var h = BaseSize.Height;
 					UIView.AnimateNotify(duration: ((double)i) * duration,
 						delay: delay,
 						springWithDampingRatio: usingSpringWithDamping,
@@ -456,11 +478,8 @@ namespace FPT.Framework.iOS.Material
 						options: options,
 						animations: () =>
 						{
-							var s = this;
 							view.Alpha = 0;
-							var frame = view.Frame;
-							frame.Y = s.Origin.Y + h;
-							view.Frame = frame;
+							view.SetY(baseView.Y() + h);
 							if (animations != null)
 							{
 								animations(view);
@@ -472,7 +491,7 @@ namespace FPT.Framework.iOS.Material
 							s.enable(view);
 							if (view == v[v.Length - 1])
 							{
-								s.Opened = false;
+								s.IsOpened = false;
 							}
 							if (completion != null)
 							{
@@ -517,9 +536,7 @@ namespace FPT.Framework.iOS.Material
 						{
 							var s = this;
 							view.Alpha = 1;
-							var frame = view.Frame;
-							frame.X = baseView.Frame.X - ((nfloat)i) * s.ItemSize.Width - ((nfloat)i) * s.Spacing;
-							view.Frame = frame;
+							view.SetX(baseView.X() - ((nfloat)i) * s.ItemSize.Width - ((nfloat)i) * s.InterimSpace);
 							if (animations != null)
 							{
 								animations(view);
@@ -530,7 +547,7 @@ namespace FPT.Framework.iOS.Material
 							s.enable(view);
 							if (view == v[v.Length - 1])
 							{
-								s.Opened = true;
+								s.IsOpened = true;
 							}
 							if (completion != null)
 							{
@@ -573,11 +590,8 @@ namespace FPT.Framework.iOS.Material
 						options: options,
 						animations: () =>
 						{
-							var s = this;
 							view.Alpha = 0;
-							var frame = view.Frame;
-							frame.X = s.Origin.X;
-							view.Frame = frame;
+							view.SetX(baseView.X());
 							if (animations != null)
 							{
 								animations(view);
@@ -589,7 +603,7 @@ namespace FPT.Framework.iOS.Material
 							s.enable(view);
 							if (view == v[v.Length - 1])
 							{
-								s.Opened = false;
+								s.IsOpened = false;
 							}
 							if (completion != null)
 							{
@@ -625,7 +639,7 @@ namespace FPT.Framework.iOS.Material
 					var view = v[i];
 					view.Hidden = false;
 
-					var w = BaseSize == null ? ItemSize.Width : BaseSize.Value.Width;
+					var w = BaseSize.Width;
 					UIView.AnimateNotify(duration: ((double)i) * duration,
 						delay: delay,
 						springWithDampingRatio: usingSpringWithDamping,
@@ -636,7 +650,7 @@ namespace FPT.Framework.iOS.Material
 							var s = this;
 							view.Alpha = 1;
 							var frame = view.Frame;
-							frame.X = baseView.Frame.X + w + ((nfloat)i - 1) * s.ItemSize.Width + ((nfloat)i) * s.Spacing;
+							frame.X = baseView.Frame.X + w + ((nfloat)i - 1) * s.ItemSize.Width + ((nfloat)i) * s.InterimSpace;
 							view.Frame = frame;
 							if (animations != null)
 							{
@@ -648,7 +662,7 @@ namespace FPT.Framework.iOS.Material
 							s.enable(view);
 							if (view == v[v.Length - 1])
 							{
-								s.Opened = true;
+								s.IsOpened = true;
 							}
 							if (completion != null)
 							{
@@ -684,7 +698,7 @@ namespace FPT.Framework.iOS.Material
 					var view = v[i];
 					view.Hidden = false;
 
-					var w = BaseSize == null ? ItemSize.Width : BaseSize.Value.Width;
+					var w = BaseSize.Width;
 					UIView.AnimateNotify(duration: ((double)i) * duration,
 						delay: delay,
 						springWithDampingRatio: usingSpringWithDamping,
@@ -692,11 +706,8 @@ namespace FPT.Framework.iOS.Material
 						options: options,
 						animations: () =>
 						{
-							var s = this;
 							view.Alpha = 0;
-							var frame = view.Frame;
-							frame.X = s.Origin.X + w;
-							view.Frame = frame;
+							view.SetX(baseView.X()+ w);
 							if (animations != null)
 							{
 								animations(view);
@@ -708,7 +719,7 @@ namespace FPT.Framework.iOS.Material
 							s.enable(view);
 							if (view == v[v.Length - 1])
 							{
-								s.Opened = false;
+								s.IsOpened = false;
 							}
 							if (completion != null)
 							{
@@ -722,35 +733,29 @@ namespace FPT.Framework.iOS.Material
 		/// Layout the views.
 		private void layoutButtons()
 		{
-			var v = Views;
-			if (v != null)
+			if (Views == null || Views.Length == 0) return;
+
+			var baseView = Views[0];
+
+			var frame = baseView.Frame;
+			frame.Size = BaseSize;
+			baseView.Frame = frame;
+			baseView.SetZPosition(10000);
+			for (var i = 1; i < Views.Length; i++)
 			{
-				var size = BaseSize == null ? ItemSize : BaseSize.Value;
-				for (var i = 0; i < v.Length; i++)
-				{
-					var view = v[i];
-					if (i == 0)
-					{
-						var frame = view.Frame;
-						frame.Size = size;
-						frame.Location = Origin;
-						view.Frame = frame;
-						view.Layer.ZPosition = 10000;
-					}
-					else
-					{
-						view.Alpha = 0;
-						view.Hidden = true;
+				var v = Views[i];
+				v.Alpha = 0;
+				v.Hidden = true;
 
-						var frame = view.Frame;
-						frame.Size = ItemSize;
-						frame.X = Origin.X + (size.Width - ItemSize.Width) / 2;
-						frame.Y = Origin.Y + (size.Height - ItemSize.Height) / 2;
-						view.Frame = frame;
+				frame = v.Frame;
+				frame.Size = ItemSize;
+				v.Frame = frame;
 
-						view.Layer.ZPosition = (nfloat)10000 - v.Length - i;
-					}
-				}
+				v.SetX(baseView.X() + (BaseSize.Width - ItemSize.Width) / 2);
+				v.SetY(baseView.Y() + (BaseSize.Height - ItemSize.Height) / 2);
+
+
+				v.SetZPosition((nfloat)10000 - Views.Length - i);
 			}
 		}
 
@@ -762,7 +767,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				if (v.Length > 0)
 				{
-					Enabled = false;
+					IsEnabled = false;
 				}
 			}
 		}
@@ -778,7 +783,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				if (view == v[v.Length - 1])
 				{
-					Enabled = true;
+					IsEnabled = true;
 				}
 			}
 		}

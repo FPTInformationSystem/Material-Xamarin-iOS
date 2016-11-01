@@ -1,6 +1,6 @@
 ﻿// MIT/X11 License
 //
-// FabButton.cs
+// MenuItem.cs
 //
 // Author:
 //       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
@@ -24,28 +24,78 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
 using System;
-using CoreGraphics;
 using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
-	public class FabButton : Button
+	public class MenuItem : View
 	{
-		public FabButton(CGRect frame) : base(frame) { }
-		public FabButton() : base() { }
-		public FabButton(UIImage image, UIColor tintColor = null) : base(image, tintColor) { }
+
+		#region PROPERTIES
+
+		public UILabel TitleLabel { get; private set; } = new UILabel();
+
+		public FabButton Button { get; private set; } = new FabButton();
+
+		public String Title
+		{
+			get
+			{
+				return TitleLabel.Text;
+			}
+			set
+			{
+				TitleLabel.Text = value;
+				HideTitleLabel();
+			}
+		}
+
+		#endregion
+
+		#region CONSTRUCTORS
+
+		public MenuItem()
+		{
+		}
+
+		#endregion
+
+		#region FUNCTIONS
 
 		public override void Prepare()
 		{
 			base.Prepare();
-			this.SetDepthPreset(DepthPreset.Depth1);
-			this.SetShapePreset(ShapePreset.Circle);
-			PulseAnimation = PulseAnimation.CenterWithBacking;
-			TintColor = Color.White;
-			PulseColor = Color.White;
-			BackgroundColor = Color.Red.Base;
+			BackgroundColor = null;
+
+			prepareButton();
+			prepareTitleLabel();
 		}
+
+		public void ShowTitleLabel()
+		{
+		}
+
+		public void HideTitleLabel()
+		{
+			TitleLabel.Hidden = true;
+		}
+
+		private void prepareButton()
+		{
+			this.Layout(Button).Edges();
+		}
+
+		private void prepareTitleLabel()
+		{
+			TitleLabel.Font = RobotoFont.RegularWithSize(14);
+			TitleLabel.TextAlignment = UITextAlignment.Center;
+			TitleLabel.BackgroundColor = Color.White;
+			TitleLabel.SetDepthPreset(Button.DepthPreset());
+			TitleLabel.SetCornerRadiusPreset(CornerRadiusPreset.Radius1);
+			AddSubview(TitleLabel);
+		}
+
+		#endregion
 	}
 }
