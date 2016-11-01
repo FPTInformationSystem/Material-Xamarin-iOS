@@ -1,199 +1,283 @@
-﻿//// MIT/X11 License
-////
-//// NavigationItem.cs
-////
-//// Author:
-////       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
-////
-//// Copyright (c) 2016 FPT Information System.
-////
-//// Permission is hereby granted, free of charge, to any person obtaining a copy
-//// of this software and associated documentation files (the "Software"), to deal
-//// in the Software without restriction, including without limitation the rights
-//// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//// copies of the Software, and to permit persons to whom the Software is
-//// furnished to do so, subject to the following conditions:
-////
-//// The above copyright notice and this permission notice shall be included in
-//// all copies or substantial portions of the Software.
-////
-//// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//// THE SOFTWARE.
-//using System;
-//using System.Collections.Generic;
-//using Foundation;
-//using UIKit;
+﻿// MIT/X11 License
+//
+// NavigationItem.cs
+//
+// Author:
+//       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
+//
+// Copyright (c) 2016 FPT Information System.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+using System;
+using System.Collections.Generic;
+using Foundation;
+using ObjCRuntime;
+using UIKit;
 
-//namespace FPT.Framework.iOS.Material
-//{
+namespace FPT.Framework.iOS.Material
+{
 
-//	public class MaterialAssociatedObjectNavigationItem : NSObject
-//	{
+	public class NavigationItem : NSObject
+	{
 
-//		#region PROPERTIES
+		#region PROPERTIES
 
-//		/**
-//		A boolean indicating whether keys are being observed
-//		on the UINavigationItem.
-//		*/
-//		internal bool observed { get; set; } = false;
+		private ContentViewAlignment mContentViewAlignment = ContentViewAlignment.Center;
+		public ContentViewAlignment ContentViewAlignment
+		{
+			get
+			{
+				return mContentViewAlignment;
+			}
+			set
+			{
+				mContentViewAlignment = value;
+				if (NavigationBar != null)
+				{
+					NavigationBar.LayoutSubviews();
+				}
+			}
+		}
 
-//		public IconButton BackButton { get; set;}
+		public IconButton BackButton { get; private set; } = new IconButton();
 
-//		public UIView ContentView { get; set;}
+		public UIView ContentView { get; private set; } = new UIView();
 
-//		public UILabel TitleLabel { get; internal set; }
+		public UILabel TitleLabel {
+			[Export("titleLabel", ArgumentSemantic.Retain)] get;
 
-//		public UILabel DetailLabel { get; private set; }
+			[Export("setTitleLabel:", ArgumentSemantic.Retain)] private set;
+		} = new UILabel();
 
-//		public List<UIControl> LeftControls { get; set; }
+		public UILabel DetailLabel { get; private set; } = new UILabel();
 
-//		public List<UIControl> RightControls { get; set; }
+		private List<UIView> mLeftViews = new List<UIView>();
+		public List<UIView> LeftViews
+		{
+			get
+			{
+				return mLeftViews;
+			}
+			set
+			{
+				foreach (var v in mLeftViews)
+				{
+					v.RemoveFromSuperview();
+				}
 
-//		#endregion
+				mLeftViews = value;
 
-//		#region CONSTRUCTORS
+				if (NavigationBar != null)
+				{
+					NavigationBar.LayoutSubviews();
+				}
+			}
+		}
 
-//		public MaterialAssociatedObjectNavigationItem()
-//		{
-//			prepareTitleLabel();
-//			prepareDetailLabel();
-//		}
+		private List<UIView> mRightViews = new List<UIView>();
+		public List<UIView> RightViews
+		{
+			get
+			{
+				return mRightViews;
+			}
+			set
+			{
+				foreach (var v in mRightViews)
+				{
+					v.RemoveFromSuperview();
+				}
 
-//		#endregion
+				mRightViews = value;
 
-//		#region FUNCTIONS
+				if (NavigationBar != null)
+				{
+					NavigationBar.LayoutSubviews();
+				}
+			}
+		}
 
-//		private void prepareTitleLabel()
-//		{
-//			TitleLabel = new UILabel();
-//			TitleLabel.Font = RobotoFont.MediumWithSize(17);
-//			TitleLabel.TextAlignment = UITextAlignment.Center;
-//		}
+		private List<UIView> mCenterViews = new List<UIView>();
+		public List<UIView> CenterViews
+		{
+			get
+			{
+				return mCenterViews;
+			}
+			set
+			{
+				foreach (var v in mCenterViews)
+				{
+					v.RemoveFromSuperview();
+				}
 
-//		private void prepareDetailLabel()
-//		{
-//			DetailLabel = new UILabel();
-//			DetailLabel.Font = RobotoFont.RegularWithSize(12);
-//			DetailLabel.TextAlignment = UITextAlignment.Center;
-//		}
+				mCenterViews = value;
 
-//		#endregion
-//	}
+				if (NavigationBar != null)
+				{
+					NavigationBar.LayoutSubviews();
+				}
+			}
+		}
 
-//	public static partial class Extensions
-//	{
+		public NavigationBar NavigationBar
+		{
+			get
+			{
+				if (ContentView.Superview != null)
+				{
+					return ContentView.Superview.Superview as NavigationBar;
+				}
+				return null;
+			}
+		}
+
+		#endregion
+
+		#region CONSTRUCTORS
+
+		public NavigationItem()
+		{
+			prepareTitleLabel();
+			prepareDetailLabel();
+		}
+
+		~NavigationItem()
+		{
+			RemoveObserver(this, "titleLabel.textAlignment");
+		}
+
+		#endregion
+
+		#region FUNCTIONS
+
+		private void prepareTitleLabel()
+		{
+			TitleLabel = new UILabel();
+			TitleLabel.Font = RobotoFont.MediumWithSize(17);
+			TitleLabel.TextAlignment = UITextAlignment.Center;
+		}
+
+		private void prepareDetailLabel()
+		{
+			DetailLabel = new UILabel();
+			DetailLabel.Font = RobotoFont.RegularWithSize(12);
+			DetailLabel.TextAlignment = UITextAlignment.Center;
+		}
+
+		#endregion
+	}
+
+	public static partial class Extensions
+	{
 		
-//		/// NavigationItem reference.
-//		static NSObject sMaterialAssociatedObjectNavigationItemKey = new NSObject();
-//		public static MaterialAssociatedObjectNavigationItem Item(this UINavigationItem view)
-//		{
-//			var v = MaterialObjC.MaterialAssociatedObject(view.Handle, sMaterialAssociatedObjectNavigationItemKey.Handle, () =>
-//			{
-//				return new MaterialAssociatedObjectNavigationItem().Handle;
-//			});
+		/// NavigationItem reference.
+		static NSObject sMaterialAssociatedObjectNavigationItemKey = new NSObject();
+		public static NavigationItem NavigationItem(this UINavigationItem view)
+		{
+			var v = MaterialObjC.AssociatedObject(view.Handle, sMaterialAssociatedObjectNavigationItemKey.Handle, () =>
+			{
+				return new NavigationItem().Handle;
+			});
 
-//			return ObjCRuntime.Runtime.GetNSObject(v) as MaterialAssociatedObjectNavigationItem;
+			return ObjCRuntime.Runtime.GetNSObject(v) as NavigationItem;
 
-//		}
+		}
 
-//		public static void SetItem(this UINavigationItem view, MaterialAssociatedObjectNavigationItem value)
-//		{
-//			MaterialObjC.MaterialAssociatedObject(view.Handle, sMaterialAssociatedObjectNavigationItemKey.Handle, value.Handle);
+		public static void SetNavigationItem(this UINavigationItem view, NavigationItem value)
+		{
+			MaterialObjC.MaterialAssociatedObject(view.Handle, sMaterialAssociatedObjectNavigationItemKey.Handle, value.Handle);
 
-//		}
+		}
 
-//		/// Back Button.
-//		public static IconButton BackButton(this UINavigationItem view)
-//		{
-//			return view.Item().BackButton;
-//		}
+		/// Should center the contentView.
+		public static ContentViewAlignment ContentViewAlignment(this UINavigationItem view)
+		{
+			return view.NavigationItem().ContentViewAlignment;
+		}
 
-//		public static void SetBackButton(this UINavigationItem view, IconButton backButton)
-//		{
-//			view.Item().BackButton = backButton;
-//		}
+		/// ContentView
+		public static UIView ContentView(this UINavigationItem view)
+		{
+			return view.NavigationItem().ContentView;
+		}
 
-//		/// ContentView
-//		public static UIView ContentView(this UINavigationItem view)
-//		{
-//			return view.Item().ContentView;
-//		}
+		/// Back Button.
+		public static IconButton BackButton(this UINavigationItem view)
+		{
+			return view.NavigationItem().BackButton;
+		}
 
-//		public static void SetContentView(this UINavigationItem view, UIView contentView)
-//		{
-//			view.Item().ContentView = contentView;
-//		}
+		/// Title
+		public static string Title(this UINavigationItem view)
+		{
+			return view.NavigationItem().TitleLabel.Text;
+		}
 
-//		/// Title
-//		public static string Title(this UINavigationItem view)
-//		{
-//			return view.Item().TitleLabel.Text;
-//		}
+		public static void SetTitle(this UINavigationItem view, string title)
+		{
+			view.NavigationItem().TitleLabel.Text = title;
+		}
 
-//		public static void SetTitle(this UINavigationItem view, string title)
-//		{
-//			view.Item().TitleLabel.Text = title;
-//		}
+		/// Title Label.
+		public static UILabel Titlelabel(this UINavigationItem view)
+		{
+			return view.NavigationItem().TitleLabel;
+		}
 
-//		/// Title Label.
-//		public static UILabel Titlelabel(this UINavigationItem view)
-//		{
-//			return view.Item().TitleLabel;
-//		}
+		/// Detail
+		public static string Detail(this UINavigationItem view)
+		{
+			return view.NavigationItem().DetailLabel.Text;
+		}
 
-//		public static void SetTitlelabel(this UINavigationItem view, UILabel titleLabel)
-//		{
-//			view.Item().TitleLabel = titleLabel;
-//		}
+		public static void SetDetail(this UINavigationItem view, string title)
+		{
+			view.NavigationItem().DetailLabel.Text = title;
+		}
 
-//		/// Detail
-//		public static string Detail(this UINavigationItem view)
-//		{
-//			return view.Item().DetailLabel.Text;
-//		}
+		/// Detail Label.
+		public static UILabel DetailLabel(this UINavigationItem view)
+		{
+			return view.NavigationItem().DetailLabel;
+		}
 
-//		public static void SetDetailTitle(this UINavigationItem view, string title)
-//		{
-//			view.Item().DetailLabel.Text = title;
-//		}
+		/// Left side UIControls.
+		public static List<UIView> LeftViews(this UINavigationItem view)
+		{
+			return view.NavigationItem().LeftViews;
+		}
 
-//		/// Detail Label.
-//		public static UILabel Detaillabel(this UINavigationItem view)
-//		{
-//			return view.Item().DetailLabel;
-//		}
+		public static void SetLeftViews(this UINavigationItem view, List<UIView> leftControls)
+		{
+			view.NavigationItem().LeftViews = leftControls;
+		}
 
-//		public static void SetDetaillabel(this UINavigationItem view, UILabel titleLabel)
-//		{
-//			view.Item().TitleLabel = titleLabel;
-//		}
+		/// Right side UIControls.
+		public static List<UIView> RightViews(this UINavigationItem view)
+		{
+			return view.NavigationItem().RightViews;
+		}
 
-//		/// Left side UIControls.
-//		public static List<UIControl> LeftControls(this UINavigationItem view)
-//		{
-//			return view.Item().LeftControls;
-//		}
-
-//		public static void SetLeftControls(this UINavigationItem view, List<UIControl> leftControls)
-//		{
-//			view.Item().LeftControls = leftControls;
-//		}
-
-//		/// Right side UIControls.
-//		public static List<UIControl> RightControls(this UINavigationItem view)
-//		{
-//			return view.Item().RightControls;
-//		}
-
-//		public static void SetRightControls(this UINavigationItem view, List<UIControl> rightControls)
-//		{
-//			view.Item().RightControls = rightControls;
-//		}
-//	}
-//}
+		public static void SetRightViews(this UINavigationItem view, List<UIView> rightControls)
+		{
+			view.NavigationItem().RightViews = rightControls;
+		}
+	}
+}

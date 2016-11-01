@@ -74,6 +74,7 @@
     <Folder Include="Sources\Root\" />
     <Folder Include="Sources\Divider\" />
     <Folder Include="Sources\Page\" />
+    <Folder Include="Sources\SearchBar\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,10 +124,6 @@
     <Compile Include="Sources\View\Switch.cs" />
     <Compile Include="Sources\Text\TextField.cs" />
     <Compile Include="Sources\Text\ErrorTextField.cs" />
-    <Compile Include="Sources\Navigation\ControlView.cs" />
-    <Compile Include="Sources\Navigation\SearchBarController.cs" />
-    <Compile Include="Sources\Navigation\SearchBar.cs" />
-    <Compile Include="Sources\Navigation\BarView.cs" />
     <Compile Include="Sources\Navigation\NavigationItem.cs" />
     <Compile Include="Sources\Navigation\NavigationController.cs" />
     <Compile Include="Sources\Navigation\NavigationDrawerController.cs" />
@@ -155,6 +152,8 @@
     <Compile Include="Sources\TabBar\TabBar.cs" />
     <Compile Include="Sources\Collection\CollectionView.cs" />
     <Compile Include="Sources\Menu\MenuItem.cs" />
+    <Compile Include="Sources\SearchBar\SearchBar.cs" />
+    <Compile Include="Sources\SearchBar\SearchBarController.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
