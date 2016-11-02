@@ -158,27 +158,47 @@ namespace FPT.Framework.iOS.Material
 			prepareDetailLabel();
 		}
 
-		~NavigationItem()
-		{
-			RemoveObserver(this, "titleLabel.textAlignment");
-		}
+		//protected override void Dispose(bool disposing)
+		//{
+		//	RemoveObserver(this, "titleLabel.textAlignment", sNavigationItemContext.Handle);
+		//	//base.Dispose(disposing);
+		//}
+
+		//~NavigationItem()
+		//{
+		//	RemoveObserver(this, "titleLabel.textAlignment");
+		//}
 
 		#endregion
 
 		#region FUNCTIONS
 
+		//public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
+		//{
+		//	if (keyPath.ToString() == "titleLabel.textAlignment")
+		//	{
+		//		ContentViewAlignment = TitleLabel.TextAlignment == UITextAlignment.Center ? ContentViewAlignment.Center : ContentViewAlignment.Any;
+		//	}
+		//	base.ObserveValue(keyPath, ofObject, change, context);
+		//}
+
+		static NSObject sNavigationItemContext = new NSObject();
+
 		private void prepareTitleLabel()
 		{
-			TitleLabel = new UILabel();
-			TitleLabel.Font = RobotoFont.MediumWithSize(17);
 			TitleLabel.TextAlignment = UITextAlignment.Center;
+			TitleLabel.ContentScaleFactor = Device.Scale;
+			TitleLabel.Font = RobotoFont.MediumWithSize(17);
+			TitleLabel.TextColor = Color.DarkText.Primary;
+			//AddObserver(this, "titleLabel.textAlignment", default(NSKeyValueObservingOptions), sNavigationItemContext.Handle);
 		}
 
 		private void prepareDetailLabel()
 		{
-			DetailLabel = new UILabel();
-			DetailLabel.Font = RobotoFont.RegularWithSize(12);
 			DetailLabel.TextAlignment = UITextAlignment.Center;
+			DetailLabel.ContentScaleFactor = Device.Scale;
+			DetailLabel.Font = RobotoFont.RegularWithSize(12);
+			DetailLabel.TextColor = Color.DarkText.Secondary;
 		}
 
 		#endregion

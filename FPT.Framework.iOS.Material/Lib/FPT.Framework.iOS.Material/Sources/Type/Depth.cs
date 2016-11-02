@@ -10,7 +10,7 @@ namespace FPT.Framework.iOS.Material
 			switch (depth)
 			{
 				case DepthPreset.None:
-					return null;
+					return Depth.Zero;
 				case DepthPreset.Depth1:
 				return new Depth(new UIOffset(0, 0.5f), 0.3f, 0.5f);
 				case DepthPreset.Depth2:

@@ -89,7 +89,7 @@ namespace FPT.Framework.iOS.Material
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			PrepareView();
+			Prepare();
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -170,7 +170,7 @@ namespace FPT.Framework.iOS.Material
 		The super.prepareView method should always be called immediately
 		when subclassing.
 		*/
-		public virtual void PrepareView()
+		public virtual void Prepare()
 		{
 			NavigationBar.SetHeightPreset(HeightPreset.Normal);
 

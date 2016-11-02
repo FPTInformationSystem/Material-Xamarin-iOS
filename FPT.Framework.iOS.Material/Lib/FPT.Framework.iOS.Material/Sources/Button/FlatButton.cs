@@ -37,7 +37,9 @@ namespace FPT.Framework.iOS.Material
 
 		public FlatButton() : base() { }
 
-		public FlatButton(String title, UIColor tintColor = null) : base(title, tintColor) { }
+		public FlatButton(UIImage image, UIColor tintColor = null) : base(image, tintColor) { }
+
+		public FlatButton(String title, UIColor titleColor = null) : base(title, titleColor) { }
 
 		public override void Prepare()
 		{

@@ -52,7 +52,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return new CGSize(Device.Width, Device.Height);
+				return new CGSize(Device.Width, this.Height());
 			}
 		}
 
@@ -168,16 +168,17 @@ namespace FPT.Framework.iOS.Material
 
 		protected internal NavigationBar(IntPtr handle) : base(handle)
 		{
+			Prepare();
 		}
 
 		public NavigationBar(NSCoder coder) : base(coder)
 		{
-			PrepareView();
+			Prepare();
 		} 
 
 		public NavigationBar(CGRect frame) : base(frame)
 		{
-			PrepareView();
+			Prepare();
 		}
 
 		public NavigationBar() : this (CGRect.Empty)
@@ -301,7 +302,10 @@ namespace FPT.Framework.iOS.Material
 					{
 						item.ContentView().Grid().Columns = columns - 2 * lc;
 						item.ContentView().Grid().Offset.Columns = 0;
-						item.RightViews()[0].Grid().Offset.Columns = lc - rc;
+						if (item.RightViews().Count > 0)
+						{
+							item.RightViews()[0].Grid().Offset.Columns = lc - rc;
+						}
 					}
 				}
 				else
@@ -368,7 +372,7 @@ namespace FPT.Framework.iOS.Material
 		The super.prepareView method should always be called immediately
 		when subclassing.
 		*/
-		public void PrepareView()
+		public virtual void Prepare()
 		{
 			BarStyle = UIBarStyle.Black;
 			Translucent = false;

@@ -180,12 +180,12 @@ namespace FPT.Framework.iOS.Material
 			Prepare();
 		}
 
-		public Button(String title, UIColor tintColor = null) : this()
+		public Button(String title, UIColor titleColor = null) : this()
 		{
-			if (tintColor == null)
-				tintColor = Color.Blue.Base;
+			if (titleColor == null)
+				titleColor = Color.Blue.Base;
 
-			prepare(title, tintColor);
+			prepare(title, titleColor);
 			Prepare();
 		}
 
