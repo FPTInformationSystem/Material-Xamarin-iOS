@@ -115,11 +115,6 @@
     <Compile Include="Sources\Extension\Material+Obj-C.cs" />
     <Compile Include="Sources\Table\MaterialTableViewCell.cs" />
     <Compile Include="Sources\Card\Card.cs" />
-    <Compile Include="Sources\Extension\Material+UIImage+TintColor.cs" />
-    <Compile Include="Sources\Extension\Material+UIImage+FilterBlur.cs" />
-    <Compile Include="Sources\Extension\Material+UIImage+Blank.cs" />
-    <Compile Include="Sources\Extension\Material+UIImage+Color.cs" />
-    <Compile Include="Sources\Extension\Material+UIImage+Resize.cs" />
     <Compile Include="Sources\View\MaterialLabel.cs" />
     <Compile Include="Sources\View\Switch.cs" />
     <Compile Include="Sources\Text\TextField.cs" />
@@ -154,6 +149,8 @@
     <Compile Include="Sources\Menu\MenuItem.cs" />
     <Compile Include="Sources\SearchBar\SearchBar.cs" />
     <Compile Include="Sources\SearchBar\SearchBarController.cs" />
+    <Compile Include="Sources\Extension\Material+UIImage.cs" />
+    <Compile Include="Sources\BottomTabBar\BottomNavigationController.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />
@@ -212,6 +209,12 @@
     <BundleResource Include="Resources\cm_bell_white.png" />
     <BundleResource Include="Resources\cm_bell_white%402x.png" />
     <BundleResource Include="Resources\cm_bell_white%403x.png" />
+    <BundleResource Include="Resources\cm_photo_camera_white.png" />
+    <BundleResource Include="Resources\cm_photo_camera_white%402x.png" />
+    <BundleResource Include="Resources\cm_photo_camera_white%403x.png" />
+    <BundleResource Include="Resources\cm_videocam_white.png" />
+    <BundleResource Include="Resources\cm_videocam_white%402x.png" />
+    <BundleResource Include="Resources\cm_videocam_white%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Sources\Collection\CollectionView.xib" />

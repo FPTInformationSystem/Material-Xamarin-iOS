@@ -140,6 +140,14 @@ namespace FPT.Framework.iOS.Material
 				}
 			}
 
+			public static UIImage PhotoCamera
+			{
+				get
+				{
+					return Material.Icon.icon("cm_photo_camera_white");
+				}
+			}
+
 			public static UIImage Star
 			{
 				get
@@ -169,6 +177,14 @@ namespace FPT.Framework.iOS.Material
 				get
 				{
 					return Material.Icon.icon("cm_share_white");
+				}
+			}
+
+			public static UIImage Videocam
+			{
+				get
+				{
+					return Material.Icon.icon("cm_videocam_white");
 				}
 			}
 

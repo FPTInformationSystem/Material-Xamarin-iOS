@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardDemo", "Demo\CardDemo\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigationControllerDemo", "Demo\NavigationControllerDemo\NavigationControllerDemo.csproj", "{35753BF3-CCC2-4821-996C-FE14B879753B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottomNavigationControllerDemo", "Demo\BottomNavigationControllerDemo\BottomNavigationControllerDemo.csproj", "{3BC08B7B-104F-4083-AC45-37252B963D45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -265,6 +267,14 @@ Global
 		{35753BF3-CCC2-4821-996C-FE14B879753B}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{35753BF3-CCC2-4821-996C-FE14B879753B}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{35753BF3-CCC2-4821-996C-FE14B879753B}.Debug|iPhone.Build.0 = Debug|iPhone
+		{3BC08B7B-104F-4083-AC45-37252B963D45}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{3BC08B7B-104F-4083-AC45-37252B963D45}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{3BC08B7B-104F-4083-AC45-37252B963D45}.Release|iPhone.ActiveCfg = Release|iPhone
+		{3BC08B7B-104F-4083-AC45-37252B963D45}.Release|iPhone.Build.0 = Release|iPhone
+		{3BC08B7B-104F-4083-AC45-37252B963D45}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{3BC08B7B-104F-4083-AC45-37252B963D45}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{3BC08B7B-104F-4083-AC45-37252B963D45}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{3BC08B7B-104F-4083-AC45-37252B963D45}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26C75516-374F-487F-8014-3B57C463C87A} = {C49F73A3-6958-486A-8089-DB6961B0708D}
@@ -293,5 +303,6 @@ Global
 		{F0000014-2BFD-4173-AAF6-CAAECBEE4A12} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{E75D6F78-1001-4C26-B915-426EAA67DC09} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{35753BF3-CCC2-4821-996C-FE14B879753B} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
+		{3BC08B7B-104F-4083-AC45-37252B963D45} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 	EndGlobalSection
 EndGlobal

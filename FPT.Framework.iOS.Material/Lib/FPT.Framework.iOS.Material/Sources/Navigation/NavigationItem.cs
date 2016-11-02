@@ -182,7 +182,7 @@ namespace FPT.Framework.iOS.Material
 		//	base.ObserveValue(keyPath, ofObject, change, context);
 		//}
 
-		static NSObject sNavigationItemContext = new NSObject();
+		//static NSObject sNavigationItemContext = new NSObject();
 
 		private void prepareTitleLabel()
 		{

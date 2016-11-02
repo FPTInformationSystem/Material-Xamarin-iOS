@@ -1,6 +1,6 @@
 ﻿// MIT/X11 License
 //
-// Material+UIImage+FilterBlur.cs
+// Material+UIImage.cs
 //
 // Author:
 //       Pham Quan <QuanP@fpt.com.vn, mr.pquan@gmail.com> at FPT Software Service Center.
@@ -26,12 +26,37 @@
 // THE SOFTWARE.
 using System;
 using System.Linq;
-using UIKit;
-using CoreGraphics;
 using Accelerate;
+using CoreGraphics;
+using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
+	public static partial class Extensions
+	{
+		public static UIImage ClearImage(this UIImage self)
+		{
+			UIGraphics.BeginImageContextWithOptions(new CoreGraphics.CGSize(36, 36), false, 0);
+			var image = UIGraphics.GetImageFromCurrentImageContext();
+			UIGraphics.EndImageContext();
+			return image;
+		}
+	}
+
+	public static partial class Extensions
+	{
+		public static UIImage ImageWithColor(UIColor color, CGSize size)
+		{
+			var rect = new CGRect(0, 0, size.Width, size.Height);
+			UIGraphics.BeginImageContextWithOptions(size, false, 0);
+			color.SetFill();
+			UIGraphics.RectFill(rect);
+			var image = UIGraphics.GetImageFromCurrentImageContext();
+			UIGraphics.EndImageContext();
+			return image;
+		}
+	}
+
 	public static partial class Extensions
 	{
 		private static vImageBuffer createEffectBuffer(CGContext context)
@@ -92,7 +117,7 @@ namespace FPT.Framework.iOS.Material
 						0.0722f + 0.9278f * s,  0.0722f - 0.0722f * s,  0.0722f - 0.0722f * s,  0,
 						0.7152f - 0.7152f * s,  0.7152f + 0.2848f * s,  0.7152f - 0.7152f * s,  0,
 						0.2126f - 0.2126f * s,  0.2126f - 0.2126f * s,  0.2126f + 0.7873f * s,  0,
-						0,                    0,                    0,							1
+						0,                    0,                    0,                          1
 					};
 
 					nfloat divisor = 256f;
@@ -156,6 +181,66 @@ namespace FPT.Framework.iOS.Material
 			UIGraphics.EndImageContext();
 
 			return outputImage;
+		}
+	}
+
+	public static partial class Extensions
+	{
+
+		private static UIImage internalResize(this UIImage self, nfloat tw = default(nfloat), nfloat th = default(nfloat))
+		{
+			nfloat? w = null, h = null;
+
+			if (tw > 0)
+			{
+				h = self.Size.Height * tw / self.Size.Width;
+			}
+			else if (th > 0)
+			{
+				w = self.Size.Width * th / self.Size.Height;
+			}
+
+			UIImage g;
+			var t = new CGRect(0, 0, w ?? tw, h ?? th);
+			UIGraphics.BeginImageContextWithOptions(t.Size, false, Device.Scale);
+			self.Draw(t, CGBlendMode.Normal, 1f);
+			g = UIGraphics.GetImageFromCurrentImageContext();
+			UIGraphics.EndImageContext();
+
+			return g;
+		}
+
+		public static UIImage ResizeToWidth(this UIImage self, nfloat width)
+		{
+			return self.internalResize(width, 0);
+		}
+
+		public static UIImage ResizeToHeight(this UIImage self, nfloat height)
+		{
+			return self.internalResize(0, height);
+		}
+	}
+
+	public static partial class Extensions
+	{
+		public static UIImage TintWithColor(this UIImage image, UIColor color)
+		{
+			UIGraphics.BeginImageContextWithOptions(image.Size, false, Device.Scale);
+			var context = UIGraphics.GetCurrentContext();
+
+			context.ScaleCTM(1f, -1f);
+			context.TranslateCTM(0, -image.Size.Height);
+
+			context.SetBlendMode(CGBlendMode.Multiply);
+
+			var rect = new CGRect(0, 0, image.Size.Width, image.Size.Height);
+			context.ClipToMask(rect, image.CGImage);
+			color.SetFill();
+			context.FillRect(rect);
+
+			var result = UIGraphics.GetImageFromCurrentImageContext();
+			UIGraphics.EndImageContext();
+			return result.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
 		}
 	}
 }
