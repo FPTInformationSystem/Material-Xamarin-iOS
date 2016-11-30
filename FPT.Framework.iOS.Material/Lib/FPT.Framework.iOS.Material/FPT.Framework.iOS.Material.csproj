@@ -151,6 +151,7 @@
     <Compile Include="Sources\SearchBar\SearchBarController.cs" />
     <Compile Include="Sources\Extension\Material+UIImage.cs" />
     <Compile Include="Sources\BottomTabBar\BottomNavigationController.cs" />
+    <Compile Include="Sources\Table\TableViewCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />

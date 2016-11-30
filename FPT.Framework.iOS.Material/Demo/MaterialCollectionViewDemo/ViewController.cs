@@ -22,7 +22,6 @@ namespace MaterialCollectionViewDemo
 				CollectionViewCell cell = collectionView.DequeueReusableCell("CollectionViewCell", indexPath) as CollectionViewCell;
 
 				var item = mParent.DataSourceItems[(int)indexPath.Item];
-
 				cell.BackgroundColor = Color.White;
 
 				return cell;

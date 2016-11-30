@@ -33,7 +33,7 @@ namespace TableCardViewDemo
 
 			public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 			{
-				var cell = new MaterialTableViewCell(UITableViewCellStyle.Subtitle, "Cell");
+				var cell = new TableViewCell(UITableViewCellStyle.Subtitle, "Cell");
 				var item = mParent.items[indexPath.Row];
 
 				cell.SelectionStyle = UITableViewCellSelectionStyle.None;
@@ -41,7 +41,7 @@ namespace TableCardViewDemo
 				cell.TextLabel.Font = RobotoFont.Regular;
 				cell.DetailTextLabel.Text = item.Detail;
 				cell.DetailTextLabel.Font = RobotoFont.Regular;
-				cell.DetailTextLabel.TextColor = MaterialColor.Grey.Darken1;
+				cell.DetailTextLabel.TextColor = Color.Grey.Darken1;
 				cell.ImageView.Image = item.Image.ResizeToWidth(40f);
 				cell.ImageView.Layer.CornerRadius = 5;
 				cell.ImageView.Layer.MasksToBounds = true;
@@ -76,7 +76,7 @@ namespace TableCardViewDemo
 
 		public override void ViewDidLoad()
 		{
-			ViewController.ViewDidLoad(base);
+			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 			prepareView();
 			prepareItems();
@@ -86,7 +86,7 @@ namespace TableCardViewDemo
 
 		void prepareView()
 		{
-			View.BackgroundColor = MaterialColor.White;
+			View.BackgroundColor = Color.White;
 		}
 
 		void prepareItems()
@@ -103,20 +103,20 @@ namespace TableCardViewDemo
 
 		void prepareTableView()
 		{
-			tableView.RegisterClassForCellReuse(typeof(MaterialTableViewCell), "Cell");
+			tableView.RegisterClassForCellReuse(typeof(TableViewCell), "Cell");
 			tableView.Source = new ViewControllerSource(this);
 		}
 
 		void prepareCardView()
 		{
-			var cardView = new CardView();
-			cardView.BackgroundColor = MaterialColor.Grey.Lighten5;
-			cardView.CornerRadiusPreset = MaterialRadius.Radius1;
+			var cardView = new Card();
+			cardView.BackgroundColor = Color.Grey.Lighten5;
+			cardView.SetCornerRadiusPreset(CornerRadiusPreset.Radius1);
 			cardView.Divider = false;
-			cardView.ContentInsetPreset = MaterialEdgeInset.None;
-			cardView.LeftButtonsInsetPreset = MaterialEdgeInset.Square2;
-			cardView.RightButtonsInsetPreset = MaterialEdgeInset.Square2;
-			cardView.ContentViewInsetPreset = MaterialEdgeInset.None;
+			cardView.ContentViewEdgeInsets = EdgeInsetsPreset.None;
+			cardView.SetLayoutEdgeInsetsPreset(EdgeInsetsPreset.Square2;
+			cardView.righ = EdgeInsetsPreset.Square2;
+			cardView.ContentViewInsetPreset = EdgeInsetsPreset.None;
 
 			var titleLabel = new UILabel();
 			titleLabel.Font = RobotoFont.MediumWithSize(20);
