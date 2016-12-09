@@ -30,6 +30,7 @@ using CoreGraphics;
 using CoreAnimation;
 using ObjCRuntime;
 using Foundation;
+using System.ComponentModel;
 
 namespace FPT.Framework.iOS.Material
 {
@@ -53,6 +54,7 @@ namespace FPT.Framework.iOS.Material
 		void SwitchStateChanged(Switch control, SwitchState state);
 	}
 
+	[Register("Switch"), DesignTimeVisible(true)]
 	public class Switch : UIControl
 	{
 
@@ -377,6 +379,17 @@ namespace FPT.Framework.iOS.Material
 		}
 
 		#region CONSTRUCTORS
+
+		protected Switch(IntPtr handle) : base(handle)
+		{
+			TrackLayer = new CAShapeLayer();
+			Button = new FabButton();
+			prepareTrack();
+			prepareButton();
+			prepareSwitchSize(SwitchSize.Default);
+			prepareSwitchStyle(SwitchStyle.LightContent);
+			prepareSwitchState(SwitchState.Off);
+		}
 
 		public Switch(Foundation.NSCoder coder) : base(coder)
 		{
