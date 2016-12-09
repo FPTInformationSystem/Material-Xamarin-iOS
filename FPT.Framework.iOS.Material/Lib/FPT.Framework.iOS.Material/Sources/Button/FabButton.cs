@@ -27,12 +27,15 @@
 
 using System;
 using CoreGraphics;
+using Foundation;
 using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
+	[Register("FabButton")]
 	public class FabButton : Button
 	{
+		protected FabButton(IntPtr handle) : base(handle) { }
 		public FabButton(CGRect frame) : base(frame) { }
 		public FabButton() : base() { }
 		public FabButton(UIImage image, UIColor tintColor = null) : base(image, tintColor) { }

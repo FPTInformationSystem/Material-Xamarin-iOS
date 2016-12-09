@@ -136,7 +136,7 @@ namespace FPT.Framework.iOS.Material
 
 		#region CONSTRUCTORS
 
-		public PageTabBarController(UIViewController rootViewController)			: base(new UIPageViewController(UIPageViewControllerTransitionStyle.Scroll, UIPageViewControllerNavigationOrientation.Horizontal))
+		public PageTabBarController(UIViewController rootViewController) : base(new UIPageViewController(UIPageViewControllerTransitionStyle.Scroll, UIPageViewControllerNavigationOrientation.Horizontal))
 		{
 			ViewControllers.Add(rootViewController);
 			SetViewControllers(ViewControllers.ToArray(), UIPageViewControllerNavigationDirection.Forward, true);

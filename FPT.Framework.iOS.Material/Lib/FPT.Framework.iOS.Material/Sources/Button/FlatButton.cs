@@ -27,18 +27,18 @@
 
 using System;
 using CoreGraphics;
+using Foundation;
 using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
+	[Register("FlatButton")]
 	public class FlatButton : Button
 	{
+		protected FlatButton(IntPtr handle) : base(handle) { }
 		public FlatButton(CGRect frame) : base(frame) { }
-
 		public FlatButton() : base() { }
-
 		public FlatButton(UIImage image, UIColor tintColor = null) : base(image, tintColor) { }
-
 		public FlatButton(String title, UIColor titleColor = null) : base(title, titleColor) { }
 
 		public override void Prepare()

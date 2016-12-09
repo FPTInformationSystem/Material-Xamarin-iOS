@@ -26,13 +26,17 @@
 // THE SOFTWARE.
 
 using System;
+using System.ComponentModel;
 using CoreGraphics;
+using Foundation;
 using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
+	[Register("RaisedButton"), DesignTimeVisible(true)]
 	public class RaisedButton : Button
 	{
+		protected RaisedButton(IntPtr handle) : base(handle) { }
 		public RaisedButton(CGRect frame) : base(frame) { }
 		public RaisedButton(String title, UIColor tintColor = null) : base(title, tintColor) { }
 

@@ -59,6 +59,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigationControllerDemo", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BottomNavigationControllerDemo", "Demo\BottomNavigationControllerDemo\BottomNavigationControllerDemo.csproj", "{3BC08B7B-104F-4083-AC45-37252B963D45}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DemoStoryboard", "DemoStoryboard", "{929A440B-E552-43B8-B5BB-17FC1F6C3260}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ButtonDemoStoryboard", "DemoStoryboard\ButtonDemoStoryboard\ButtonDemoStoryboard.csproj", "{AC0AEF4A-531F-4FE0-8C6A-FB3EBD4EC1EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -275,6 +279,14 @@ Global
 		{3BC08B7B-104F-4083-AC45-37252B963D45}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{3BC08B7B-104F-4083-AC45-37252B963D45}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{3BC08B7B-104F-4083-AC45-37252B963D45}.Debug|iPhone.Build.0 = Debug|iPhone
+		{AC0AEF4A-531F-4FE0-8C6A-FB3EBD4EC1EC}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{AC0AEF4A-531F-4FE0-8C6A-FB3EBD4EC1EC}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{AC0AEF4A-531F-4FE0-8C6A-FB3EBD4EC1EC}.Release|iPhone.ActiveCfg = Release|iPhone
+		{AC0AEF4A-531F-4FE0-8C6A-FB3EBD4EC1EC}.Release|iPhone.Build.0 = Release|iPhone
+		{AC0AEF4A-531F-4FE0-8C6A-FB3EBD4EC1EC}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{AC0AEF4A-531F-4FE0-8C6A-FB3EBD4EC1EC}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{AC0AEF4A-531F-4FE0-8C6A-FB3EBD4EC1EC}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{AC0AEF4A-531F-4FE0-8C6A-FB3EBD4EC1EC}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26C75516-374F-487F-8014-3B57C463C87A} = {C49F73A3-6958-486A-8089-DB6961B0708D}
@@ -304,5 +316,6 @@ Global
 		{E75D6F78-1001-4C26-B915-426EAA67DC09} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{35753BF3-CCC2-4821-996C-FE14B879753B} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{3BC08B7B-104F-4083-AC45-37252B963D45} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
+		{AC0AEF4A-531F-4FE0-8C6A-FB3EBD4EC1EC} = {929A440B-E552-43B8-B5BB-17FC1F6C3260}
 	EndGlobalSection
 EndGlobal

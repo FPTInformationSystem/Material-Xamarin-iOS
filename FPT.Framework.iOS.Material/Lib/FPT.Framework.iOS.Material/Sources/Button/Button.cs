@@ -157,6 +157,10 @@ namespace FPT.Framework.iOS.Material
 
 		#region CONSTRUCTORS
 
+		protected Button(IntPtr handle) : base(handle) {
+			Prepare();
+		}
+
 		public Button(Foundation.NSCoder coder) : base(coder)
 		{
 			Prepare();

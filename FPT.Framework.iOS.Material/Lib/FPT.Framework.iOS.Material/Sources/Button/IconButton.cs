@@ -26,17 +26,17 @@
 // THE SOFTWARE.
 using System;
 using CoreGraphics;
+using Foundation;
 using UIKit;
 
 namespace FPT.Framework.iOS.Material
 {
+	[Register("IconButton")]
 	public class IconButton : Button
 	{
-
+		protected IconButton(IntPtr handle) : base(handle) { }
 		public IconButton(CGRect frame) : base(frame) { }
-
 		public IconButton() : base() { }
-
 		public IconButton(UIImage image, UIColor tintColor = null) : base(image, tintColor) { }
 
 		public override void Prepare()
