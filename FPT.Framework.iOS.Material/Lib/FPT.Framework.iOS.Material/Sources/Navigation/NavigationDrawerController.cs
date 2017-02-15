@@ -56,6 +56,12 @@ namespace FPT.Framework.iOS.Material
 	public abstract class NavigationDrawerControllerDelegate
 	{
 		public virtual void NavigationDrawerWillOpen(NavigationDrawerController navigationDrawerController, NavigationDrawerPosition position) { }
+
+		public virtual void NavigationDrawerDidOpen(NavigationDrawerController navigationDrawerController, NavigationDrawerPosition position) { }
+
+		public virtual void NavigationDrawerWillClose(NavigationDrawerController navigationDrawerController, NavigationDrawerPosition position) { }
+
+		public virtual void NavigationDrawerDidClose(NavigationDrawerController navigationDrawerController, NavigationDrawerPosition position) { }
 	}
 
 	public class NavigationDrawerController : RootController, IUIGestureRecognizerDelegate
