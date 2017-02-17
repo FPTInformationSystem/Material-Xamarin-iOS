@@ -166,7 +166,7 @@ namespace FPT.Framework.iOS.Material
 		/// A method that prepares the rootViewController.
 		internal virtual void PrepareRootViewController()
 		{
-			prepareViewControllerWithinContainer(RootViewController, View);
+			PrepareViewControllerWithinContainer(RootViewController, View);
 		}
 
 		/**
@@ -177,7 +177,7 @@ namespace FPT.Framework.iOS.Material
 		- Parameter container: A UIView that is the parent of the
 		passed in controller view within the view hierarchy.
 		*/
-		private void prepareViewControllerWithinContainer(UIViewController viewController, UIView container)
+		internal void PrepareViewControllerWithinContainer(UIViewController viewController, UIView container)
 		{
 			var v = viewController;
 			if (v != null)
