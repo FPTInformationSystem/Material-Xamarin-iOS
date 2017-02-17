@@ -75,6 +75,7 @@ namespace FPT.Framework.iOS.Material
 
 		public virtual void NavigationDrawerDidTapPanAt(NavigationDrawerController navigationDrawerController, CGPoint point, NavigationDrawerPosition position) { }
 
+		public virtual void NavigationDrawerStatusBar(NavigationDrawerController navigationDrawerController, bool statusBar) { }
 
 	}
 
@@ -152,9 +153,7 @@ namespace FPT.Framework.iOS.Material
 			get
 			{
 				if (RightView != null) return false;
-				//TODO:
-				//return RightView.X() != Screen.width;
-				return LeftView.X() != -RightViewWidth;
+				return RightView.X() != Screen.Width;
 			}
 
 		}
@@ -692,30 +691,33 @@ namespace FPT.Framework.iOS.Material
 			v.SetX(int.Parse((toSize.Width + (IsRightViewOpened ? -v.Width() : v.Width()) / 2).ToString()));
 		}
 
-
-
-
-
-
-
-		//TODO:
 		internal void ShowStatusBar()
 		{
 			var s = this;
 			DispatchQueue.MainQueue.DispatchSync(() =>
 			{
-				//var v = Application
+				var v = Application.KeyWindow;
+				if (v != null) return;
+				v.WindowLevel = UIWindowLevel.Normal;
+				if (s.Delegate != null)
+				{
+					s.Delegate.NavigationDrawerStatusBar(navigationDrawerController: s, statusBar: false);
+				}
 			});
-
 		}
 
-		//TODO:
 		internal void HideStatusBar()
 		{
 			var s = this;
 			DispatchQueue.MainQueue.DispatchSync(() =>
 			{
-				//var v = Application
+				var v = Application.KeyWindow;
+				if (v != null) return;
+				v.WindowLevel = UIWindowLevel.StatusBar + 1;
+				if (s.Delegate != null)
+				{
+					s.Delegate.NavigationDrawerStatusBar(navigationDrawerController: s, statusBar: true);
+				}
 			});
 		}
 
