@@ -327,23 +327,23 @@ namespace FPT.Framework.iOS.Material
 			base.LayoutSubviews();
 			//ToggleStatusBar();
 
-			var v = LeftView;
-			if (v != null)
+			var vl = LeftView;
+			if (vl != null)
 			{
-				v.SetWidth(LeftViewWidth);
-				v.SetHeight(View.Bounds.Height);
+				vl.SetWidth(LeftViewWidth);
+				vl.SetHeight(View.Bounds.Height);
 				leftViewThreshold = LeftViewWidth / 2;
 				var vc = LeftViewController;
 				if (vc != null)
 				{
-					vc.View.SetWidth(v.Width());
-					vc.View.SetHeight(v.Height());
-					vc.View.Center = new CGPoint(v.Width() / 2, v.Height() / 2);
+					vc.View.SetWidth(vl.Width());
+					vc.View.SetHeight(vl.Height());
+					vc.View.Center = new CGPoint(x:vl.Width() / 2,y:vl.Height() / 2);
 
 				}
 			}
 
-			v = RightView;
+			var v = RightView;
 			if (v != null)
 			{
 				v.SetWidth(RightViewWidth);
@@ -368,6 +368,8 @@ namespace FPT.Framework.iOS.Material
 			PrepareRightView();
 			
 		}
+
+
 
 		#endregion
 
@@ -416,7 +418,7 @@ namespace FPT.Framework.iOS.Material
 						  var s = this;
 						  v.SetIsShadowPathAutoSizing(true);
 						  s.LayoutSubviews();
-						  s.HideView(v);
+						s.ShowView(v);
 					  });
 				}
 			}
@@ -546,7 +548,7 @@ namespace FPT.Framework.iOS.Material
 			UIView.Animate(withDuration, () =>
 			{
 				var s = this;
-				v.SetX(v.Width() / 2);
+				v.SetX(v.Width() / 2 *0);
 				s.RootViewController.View.Alpha = 0.5f;
 			}, () =>
 			{
@@ -700,7 +702,7 @@ namespace FPT.Framework.iOS.Material
 			DispatchQueue.MainQueue.DispatchSync(() =>
 			{
 				var v = Application.KeyWindow;
-				if (v != null) return;
+				if (v == null) return;
 				v.WindowLevel = UIWindowLevel.Normal;
 				if (s.Delegate != null)
 				{
@@ -812,7 +814,7 @@ namespace FPT.Framework.iOS.Material
 		private void PrepareRightViewController()
 		{
 			var v = RightView;
-			if (v != null) return;
+			if (v == null) return;
 			PrepareViewControllerWithinContainer(RightViewController, v);
 		}
 
@@ -840,12 +842,12 @@ namespace FPT.Framework.iOS.Material
 			IsRightViewEnabled = true;
 			RightViewWidth = UIUserInterfaceIdiom.Phone == Device.UserInterfaceIdiom ? 280 : 320;
 			RightView = new UIView();
-			RightView.Frame = new CGRect(x: 0, y: 0, width: RightViewWidth, height: View.Height());
+			RightView.Frame = new CGRect(x: View.Width(), y: 0, width: RightViewWidth, height: View.Height());
 			RightView.BackgroundColor = null;
 			View.AddSubview(RightView);
 
 			RightView.Hidden = true;
-			RightView.SetX(View.Bounds.Width -RightViewWidth / 2);
+			RightView.SetX(View.Bounds.Width + RightViewWidth / 2);
 			RightView.SetZPosition(2000);
 			PrepareRightViewController();
 		}

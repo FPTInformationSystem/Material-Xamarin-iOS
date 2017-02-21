@@ -185,9 +185,10 @@ namespace FPT.Framework.iOS.Material
 				AddChildViewController(v);
 				container.AddSubview(v.View);
 				v.DidMoveToParentViewController(this);
+				v.View.Frame = container.Bounds;
 				v.View.ClipsToBounds = true;
 				v.View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-				v.View.ContentScaleFactor = Device.Scale;
+				v.View.ContentScaleFactor = Screen.Scale;
 			}
 		}
 
