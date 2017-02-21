@@ -316,10 +316,17 @@ namespace FPT.Framework.iOS.Material
 		#region FUNCTION
 
 		#region OVERRIDE FUNCTION
-		//TODO:
+
 		public override void Transition(UIViewController fromViewController, UIViewController toViewController, double duration, UIViewAnimationOptions options, Action animations, UICompletionHandler completionHandler)
 		{
-			base.Transition(fromViewController, toViewController, duration, options, animations, completionHandler);
+			base.Transition(fromViewController, toViewController, duration, options, animations, (finished) =>
+			{
+				var s = this;
+				if (s == null) return;
+
+				s.View.SendSubviewToBack(s.ContentViewController.View);
+				if (completionHandler != null) completionHandler(finished);
+			});
 		}
 
 		public override void LayoutSubviews()
@@ -360,6 +367,14 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		public override void ViewWillTransitionToSize(CGSize size, IUIViewControllerTransitionCoordinator coordinator)
+		{
+			base.ViewWillTransitionToSize(size, coordinator);
+			var v = RightView;
+			if (v == null) return;
+			v.SetX(size.Width + (IsRightViewOpened ? -v.Width() : v.Width()) / 2);
+		}
+
 		public override void Prepare()
 		{
 			base.Prepare();
@@ -368,8 +383,6 @@ namespace FPT.Framework.iOS.Material
 			PrepareRightView();
 			
 		}
-
-
 
 		#endregion
 
@@ -548,7 +561,9 @@ namespace FPT.Framework.iOS.Material
 			UIView.Animate(withDuration, () =>
 			{
 				var s = this;
-				v.SetX(v.Width() / 2 *0);
+				var position = v.Position();
+				position.X = v.Width() / 2;
+				v.SetPosition(position);
 				s.RootViewController.View.Alpha = 0.5f;
 			}, () =>
 			{
@@ -576,7 +591,9 @@ namespace FPT.Framework.iOS.Material
 			UIView.Animate(withDuration, () =>
 			{
 				var s = this;
-				v.SetX(s.View.Bounds.Width - v.Width() / 2);
+				var position = v.Position();
+				position.X = s.View.Bounds.Width - v.Width() / 2;
+				v.SetPosition(position);
 				s.RootViewController.View.Alpha = 0.5f;
 			}, () =>
 			{
@@ -686,14 +703,6 @@ namespace FPT.Framework.iOS.Material
 		{
 			RemoveRightPanGesture();
 			RemoveRightTapGesture();
-		}
-
-		public override void ViewWillTransitionToSize(CoreGraphics.CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
-		{
-			base.ViewWillTransitionToSize(toSize, coordinator);
-			var v = RightView;
-			if (v != null) return;
-			v.SetX(int.Parse((toSize.Width + (IsRightViewOpened ? -v.Width() : v.Width()) / 2).ToString()));
 		}
 
 		internal void ShowStatusBar()
@@ -830,7 +839,9 @@ namespace FPT.Framework.iOS.Material
 			View.AddSubview(LeftView);
 
 			LeftView.Hidden = true;
-			LeftView.SetX(-LeftViewWidth / 2);
+			var position = LeftView.Position();
+			position.X = -LeftViewWidth / 2;
+			LeftView.SetPosition(position);
 			LeftView.SetZPosition(2000);
 			PrepareLeftViewController();
 		}
@@ -847,7 +858,9 @@ namespace FPT.Framework.iOS.Material
 			View.AddSubview(RightView);
 
 			RightView.Hidden = true;
-			RightView.SetX(View.Bounds.Width + RightViewWidth / 2);
+			var position = RightView.Position();
+			position.X = View.Bounds.Width + RightViewWidth / 2;
+			RightView.SetPosition(position);
 			RightView.SetZPosition(2000);
 			PrepareRightViewController();
 		}
