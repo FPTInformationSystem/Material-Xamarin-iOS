@@ -142,7 +142,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				if (LeftView != null) return false;
+				if (LeftView == null) return false;
 				return LeftView.X() != -LeftViewWidth;
 			}
 
@@ -152,7 +152,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				if (RightView != null) return false;
+				if (RightView == null) return false;
 				return RightView.X() != Screen.Width;
 			}
 
@@ -579,8 +579,8 @@ namespace FPT.Framework.iOS.Material
 		{
 			if (!IsRightViewEnabled) return;
 			var v = RightView;
-			if (v != null) return;
-			HideStatusBar();
+			if (v == null) return;
+			//HideStatusBar();
 			ShowView(v);
 			UserInteractionEnabled = false;
 			if (Delegate != null)
@@ -609,7 +609,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			if (!IsLeftViewEnabled) return;
 			var v = LeftView;
-			if (v != null) return;
+			if (v == null) return;
 
 			UserInteractionEnabled = false;
 			if (Delegate != null)
@@ -620,7 +620,9 @@ namespace FPT.Framework.iOS.Material
 			UIView.Animate(withDuration, () =>
 			{
 				var s = this;
-				v.SetX(-v.Width() / 2);
+				var position = v.Position();
+				position.X = -v.Width() / 2;
+				v.SetPosition(position);
 				s.RootViewController.View.Alpha = 1;
 			}, () =>
 			{
@@ -638,7 +640,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			if (!IsRightViewEnabled) return;
 			var v = RightView;
-			if (v != null) return;
+			if (v == null) return;
 
 			UserInteractionEnabled = false;
 			if (Delegate != null)
@@ -649,7 +651,9 @@ namespace FPT.Framework.iOS.Material
 			UIView.Animate(withDuration, () =>
 			{
 				var s = this;
-				v.SetX(s.View.Bounds.Width + v.Width() / 2);
+				var position = v.Position();
+				position.X = s.View.Bounds.Width + v.Width() / 2;
+				v.SetPosition(position);
 				s.RootViewController.View.Alpha = 1;
 			}, () =>
 			{
@@ -728,7 +732,7 @@ namespace FPT.Framework.iOS.Material
 			DispatchQueue.MainQueue.DispatchSync(() =>
 			{
 				var v = Application.KeyWindow;
-				if (v != null) return;
+				if (v == null) return;
 				v.WindowLevel = UIWindowLevel.StatusBar + 1;
 				if (s.Delegate != null)
 				{
@@ -1011,7 +1015,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			if (!IsLeftViewOpened) return;
 			var v = LeftView;
-			if (v != null) return;
+			if (v == null) return;
 			if (this.Delegate != null)
 			{
 				this.Delegate.NavigationDrawerDidTapPanAt(this, recognizer.LocationInView(View), NavigationDrawerPosition.Left);
@@ -1026,7 +1030,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			if (!IsRightViewOpened) return;
 			var v = RightView;
-			if (v != null) return;
+			if (v == null) return;
 			if (this.Delegate != null)
 			{
 				this.Delegate.NavigationDrawerDidTapPanAt(this, recognizer.LocationInView(View), NavigationDrawerPosition.Right);
