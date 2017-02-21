@@ -15,7 +15,7 @@ namespace GridDemo
 
 		public override void ViewDidLoad()
 		{
-			ViewController.ViewDidLoad(base);
+			base.ViewDidLoad();
 			// Perform any additional setup after loading the view, typically from a nib.
 			prepareLargeCardViewExample();
 		}
