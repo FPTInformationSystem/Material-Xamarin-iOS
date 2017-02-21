@@ -166,7 +166,7 @@ namespace FPT.Framework.iOS.Material
 		/// A method that prepares the rootViewController.
 		internal virtual void PrepareRootViewController()
 		{
-			prepareViewControllerWithinContainer(RootViewController, View);
+			PrepareViewControllerWithinContainer(RootViewController, View);
 		}
 
 		/**
@@ -177,7 +177,7 @@ namespace FPT.Framework.iOS.Material
 		- Parameter container: A UIView that is the parent of the
 		passed in controller view within the view hierarchy.
 		*/
-		private void prepareViewControllerWithinContainer(UIViewController viewController, UIView container)
+		internal void PrepareViewControllerWithinContainer(UIViewController viewController, UIView container)
 		{
 			var v = viewController;
 			if (v != null)
@@ -185,9 +185,10 @@ namespace FPT.Framework.iOS.Material
 				AddChildViewController(v);
 				container.AddSubview(v.View);
 				v.DidMoveToParentViewController(this);
+				v.View.Frame = container.Bounds;
 				v.View.ClipsToBounds = true;
 				v.View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-				v.View.ContentScaleFactor = Device.Scale;
+				v.View.ContentScaleFactor = Screen.Scale;
 			}
 		}
 

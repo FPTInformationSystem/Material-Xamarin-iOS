@@ -26,6 +26,8 @@
 // THE SOFTWARE.
 using System;
 using System.Drawing;
+using CoreFoundation;
+using CoreGraphics;
 using Foundation;
 using ObjCRuntime;
 using UIKit;
@@ -65,16 +67,26 @@ namespace FPT.Framework.iOS.Material
 
 		public virtual void NavigationDrawerDidClose(NavigationDrawerController navigationDrawerController, NavigationDrawerPosition position) { }
 
-		//public virtual void NavigationDrawerDidBeginPanAt(NavigationDrawerController navigationDrawerController,Point didBeginPanAt, NavigationDrawerPosition position) { }
-		
+		public virtual void NavigationDrawerDidBeginPanAt(NavigationDrawerController navigationDrawerController, CGPoint point, NavigationDrawerPosition position) { }
+
+		public virtual void NavigationDrawerDidChangePanAt(NavigationDrawerController navigationDrawerController, CGPoint point, NavigationDrawerPosition position) { }
+
+		public virtual void NavigationDrawerDidEndPanAt(NavigationDrawerController navigationDrawerController, CGPoint point, NavigationDrawerPosition position) { }
+
+		public virtual void NavigationDrawerDidTapPanAt(NavigationDrawerController navigationDrawerController, CGPoint point, NavigationDrawerPosition position) { }
+
+		public virtual void NavigationDrawerStatusBar(NavigationDrawerController navigationDrawerController, bool statusBar) { }
+
 	}
 
-	public class NavigationDrawerController : RootController, IUIGestureRecognizerDelegate
+	public partial class NavigationDrawerController : RootController, IUIGestureRecognizerDelegate
 	{
 
 		#region PROPERTIES
 
-		internal UIPanGestureRecognizer LeftPanGesture { get; private set;}
+		internal nfloat OriginalX = 0f;
+
+		internal UIPanGestureRecognizer LeftPanGesture { get; private set; }
 
 		internal UIPanGestureRecognizer RightPanGesture { get; private set; }
 
@@ -92,8 +104,26 @@ namespace FPT.Framework.iOS.Material
 
 		public double animationDuration { get; set; } = 0.25;
 
-		private nfloat LeftViewWidth { get; set; }
-		private nfloat RightViewWidth { get; set; }
+
+		public bool IsEnabled
+		{
+			get
+			{
+				return IsLeftViewEnabled || IsRightViewEnabled;
+			}
+			set
+			{
+				if (LeftView != null)
+				{
+					IsLeftViewEnabled = value;
+				}
+
+				if (RightView != null)
+				{
+					IsRightViewEnabled = value;
+				}
+			}
+		}
 
 		public bool IsOpend
 		{
@@ -103,6 +133,8 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		public DepthPreset depthPreset = DepthPreset.Depth1;
+
 		private UIView LeftView { get; set; }
 		private UIView RightView { get; set; }
 
@@ -111,7 +143,7 @@ namespace FPT.Framework.iOS.Material
 			get
 			{
 				if (LeftView != null) return false;
-				return LeftView.X() != LeftViewWidth;
+				return LeftView.X() != -LeftViewWidth;
 			}
 
 		}
@@ -121,14 +153,20 @@ namespace FPT.Framework.iOS.Material
 			get
 			{
 				if (RightView != null) return false;
-				return RightView.X() != RightViewWidth;
+				return RightView.X() != Screen.Width;
 			}
 
 		}
 
-		private UIViewController leftViewController { get; set;}
+		private UIViewController LeftViewController { get; set; }
 
-		private UIViewController rightViewController { get; set;}
+		private UIViewController RightViewController { get; set; }
+
+		private UIViewController ContentViewController { get; set; } = new UIViewController();
+
+		private nfloat LeftViewWidth { get; set; }
+
+		private nfloat RightViewWidth { get; set; }
 
 		private bool mIsLeftViewEnabled = false;
 		public bool IsLeftViewEnabled
@@ -248,6 +286,8 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		public bool IsHiddenStatusBarEnabled = true;
+
 		#endregion
 
 		#region CONSTRUCTORS
@@ -255,27 +295,353 @@ namespace FPT.Framework.iOS.Material
 		public NavigationDrawerController(NSCoder coder) : base(coder)
 		{
 			
+			Prepare();
 		}
 
-		public NavigationDrawerController(UIViewController rootViewContrller) : base (rootViewContrller)
+		public NavigationDrawerController(UIViewController rootViewContrller) : base(rootViewContrller)
 		{
+			Prepare();
 		}
 
-		public override void Transition(UIViewController fromViewController, UIViewController toViewController, double duration, UIViewAnimationOptions options, Action animations, UICompletionHandler completionHandler)
+		public NavigationDrawerController(UIViewController rootViewContrller, UIViewController leftViewController = null, UIViewController rightViewController = null) : base(rootViewContrller)
 		{
-			base.Transition(fromViewController, toViewController, duration, options, animations, completionHandler);
+			//this.RootViewController = rootViewContrller;
+			this.LeftViewController = leftViewController;
+			this.RightViewController = rightViewController;
+			Prepare();
 		}
 
 		#endregion
 
 		#region FUNCTION
 
-		internal void PrepareLeftPanGesture()
+		#region OVERRIDE FUNCTION
+		//TODO:
+		public override void Transition(UIViewController fromViewController, UIViewController toViewController, double duration, UIViewAnimationOptions options, Action animations, UICompletionHandler completionHandler)
 		{
-			if (LeftPanGesture != null) return;
-			LeftPanGesture = new UIPanGestureRecognizer(this, new Selector("HandleLeftViewPanGesture:"));
-			LeftPanGesture.Delegate = this;
-			View.AddGestureRecognizer(LeftPanGesture);
+			base.Transition(fromViewController, toViewController, duration, options, animations, completionHandler);
+		}
+
+		public override void LayoutSubviews()
+		{
+			base.LayoutSubviews();
+			//ToggleStatusBar();
+
+			var vl = LeftView;
+			if (vl != null)
+			{
+				vl.SetWidth(LeftViewWidth);
+				vl.SetHeight(View.Bounds.Height);
+				leftViewThreshold = LeftViewWidth / 2;
+				var vc = LeftViewController;
+				if (vc != null)
+				{
+					vc.View.SetWidth(vl.Width());
+					vc.View.SetHeight(vl.Height());
+					vc.View.Center = new CGPoint(x:vl.Width() / 2,y:vl.Height() / 2);
+
+				}
+			}
+
+			var v = RightView;
+			if (v != null)
+			{
+				v.SetWidth(RightViewWidth);
+				v.SetHeight(View.Bounds.Height);
+				rightViewThreshold = View.Bounds.Width - RightViewWidth / 2;
+				var vc = RightViewController;
+				if (vc != null)
+				{
+					vc.View.SetWidth(v.Width());
+					vc.View.SetHeight(v.Height());
+					vc.View.Center = new CGPoint(v.Width() / 2, v.Height() / 2);
+
+				}
+			}
+		}
+
+		public override void Prepare()
+		{
+			base.Prepare();
+			PrepareContentViewController();
+			PrepareLeftView();
+			PrepareRightView();
+			
+		}
+
+
+
+		#endregion
+
+		#region OTHER FUNCTION
+
+		public void SetLeftViewWidth(nfloat width, bool isHidden, bool animated, double duration = 0.5)
+		{
+			var v = LeftView;
+			if (v == null) return;
+			LeftViewWidth = width;
+			var hide = isHidden;
+			if (IsRightViewOpened) hide = true;
+			if (animated)
+			{
+				v.SetIsShadowPathAutoSizing(false);
+				if (hide)
+				{
+					UIView.Animate(duration, () =>
+					 {
+						 var s = this;
+						 var rect = v.Bounds;
+						 rect.Width = width;
+						 v.Bounds = rect;
+						 v.SetX(-width / 2);
+						 s.RootViewController.View.Alpha = 1;
+					 }, () =>
+					  {
+						  var s = this;
+						  v.SetIsShadowPathAutoSizing(true);
+						  s.LayoutSubviews();
+						  s.HideView(v);
+					  });
+				}
+				else
+				{
+					UIView.Animate(duration, () =>
+					 {
+						 var s = this;
+						 var rect = v.Bounds;
+						 rect.Width = width;
+						 v.Bounds = rect;
+						 v.SetX(width / 2);
+						 s.RootViewController.View.Alpha = 0.5f;
+					 }, () =>
+					  {
+						  var s = this;
+						  v.SetIsShadowPathAutoSizing(true);
+						  s.LayoutSubviews();
+						s.ShowView(v);
+					  });
+				}
+			}
+			else
+			{
+				var rect = v.Bounds;
+				rect.Width = width;
+				v.Bounds = rect;
+				if (hide)
+				{
+					HideView(v);
+					v.SetX(-v.Width() / 2);
+					RootViewController.View.Alpha = 1;
+				}
+				else
+				{
+					v.SetIsShadowPathAutoSizing(false);
+					ShowView(v);
+					v.SetX(width / 2);
+					RootViewController.View.Alpha = 0.5f;
+					v.SetIsShadowPathAutoSizing(true);
+				}
+				LayoutSubviews();
+			}
+
+		}
+
+		public void SetRightViewWidth(nfloat width, bool isHidden, bool animated, double duration = 0.5)
+		{
+			var v = RightView;
+			if (v == null) return;
+			RightViewWidth = width;
+			var hide = isHidden;
+			if (IsLeftViewOpened) hide = true;
+			if (animated)
+			{
+				v.SetIsShadowPathAutoSizing(false);
+				if (hide)
+				{
+					UIView.Animate(duration, () =>
+					 {
+						 var s = this;
+						 var rect = v.Bounds;
+						 rect.Width = width;
+						 v.Bounds = rect;
+						 v.SetX(View.Bounds.Width + width / 2);
+						 s.RootViewController.View.Alpha = 1;
+					 }, () =>
+					  {
+						  var s = this;
+						  v.SetIsShadowPathAutoSizing(true);
+						  s.LayoutSubviews();
+						  s.HideView(v);
+					  });
+				}
+				else
+				{
+					UIView.Animate(duration, () =>
+					 {
+						 var s = this;
+						 var rect = v.Bounds;
+						 rect.Width = width;
+						 v.Bounds = rect;
+						 v.SetX(View.Bounds.Width - width / 2);
+						 s.RootViewController.View.Alpha = 0.5f;
+					 }, () =>
+					  {
+						  var s = this;
+						  v.SetIsShadowPathAutoSizing(true);
+						  s.LayoutSubviews();
+						  s.HideView(v);
+					  });
+				}
+			}
+			else
+			{
+				var rect = v.Bounds;
+				rect.Width = width;
+				v.Bounds = rect;
+				if (hide)
+				{
+					HideView(v);
+					v.SetX(View.Bounds.Width + v.Width() / 2);
+					RootViewController.View.Alpha = 1;
+				}
+				else
+				{
+					v.SetIsShadowPathAutoSizing(false);
+					ShowView(v);
+					v.SetX(View.Bounds.Width - width / 2);
+					RootViewController.View.Alpha = 0.5f;
+					v.SetIsShadowPathAutoSizing(true);
+				}
+				LayoutSubviews();
+			}
+		}
+
+		public void ToggleLeftView(nfloat velocity = default(nfloat))
+		{
+			if (IsLeftViewOpened)
+				CloseLeftView(velocity);
+			else
+				OpenLeftView(velocity);
+		}
+
+		public void ToggleRightView(nfloat velocity = default(nfloat))
+		{
+			if (IsRightViewOpened)
+				CloseRightView(velocity);
+			else
+				OpenRightView(velocity);
+		}
+
+		public void OpenLeftView(nfloat velocity = default(nfloat))
+		{
+			if (!IsLeftViewEnabled) return;
+			var v = LeftView;
+			if (v == null) return;
+			//HideStatusBar();
+			ShowView(v);
+			UserInteractionEnabled = false;
+			if (Delegate != null)
+			{
+				Delegate.NavigationDrawerWillOpen(this, NavigationDrawerPosition.Left);
+			}
+			double withDuration = (0 == velocity ? animationDuration : NMath.Max(0.1f, NMath.Min(1, (v.X() / velocity))));
+			UIView.Animate(withDuration, () =>
+			{
+				var s = this;
+				v.SetX(v.Width() / 2 *0);
+				s.RootViewController.View.Alpha = 0.5f;
+			}, () =>
+			{
+				var s = this;
+				if (Delegate != null)
+				{
+					s.Delegate.NavigationDrawerDidOpen(this, NavigationDrawerPosition.Left);
+				}
+			});
+		}
+
+		public void OpenRightView(nfloat velocity = default(nfloat))
+		{
+			if (!IsRightViewEnabled) return;
+			var v = RightView;
+			if (v != null) return;
+			HideStatusBar();
+			ShowView(v);
+			UserInteractionEnabled = false;
+			if (Delegate != null)
+			{
+				Delegate.NavigationDrawerWillOpen(this, NavigationDrawerPosition.Right);
+			}
+			double withDuration = (0 == velocity ? animationDuration : NMath.Max(0.1f, NMath.Min(1, (v.X() / velocity))));
+			UIView.Animate(withDuration, () =>
+			{
+				var s = this;
+				v.SetX(s.View.Bounds.Width - v.Width() / 2);
+				s.RootViewController.View.Alpha = 0.5f;
+			}, () =>
+			{
+				var s = this;
+				if (Delegate != null)
+				{
+					s.Delegate.NavigationDrawerDidOpen(this, NavigationDrawerPosition.Right);
+				}
+			});
+		}
+
+		public void CloseLeftView(nfloat velocity = default(nfloat))
+		{
+			if (!IsLeftViewEnabled) return;
+			var v = LeftView;
+			if (v != null) return;
+
+			UserInteractionEnabled = false;
+			if (Delegate != null)
+			{
+				Delegate.NavigationDrawerWillClose(this, NavigationDrawerPosition.Left);
+			}
+			double withDuration = (0 == velocity ? animationDuration : NMath.Max(0.1f, NMath.Min(1, (v.X() / velocity))));
+			UIView.Animate(withDuration, () =>
+			{
+				var s = this;
+				v.SetX(-v.Width() / 2);
+				s.RootViewController.View.Alpha = 1;
+			}, () =>
+			{
+				var s = this;
+				s.HideView(v);
+				s.ToggleStatusBar();
+				if (Delegate != null)
+				{
+					s.Delegate.NavigationDrawerDidClose(this, NavigationDrawerPosition.Left);
+				}
+			});
+		}
+
+		public void CloseRightView(nfloat velocity = default(nfloat))
+		{
+			if (!IsRightViewEnabled) return;
+			var v = RightView;
+			if (v != null) return;
+
+			UserInteractionEnabled = false;
+			if (Delegate != null)
+			{
+				Delegate.NavigationDrawerWillClose(this, NavigationDrawerPosition.Right);
+			}
+			double withDuration = (0 == velocity ? animationDuration : NMath.Max(0.1f, NMath.Min(1, (v.X() / velocity))));
+			UIView.Animate(withDuration, () =>
+			{
+				var s = this;
+				v.SetX(s.View.Bounds.Width + v.Width() / 2);
+				s.RootViewController.View.Alpha = 1;
+			}, () =>
+			{
+				var s = this;
+				if (Delegate != null)
+				{
+					s.Delegate.NavigationDrawerDidClose(this, NavigationDrawerPosition.Right);
+				}
+			});
 		}
 
 		internal void RemoveLeftPanGesture()
@@ -284,14 +650,6 @@ namespace FPT.Framework.iOS.Material
 			if (v == null) return;
 			View.RemoveGestureRecognizer(v);
 			LeftPanGesture = null;
-		}
-
-		internal void PrepareLeftTapGesture()
-		{
-			if (LeftTapGesture != null) return;
-			LeftTapGesture = new UITapGestureRecognizer(this, new Selector("HandleLeftViewPanGesture:"));
-			LeftTapGesture.Delegate = this;
-			View.AddGestureRecognizer(LeftPanGesture);
 		}
 
 		internal void RemoveLeftTapGesture()
@@ -308,28 +666,12 @@ namespace FPT.Framework.iOS.Material
 			RemoveLeftTapGesture();
 		}
 
-		internal void PrepareRightTapGesture()
-		{
-			if (RightTapGesture != null) return;
-			RightTapGesture = new UITapGestureRecognizer(this, new Selector("HandleLeftViewPanGesture:"));
-			RightTapGesture.Delegate = this;
-			View.AddGestureRecognizer(RightTapGesture);
-		}
-
 		internal void RemoveRightTapGesture()
 		{
 			var v = RightTapGesture;
 			if (v == null) return;
 			View.RemoveGestureRecognizer(v);
 			RightTapGesture = null;
-		}
-
-		internal void PrepareRightPanGesture()
-		{
-			if (RightPanGesture != null) return;
-			RightPanGesture = new UIPanGestureRecognizer(this, new Selector("HandleLeftViewPanGesture:"));
-			RightPanGesture.Delegate = this;
-			View.AddGestureRecognizer(RightPanGesture);
 		}
 
 		internal void RemoveRightPanGesture()
@@ -346,354 +688,340 @@ namespace FPT.Framework.iOS.Material
 			RemoveRightTapGesture();
 		}
 
-		public override void LayoutSubviews()
-		{
-			base.LayoutSubviews();
-			var v = LeftView;
-			if (v != null)
-			{
-				v.SetWidth(LeftViewWidth);
-				v.SetHeight(View.Bounds.Height);
-				leftViewThreshold = LeftViewWidth / 2;
-				var vc = leftViewController;
-				if (vc != null)
-				{
-					vc.View.SetWidth(v.Width());
-					vc.View.SetHeight(v.Height());
-					vc.View.Center = new Point(x: int.Parse((v.Width() / 2).ToString()), y: int.Parse((v.Height() / 2).ToString()));
-
-				}
-			}
-
-			v = RightView;
-			if (v != null)
-			{
-				v.SetWidth(RightViewWidth);
-				v.SetHeight(View.Bounds.Height);
-				rightViewThreshold = View.Bounds.Width - RightViewWidth / 2;
-				var vc = rightViewController;
-				if (vc != null)
-				{
-					vc.View.SetWidth(v.Width());
-					vc.View.SetHeight(v.Height());
-					vc.View.Center = new Point(x: int.Parse((v.Width() / 2).ToString()), y: int.Parse((v.Height() / 2).ToString()));
-
-				}
-			}
-
-		}
-
 		public override void ViewWillTransitionToSize(CoreGraphics.CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
 		{
 			base.ViewWillTransitionToSize(toSize, coordinator);
 			var v = RightView;
 			if (v != null) return;
-			v.SetPosition(new Point(x:int.Parse((toSize.Width + (IsRightViewOpened ? -v.Width() : v.Width()) / 2).ToString()),y:0));
+			v.SetX(int.Parse((toSize.Width + (IsRightViewOpened ? -v.Width() : v.Width()) / 2).ToString()));
 		}
 
-		public void SetLeftViewWidth(nfloat width, bool isHidden, bool animated, double duration = 0.5)
-		{
-			var v = LeftView;
-			if (v != null) return;
-			LeftViewWidth = width;
-			var hide = isHidden;
-			if (IsLeftViewOpened) hide = true;
-			if (animated)
-			{
-				v.SetIsShadowPathAutoSizing(false);
-				if (hide)
-				{
-					UIView.Animate(duration, () =>
-					 {
-						 var s = this;
-						 var rect = v.Bounds;
-						 rect.Width = width;
-						 v.Bounds = rect;
-						 v.SetX(int.Parse((-width / 2).ToString()));
-						 s.RootViewController.View.Alpha = 1;
-					 }, () =>
-					  {
-						  var s = this;
-						  v.SetIsShadowPathAutoSizing(true);
-						  s.LayoutSubviews();
-						  s.HideView(v);
-					  });
-				}
-				else
-				{
-					UIView.Animate(duration, () =>
-					 {
-						 var s = this;
-						 var rect = v.Bounds;
-						 rect.Width = width;
-						 v.Bounds = rect;
-						 v.SetX(int.Parse((width / 2).ToString()));
-						 s.RootViewController.View.Alpha = (System.nfloat)0.5;
-					 }, () =>
-					  {
-						  var s = this;
-						  v.SetIsShadowPathAutoSizing(true);
-						  s.LayoutSubviews();
-						  s.HideView(v);
-					  });
-				}
-			}
-			else
-			{
-				var rect = v.Bounds;
-				rect.Width = width;
-				v.Bounds = rect;
-				if (hide)
-				{
-					HideView(v);
-					v.SetX(int.Parse((-v.Width() / 2).ToString()));
-					RootViewController.View.Alpha = 1;
-				}
-				else
-				{
-					v.SetIsShadowPathAutoSizing(false);
-					ShowView(v);
-					v.SetX(int.Parse((width / 2).ToString()));
-					RootViewController.View.Alpha = (System.nfloat)0.5;
-					v.SetIsShadowPathAutoSizing(true);
-				}
-				LayoutSubviews();
-			}
-
-		}
-
-		public void SetRightViewWidth(nfloat width, bool isHidden, bool animated, double duration = 0.5)
-		{
-			var v = RightView;
-			if (v != null) return;
-			RightViewWidth = width;
-			var hide = isHidden;
-			if (IsRightViewOpened) hide = true;
-			if (animated)
-			{
-				v.SetIsShadowPathAutoSizing(false);
-				if (hide)
-				{
-					UIView.Animate(duration, () =>
-					 {
-						 var s = this;
-						 var rect = v.Bounds;
-						 rect.Width = width;
-						 v.Bounds = rect;
-						 v.SetX(int.Parse((View.Bounds.Width + width / 2).ToString()));
-						 s.RootViewController.View.Alpha = 1;
-					 }, () =>
-					  {
-						  var s = this;
-						  v.SetIsShadowPathAutoSizing(true);
-						  s.LayoutSubviews();
-						  s.HideView(v);
-					  });
-				}
-				else
-				{
-					UIView.Animate(duration, () =>
-					 {
-						 var s = this;
-						 var rect = v.Bounds;
-						 rect.Width = width;
-						 v.Bounds = rect;
-						 v.SetX(int.Parse((View.Bounds.Width - width / 2).ToString()));
-						 s.RootViewController.View.Alpha = (System.nfloat)0.5;
-					 }, () =>
-					  {
-						  var s = this;
-						  v.SetIsShadowPathAutoSizing(true);
-						  s.LayoutSubviews();
-						  s.HideView(v);
-					  });
-				}
-			}
-			else
-			{
-				var rect = v.Bounds;
-				rect.Width = width;
-				v.Bounds = rect;
-				if (hide)
-				{
-					HideView(v);
-					v.SetX(int.Parse((View.Bounds.Width + v.Width() / 2).ToString()));
-					RootViewController.View.Alpha = 1;
-				}
-				else
-				{
-					v.SetIsShadowPathAutoSizing(false);
-					ShowView(v);
-					v.SetX(int.Parse((View.Bounds.Width - width / 2).ToString()));
-					RootViewController.View.Alpha = (System.nfloat)0.5;
-					v.SetIsShadowPathAutoSizing(true);
-				}
-				LayoutSubviews();
-			}
-		}
-
-		public void ToggleLeftView(nfloat velocity)
-		{
-			if (IsLeftViewOpened)
-				CloseLeftView(velocity);
-			else 
-				OpenLeftView(velocity);
- 		}
-
-		public void ToggleRightView(nfloat velocity)
-		{
-			if (IsRightViewOpened)
-				CloseRightView(velocity);
-			else
-				OpenRightView(velocity);
-		}
-
-		//TODO:
-		public void OpenLeftView(nfloat velocity)
-		{
-			if (!IsLeftViewEnabled) return;
-			var v = LeftView;
-			if (v != null) return;
-			HideStatusBar();
-			ShowView(v);
-			UserInteractionEnabled = false;
-			if (Delegate != null)
-			{
-				Delegate.NavigationDrawerWillOpen(this, NavigationDrawerPosition.Left);
-			}
-			double withDuration = 0 == velocity ? animationDuration : NMath.Max(0.1, NMath.Min(1,(v.X() / velocity)));
-			UIView.Animate(withDuration,)
-		}
-
-		//TODO:
-		public void OpenRightView(nfloat velocity = 0)
-		{
-
-		}
-
-		//TODO:
-		public void CloseLeftView(nfloat velocity = 0)
-		{
-		}
-
-
-		//TODO:
-		public void CloseRightView(nfloat velocity = 0)
-		{
-		}
-
-		//TODO:
 		internal void ShowStatusBar()
 		{
+			var s = this;
+			DispatchQueue.MainQueue.DispatchSync(() =>
+			{
+				var v = Application.KeyWindow;
+				if (v == null) return;
+				v.WindowLevel = UIWindowLevel.Normal;
+				if (s.Delegate != null)
+				{
+					s.Delegate.NavigationDrawerStatusBar(navigationDrawerController: s, statusBar: false);
+				}
+			});
 		}
 
-		//TODO:
 		internal void HideStatusBar()
 		{
+			if (!IsHiddenStatusBarEnabled) return;
+
+			var s = this;
+			DispatchQueue.MainQueue.DispatchSync(() =>
+			{
+				var v = Application.KeyWindow;
+				if (v != null) return;
+				v.WindowLevel = UIWindowLevel.StatusBar + 1;
+				if (s.Delegate != null)
+				{
+					s.Delegate.NavigationDrawerStatusBar(navigationDrawerController: s, statusBar: true);
+				}
+			});
 		}
 
-		//TODO:
 		internal void ToggleStatusBar()
 		{
+			if (IsOpend) HideStatusBar();
+			else ShowStatusBar();
 		}
 
 
-		//TODO:
-		internal bool IsPointContainedWithinLeftThreshold(Point point)
+		internal bool IsPointContainedWithinLeftThreshold(CGPoint point)
 		{
-			return true;
+			return point.X <= LeftThreshold;
 		}
 
-		//TODO:
-		internal bool IsPointContainedWithinRightThreshold(Point point)
+		internal bool IsPointContainedWithinRightThreshold(CGPoint point)
 		{
-			return true;
+			return point.X >= View.Bounds.Width - RightThreshold;
 		}
 
-		//TODO:
-		internal bool IsPointContainedWithinView(Point point)
+		internal bool IsPointContainedWithinView(UIView container, CGPoint point)
 		{
-			return true;
+			return container.Bounds.Contains(point);
 		}
 
-		//TODO:
 		internal void ShowView(UIView container)
 		{
+			container.SetDepthPreset(depthPreset);
+			container.Hidden = false;
 		}
 
-		//TODO:
 		internal void HideView(UIView container)
 		{
+			container.SetDepthPreset(DepthPreset.None);
+			container.Hidden = true;
 		}
-
-		//TODO:
-		[Export("HandleLeftViewPanGesture:")]
-		internal void HandleLeftViewPanGesture(UIPanGestureRecognizer recognizer)
-		{ 
-				//if (IsLeftViewEnabled && (Isle))
-		}
-		//fileprivate func handleLeftViewPanGesture(recognizer: UIPanGestureRecognizer)
-		//{
-		//	if isLeftViewEnabled && (isLeftViewOpened || !isRightViewOpened && isPointContainedWithinLeftThreshold(point: recognizer.location(in: view))) {
-		//		guard let v = leftView else {
-		//			return
-	
-		//	}
-
-		//		let point = recognizer.location(in: view)
-            
-  //          // Animate the panel.
-  //          switch recognizer.state {
-		//			case .began:
-		//				originalX = v.position.x
-
-		//		showView(container: v)
-
-
-		//		delegate?.navigationDrawerController ? (navigationDrawerController: self, didBeginPanAt: point, position: .left)
-  //          case .changed:
-		//				let w = v.width
-
-		//		let translationX = recognizer.translation(in: v).x
-
-
-		//		v.position.x = originalX + translationX > (w / 2) ? (w / 2) : originalX + translationX
-
-
-		//		let a = 1 - v.position.x / v.width
-
-		//		rootViewController.view.alpha = 0.5 < a && v.position.x <= v.width / 2 ? a : 0.5
-
-
-		//		if translationX >= leftThreshold {
-		//					hideStatusBar()
-
-		//		}
-
-		//				delegate?.navigationDrawerController ? (navigationDrawerController: self, didChangePanAt: point, position: .left)
-  //          case .ended, .cancelled, .failed:
-		//				let p = recognizer.velocity(in: recognizer.view)
-  //              let x = p.x >= 1000 || p.x <= -1000 ? p.x : 0
-
-
-		//		delegate?.navigationDrawerController ? (navigationDrawerController: self, didEndPanAt: point, position: .left)
-                
-  //              if v.x <= -leftViewWidth + leftViewThreshold || x < -1000 {
-		//					closeLeftView(velocity: x)
-
-		//		}
-		//				else {
-		//					openLeftView(velocity: x)
-	  
-		//		}
-		//			case .possible:
-		//				break
-
-		//	}
-		//	}
-		//}
-
 
 		#endregion
+		#endregion
+	}
+
+	public partial class NavigationDrawerController : RootController, IUIGestureRecognizerDelegate
+	{
+		private void PrepareLeftPanGesture()
+		{
+			if (LeftPanGesture != null) return;
+			LeftPanGesture = new UIPanGestureRecognizer(this, new Selector("HandleLeftViewPanGesture:"));
+			LeftPanGesture.Delegate = this;
+			View.AddGestureRecognizer(LeftPanGesture);
+		}
+		private void PrepareLeftTapGesture()
+		{
+			if (LeftTapGesture != null) return;
+			LeftTapGesture = new UITapGestureRecognizer(this, new Selector("HandleRightViewPanGesture:"));
+			LeftTapGesture.Delegate = this;
+			View.AddGestureRecognizer(LeftPanGesture);
+		}
+		private void PrepareRightTapGesture()
+		{
+			if (RightTapGesture != null) return;
+			RightTapGesture = new UITapGestureRecognizer(this, new Selector("HandleLeftViewPanGesture:"));
+			RightTapGesture.Delegate = this;
+			View.AddGestureRecognizer(RightTapGesture);
+		}
+		private void PrepareRightPanGesture()
+		{
+			if (RightPanGesture != null) return;
+			RightPanGesture = new UIPanGestureRecognizer(this, new Selector("HandleRightViewPanGesture:"));
+			RightPanGesture.Delegate = this;
+			View.AddGestureRecognizer(RightPanGesture);
+		}
+
+		private void PrepareContentViewController()
+		{
+			ContentViewController.View.BackgroundColor = Color.Black;
+			PrepareViewControllerWithinContainer(ContentViewController, View);
+			View.SendSubviewToBack(ContentViewController.View);
+		}
+
+		private void PrepareLeftViewController()
+		{
+			var v = LeftView;
+			if (v == null) return;
+			PrepareViewControllerWithinContainer(LeftViewController, v);
+		}
+
+		private void PrepareRightViewController()
+		{
+			var v = RightView;
+			if (v == null) return;
+			PrepareViewControllerWithinContainer(RightViewController, v);
+		}
+
+		private void PrepareLeftView()
+		{
+			var v = LeftViewController;
+			if (v == null) return;
+			IsLeftViewEnabled = true;
+			LeftViewWidth = UIUserInterfaceIdiom.Phone == Device.UserInterfaceIdiom ? 280 : 320;
+			LeftView = new UIView();
+			LeftView.Frame = new CGRect(x: 0, y: 0, width: LeftViewWidth, height: View.Height());
+			LeftView.BackgroundColor = null;
+			View.AddSubview(LeftView);
+
+			LeftView.Hidden = true;
+			LeftView.SetX(-LeftViewWidth / 2);
+			LeftView.SetZPosition(2000);
+			PrepareLeftViewController();
+		}
+
+		private void PrepareRightView()
+		{
+			var v = RightViewController;
+			if (v == null) return;
+			IsRightViewEnabled = true;
+			RightViewWidth = UIUserInterfaceIdiom.Phone == Device.UserInterfaceIdiom ? 280 : 320;
+			RightView = new UIView();
+			RightView.Frame = new CGRect(x: View.Width(), y: 0, width: RightViewWidth, height: View.Height());
+			RightView.BackgroundColor = null;
+			View.AddSubview(RightView);
+
+			RightView.Hidden = true;
+			RightView.SetX(View.Bounds.Width + RightViewWidth / 2);
+			RightView.SetZPosition(2000);
+			PrepareRightViewController();
+		}
+
+	}
+
+	public partial class NavigationDrawerController : RootController, IUIGestureRecognizerDelegate
+	{
+
+		public bool GestureRecognizer(UIGestureRecognizer gestureRecognizer, UITouch touch)
+		{
+			if (!IsRightViewOpened && gestureRecognizer == LeftPanGesture && (IsLeftViewOpened|| IsPointContainedWithinLeftThreshold(touch.LocationInView(View))))
+				return true;
+			if (!IsLeftViewOpened && gestureRecognizer == RightPanGesture && (IsRightViewOpened|| IsPointContainedWithinRightThreshold(touch.LocationInView(View))))
+				return true;
+			if (IsLeftViewOpened && gestureRecognizer == LeftTapGesture)
+				return true;
+			if (IsRightViewOpened && gestureRecognizer == RightTapGesture)
+				return true;
+			return false;
+		}
+
+		[Export("HandleLeftViewPanGesture:")]
+		internal void HandleLeftViewPanGesture(UIPanGestureRecognizer recognizer)
+		{
+			if (IsLeftViewEnabled && (IsLeftViewOpened || !IsRightViewOpened && IsPointContainedWithinLeftThreshold(recognizer.LocationInView(View))))
+			{
+				var v = LeftView;
+				var point = recognizer.LocationInView(View);
+
+				//Animate the panel
+				switch (recognizer.State)
+				{
+					case UIGestureRecognizerState.Began:
+						{
+							OriginalX = v.X();
+							ShowView(v);
+							if (Delegate != null)
+							{
+								Delegate.NavigationDrawerDidBeginPanAt(this, point, NavigationDrawerPosition.Left);
+							}
+							break;
+						}
+					case UIGestureRecognizerState.Changed:
+						{
+							var w = v.Width();
+							var transactionX = recognizer.TranslationInView(v).X;
+							v.SetX(OriginalX + transactionX > (w / 2) ? (w / 2) : OriginalX + transactionX);
+							var a = 1 - v.X() / v.Width();
+							RootViewController.View.Alpha = 0.5f < a && v.X() <= v.Width() / 2 ? a : 0.5f;
+
+							if (transactionX >= LeftThreshold) HideStatusBar();
+							if (this.Delegate != null)
+							{
+								Delegate.NavigationDrawerDidChangePanAt(this, point, NavigationDrawerPosition.Left);
+							}
+							break;
+						}
+					case UIGestureRecognizerState.Ended:
+					case UIGestureRecognizerState.Cancelled:
+					case UIGestureRecognizerState.Failed:
+						{
+							var p = recognizer.VelocityInView(View);
+							var x = p.X >= 1000 || p.X <= -1000 ? p.X : 0;
+							if (this.Delegate != null)
+							{
+								Delegate.NavigationDrawerDidEndPanAt(this, point, NavigationDrawerPosition.Left);
+								if (v.X() <= -LeftViewWidth + leftViewThreshold || x < -1000)
+								{
+									CloseLeftView(x);
+								}
+								else
+								{
+									OpenLeftView(x);
+								}
+							}
+							break;
+						}
+					case UIGestureRecognizerState.Possible: break;
+
+				}
+			}
+		}
+
+		[Export("HandleRightViewPanGesture:")]
+		internal void HandleRightViewPanGesture(UIPanGestureRecognizer recognizer)
+		{
+			if (IsRightViewOpened && (IsRightViewOpened || !IsLeftViewOpened && IsPointContainedWithinLeftThreshold(recognizer.LocationInView(View))))
+			{
+				var v = RightView;
+				var point = recognizer.LocationInView(View);
+
+				//Animate the panel
+				switch (recognizer.State)
+				{
+					case UIGestureRecognizerState.Began:
+						{
+							OriginalX = v.X();
+							ShowView(v);
+							if (Delegate != null)
+							{
+								Delegate.NavigationDrawerDidBeginPanAt(this, point, NavigationDrawerPosition.Right);
+							}
+							break;
+						}
+					case UIGestureRecognizerState.Changed:
+						{
+							var w = v.Width();
+							var transactionX = recognizer.TranslationInView(v).X;
+							v.SetX(OriginalX + transactionX > View.Bounds.Width - (w / 2) ? View.Bounds.Width - (w / 2) : OriginalX + transactionX);
+							var a = 1 - (View.Bounds.Width - v.X()) / v.Width();
+							RootViewController.View.Alpha = 0.5f < a && v.X() <= v.Width() / 2 ? a : 0.5f;
+
+							if (transactionX >= LeftThreshold) HideStatusBar();
+							if (this.Delegate != null)
+							{
+								Delegate.NavigationDrawerDidChangePanAt(this, point, NavigationDrawerPosition.Right);
+							}
+							break;
+						}
+					case UIGestureRecognizerState.Ended:
+					case UIGestureRecognizerState.Cancelled:
+					case UIGestureRecognizerState.Failed:
+						{
+							var p = recognizer.VelocityInView(View);
+							var x = p.X >= 1000 || p.X <= -1000 ? p.X : 0;
+							if (this.Delegate != null)
+							{
+								Delegate.NavigationDrawerDidEndPanAt(this, point, NavigationDrawerPosition.Right);
+								if (v.X() >= rightViewThreshold || x > 1000)
+								{
+									CloseRightView(x);
+								}
+								else
+								{
+									OpenRightView(x);
+								}
+							}
+							break;
+						}
+					case UIGestureRecognizerState.Possible: break;
+
+				}
+			}
+		}
+
+		private void HandleLeftViewTapGesture(UITapGestureRecognizer recognizer)
+		{
+			if (!IsLeftViewOpened) return;
+			var v = LeftView;
+			if (v != null) return;
+			if (this.Delegate != null)
+			{
+				this.Delegate.NavigationDrawerDidTapPanAt(this, recognizer.LocationInView(View), NavigationDrawerPosition.Left);
+			}
+			if (IsLeftViewEnabled && IsLeftViewOpened && !IsPointContainedWithinView(v, recognizer.LocationInView(v)))
+			{
+				CloseLeftView();
+			}
+		}
+
+		private void HandleRightViewTapGesture(UITapGestureRecognizer recognizer)
+		{
+			if (!IsRightViewOpened) return;
+			var v = RightView;
+			if (v != null) return;
+			if (this.Delegate != null)
+			{
+				this.Delegate.NavigationDrawerDidTapPanAt(this, recognizer.LocationInView(View), NavigationDrawerPosition.Right);
+			}
+			if (IsRightViewEnabled && IsRightViewOpened && !IsPointContainedWithinView(v, recognizer.LocationInView(v)))
+			{
+				CloseRightView();
+			}
+		}
 	}
 }

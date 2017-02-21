@@ -67,6 +67,8 @@ namespace ToolbarControllerDemo
 			Toolbar.RightViews = new List<UIView>() { starButton, searchButton };
 		}
 
+
+
 		#endregion
 	}
 }

@@ -22,6 +22,8 @@ namespace ToolbarControllerDemo
 			// If not required for your application you can safely delete this method
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 			Window.RootViewController = new AppToolbarController(new RootViewController());
+			var a = new AppToolbarController(new RootViewController());
+			var b = a.FloatingViewController;
 			Window.MakeKeyAndVisible();
 			return true;
 		}

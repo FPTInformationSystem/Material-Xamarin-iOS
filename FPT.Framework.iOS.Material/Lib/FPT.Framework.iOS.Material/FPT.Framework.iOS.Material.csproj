@@ -76,6 +76,8 @@
     <Folder Include="Sources\Page\" />
     <Folder Include="Sources\SearchBar\" />
     <Folder Include="Resources\New Folder\" />
+    <Folder Include="Sources\Application\" />
+    <Folder Include="Sources\Screen\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -153,6 +155,8 @@
     <Compile Include="Sources\Extension\Material+UIImage.cs" />
     <Compile Include="Sources\BottomTabBar\BottomNavigationController.cs" />
     <Compile Include="Sources\Table\TableViewCell.cs" />
+    <Compile Include="Sources\Application\Application.cs" />
+    <Compile Include="Sources\Screen\Screen.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Fonts\Roboto\Roboto-Bold.ttf" />

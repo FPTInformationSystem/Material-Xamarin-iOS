@@ -65,6 +65,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ButtonDemoStoryboard", "Dem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwitchDemoStoryboard", "DemoStoryboard\SwitchDemoStoryboard\SwitchDemoStoryboard.csproj", "{2424D615-A49D-4F0A-A694-42A8FB054843}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigationDrawerControllerDemo", "Demo\NavigationDrawerControllerDemo\NavigationDrawerControllerDemo.csproj", "{34534B41-85C3-499D-A51B-89D1342901E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -297,6 +299,14 @@ Global
 		{2424D615-A49D-4F0A-A694-42A8FB054843}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{2424D615-A49D-4F0A-A694-42A8FB054843}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{2424D615-A49D-4F0A-A694-42A8FB054843}.Debug|iPhone.Build.0 = Debug|iPhone
+		{34534B41-85C3-499D-A51B-89D1342901E0}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{34534B41-85C3-499D-A51B-89D1342901E0}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{34534B41-85C3-499D-A51B-89D1342901E0}.Release|iPhone.ActiveCfg = Release|iPhone
+		{34534B41-85C3-499D-A51B-89D1342901E0}.Release|iPhone.Build.0 = Release|iPhone
+		{34534B41-85C3-499D-A51B-89D1342901E0}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{34534B41-85C3-499D-A51B-89D1342901E0}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{34534B41-85C3-499D-A51B-89D1342901E0}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{34534B41-85C3-499D-A51B-89D1342901E0}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26C75516-374F-487F-8014-3B57C463C87A} = {C49F73A3-6958-486A-8089-DB6961B0708D}
@@ -328,5 +338,6 @@ Global
 		{3BC08B7B-104F-4083-AC45-37252B963D45} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 		{AC0AEF4A-531F-4FE0-8C6A-FB3EBD4EC1EC} = {929A440B-E552-43B8-B5BB-17FC1F6C3260}
 		{2424D615-A49D-4F0A-A694-42A8FB054843} = {929A440B-E552-43B8-B5BB-17FC1F6C3260}
+		{34534B41-85C3-499D-A51B-89D1342901E0} = {989A6933-FC41-40C0-B524-03C9F95BB42D}
 	EndGlobalSection
 EndGlobal
