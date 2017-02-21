@@ -63,7 +63,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		public static UIStatusBarStyle statusBarStyle
+		public static UIStatusBarStyle StatusBarStyle
 		{
 			get
 			{

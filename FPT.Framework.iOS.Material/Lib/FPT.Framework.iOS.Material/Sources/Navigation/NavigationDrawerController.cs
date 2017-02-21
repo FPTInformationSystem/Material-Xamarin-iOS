@@ -162,7 +162,7 @@ namespace FPT.Framework.iOS.Material
 
 		private UIViewController RightViewController { get; set; }
 
-		private UIViewController ContentViewController { get; set; }
+		private UIViewController ContentViewController { get; set; } = new UIViewController();
 
 		private nfloat LeftViewWidth { get; set; }
 
@@ -305,6 +305,7 @@ namespace FPT.Framework.iOS.Material
 
 		public NavigationDrawerController(UIViewController rootViewContrller, UIViewController leftViewController = null, UIViewController rightViewController = null) : base(rootViewContrller)
 		{
+			//this.RootViewController = rootViewContrller;
 			this.LeftViewController = leftViewController;
 			this.RightViewController = rightViewController;
 			Prepare();
@@ -324,6 +325,8 @@ namespace FPT.Framework.iOS.Material
 		public override void LayoutSubviews()
 		{
 			base.LayoutSubviews();
+			//ToggleStatusBar();
+
 			var v = LeftView;
 			if (v != null)
 			{
@@ -335,7 +338,7 @@ namespace FPT.Framework.iOS.Material
 				{
 					vc.View.SetWidth(v.Width());
 					vc.View.SetHeight(v.Height());
-					vc.View.Center = new Point(x: int.Parse((v.Width() / 2).ToString()), y: int.Parse((v.Height() / 2).ToString()));
+					vc.View.Center = new CGPoint(v.Width() / 2, v.Height() / 2);
 
 				}
 			}
@@ -351,7 +354,7 @@ namespace FPT.Framework.iOS.Material
 				{
 					vc.View.SetWidth(v.Width());
 					vc.View.SetHeight(v.Height());
-					vc.View.Center = new Point(x: int.Parse((v.Width() / 2).ToString()), y: int.Parse((v.Height() / 2).ToString()));
+					vc.View.Center = new CGPoint(v.Width() / 2, v.Height() / 2);
 
 				}
 			}
@@ -373,10 +376,10 @@ namespace FPT.Framework.iOS.Material
 		public void SetLeftViewWidth(nfloat width, bool isHidden, bool animated, double duration = 0.5)
 		{
 			var v = LeftView;
-			if (v != null) return;
+			if (v == null) return;
 			LeftViewWidth = width;
 			var hide = isHidden;
-			if (IsLeftViewOpened) hide = true;
+			if (IsRightViewOpened) hide = true;
 			if (animated)
 			{
 				v.SetIsShadowPathAutoSizing(false);
@@ -444,10 +447,10 @@ namespace FPT.Framework.iOS.Material
 		public void SetRightViewWidth(nfloat width, bool isHidden, bool animated, double duration = 0.5)
 		{
 			var v = RightView;
-			if (v != null) return;
+			if (v == null) return;
 			RightViewWidth = width;
 			var hide = isHidden;
-			if (IsRightViewOpened) hide = true;
+			if (IsLeftViewOpened) hide = true;
 			if (animated)
 			{
 				v.SetIsShadowPathAutoSizing(false);
@@ -531,8 +534,8 @@ namespace FPT.Framework.iOS.Material
 		{
 			if (!IsLeftViewEnabled) return;
 			var v = LeftView;
-			if (v != null) return;
-			HideStatusBar();
+			if (v == null) return;
+			//HideStatusBar();
 			ShowView(v);
 			UserInteractionEnabled = false;
 			if (Delegate != null)
@@ -708,6 +711,8 @@ namespace FPT.Framework.iOS.Material
 
 		internal void HideStatusBar()
 		{
+			if (!IsHiddenStatusBarEnabled) return;
+
 			var s = this;
 			DispatchQueue.MainQueue.DispatchSync(() =>
 			{
@@ -792,7 +797,7 @@ namespace FPT.Framework.iOS.Material
 
 		private void PrepareContentViewController()
 		{
-			ContentViewController.View.BackgroundColor = UIColor.Black;
+			ContentViewController.View.BackgroundColor = Color.Black;
 			PrepareViewControllerWithinContainer(ContentViewController, View);
 			View.SendSubviewToBack(ContentViewController.View);
 		}
@@ -800,7 +805,7 @@ namespace FPT.Framework.iOS.Material
 		private void PrepareLeftViewController()
 		{
 			var v = LeftView;
-			if (v != null) return;
+			if (v == null) return;
 			PrepareViewControllerWithinContainer(LeftViewController, v);
 		}
 
@@ -842,7 +847,7 @@ namespace FPT.Framework.iOS.Material
 			RightView.Hidden = true;
 			RightView.SetX(View.Bounds.Width -RightViewWidth / 2);
 			RightView.SetZPosition(2000);
-			PrepareLeftViewController();
+			PrepareRightViewController();
 		}
 
 	}

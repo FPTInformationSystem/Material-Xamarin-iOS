@@ -89,10 +89,10 @@ namespace FPT.Framework.iOS.Material
 		public override void Prepare()
 		{
 			base.Prepare();
-			prepareStatusBar();
+			PrepareStatusBar();
 		}
 
-		public void prepareStatusBar()
+		private void PrepareStatusBar()
 		{
 			StatusBar.SetZPosition(3000);
 			StatusBar.BackgroundColor = Color.White;
