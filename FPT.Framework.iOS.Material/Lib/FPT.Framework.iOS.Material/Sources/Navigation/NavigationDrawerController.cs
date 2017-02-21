@@ -372,7 +372,9 @@ namespace FPT.Framework.iOS.Material
 			base.ViewWillTransitionToSize(size, coordinator);
 			var v = RightView;
 			if (v == null) return;
-			v.SetX(size.Width + (IsRightViewOpened ? -v.Width() : v.Width()) / 2);
+			var position = v.Position();
+			position.X = size.Width + (IsRightViewOpened ? -v.Width() : v.Width()) / 2;
+			v.SetPosition(position);
 		}
 
 		public override void Prepare()
@@ -406,7 +408,9 @@ namespace FPT.Framework.iOS.Material
 						 var rect = v.Bounds;
 						 rect.Width = width;
 						 v.Bounds = rect;
-						 v.SetX(-width / 2);
+						 var position = v.Position();
+						 position.X = -width / 2;
+						 v.SetPosition(position);
 						 s.RootViewController.View.Alpha = 1;
 					 }, () =>
 					  {
@@ -424,7 +428,9 @@ namespace FPT.Framework.iOS.Material
 						 var rect = v.Bounds;
 						 rect.Width = width;
 						 v.Bounds = rect;
-						 v.SetX(width / 2);
+						 var position = v.Position();
+						 position.X = width / 2;
+						 v.SetPosition(position);
 						 s.RootViewController.View.Alpha = 0.5f;
 					 }, () =>
 					  {
@@ -443,14 +449,18 @@ namespace FPT.Framework.iOS.Material
 				if (hide)
 				{
 					HideView(v);
-					v.SetX(-v.Width() / 2);
+					var position = v.Position();
+					position.X = -v.Width() / 2;
+					v.SetPosition(position);
 					RootViewController.View.Alpha = 1;
 				}
 				else
 				{
 					v.SetIsShadowPathAutoSizing(false);
 					ShowView(v);
-					v.SetX(width / 2);
+					var position = v.Position();
+					position.X = v.Width() / 2;
+					v.SetPosition(position);
 					RootViewController.View.Alpha = 0.5f;
 					v.SetIsShadowPathAutoSizing(true);
 				}
@@ -477,7 +487,9 @@ namespace FPT.Framework.iOS.Material
 						 var rect = v.Bounds;
 						 rect.Width = width;
 						 v.Bounds = rect;
-						 v.SetX(View.Bounds.Width + width / 2);
+						 var position = v.Position();
+						 position.X = s.View.Bounds.Width + width / 2;
+						 v.SetPosition(position);
 						 s.RootViewController.View.Alpha = 1;
 					 }, () =>
 					  {
@@ -489,21 +501,23 @@ namespace FPT.Framework.iOS.Material
 				}
 				else
 				{
-					UIView.Animate(duration, () =>
-					 {
-						 var s = this;
-						 var rect = v.Bounds;
-						 rect.Width = width;
-						 v.Bounds = rect;
-						 v.SetX(View.Bounds.Width - width / 2);
-						 s.RootViewController.View.Alpha = 0.5f;
-					 }, () =>
-					  {
-						  var s = this;
-						  v.SetIsShadowPathAutoSizing(true);
-						  s.LayoutSubviews();
-						  s.HideView(v);
-					  });
+					UIView.Animate(duration, () => 
+					{
+						var s = this;
+						var rect = v.Bounds;
+						rect.Width = width;
+						v.Bounds = rect;
+						var position = v.Position();
+						position.X = s.View.Bounds.Width - width / 2;
+						v.SetPosition(position);
+						s.RootViewController.View.Alpha = 0.5f;
+					}, () =>
+					{
+						var s = this;
+						v.SetIsShadowPathAutoSizing(true);
+						s.LayoutSubviews();
+						s.HideView(v);
+					});
 				}
 			}
 			else
@@ -514,14 +528,18 @@ namespace FPT.Framework.iOS.Material
 				if (hide)
 				{
 					HideView(v);
-					v.SetX(View.Bounds.Width + v.Width() / 2);
+					var position = v.Position();
+					position.X = View.Bounds.Width + v.Width() / 2;
+					v.SetPosition(position);
 					RootViewController.View.Alpha = 1;
 				}
 				else
 				{
 					v.SetIsShadowPathAutoSizing(false);
 					ShowView(v);
-					v.SetX(View.Bounds.Width - width / 2);
+					var position = v.Position();
+					position.X = View.Bounds.Width - width / 2;
+					v.SetPosition(position);
 					RootViewController.View.Alpha = 0.5f;
 					v.SetIsShadowPathAutoSizing(true);
 				}
@@ -900,7 +918,7 @@ namespace FPT.Framework.iOS.Material
 				{
 					case UIGestureRecognizerState.Began:
 						{
-							OriginalX = v.X();
+							OriginalX = v.Position().X;
 							ShowView(v);
 							if (Delegate != null)
 							{
@@ -912,9 +930,11 @@ namespace FPT.Framework.iOS.Material
 						{
 							var w = v.Width();
 							var transactionX = recognizer.TranslationInView(v).X;
-							v.SetX(OriginalX + transactionX > (w / 2) ? (w / 2) : OriginalX + transactionX);
-							var a = 1 - v.X() / v.Width();
-							RootViewController.View.Alpha = 0.5f < a && v.X() <= v.Width() / 2 ? a : 0.5f;
+							var position = v.Position();
+							position.X = OriginalX + transactionX > (w / 2) ? (w / 2) : OriginalX + transactionX;
+							v.SetPosition(position);
+							var a = 1 - v.Position().X / v.Width();
+							RootViewController.View.Alpha = 0.5f < a && v.Position().X <= v.Width() / 2 ? a : 0.5f;
 
 							if (transactionX >= LeftThreshold) HideStatusBar();
 							if (this.Delegate != null)
@@ -962,7 +982,7 @@ namespace FPT.Framework.iOS.Material
 				{
 					case UIGestureRecognizerState.Began:
 						{
-							OriginalX = v.X();
+							OriginalX = v.Position().X;
 							ShowView(v);
 							if (Delegate != null)
 							{
@@ -974,9 +994,11 @@ namespace FPT.Framework.iOS.Material
 						{
 							var w = v.Width();
 							var transactionX = recognizer.TranslationInView(v).X;
-							v.SetX(OriginalX + transactionX > View.Bounds.Width - (w / 2) ? View.Bounds.Width - (w / 2) : OriginalX + transactionX);
-							var a = 1 - (View.Bounds.Width - v.X()) / v.Width();
-							RootViewController.View.Alpha = 0.5f < a && v.X() <= v.Width() / 2 ? a : 0.5f;
+							var position = v.Position();
+							position.X = OriginalX + transactionX > View.Bounds.Width - (w / 2) ? View.Bounds.Width - (w / 2) : OriginalX + transactionX;
+							v.SetPosition(position);
+							var a = 1 - (View.Bounds.Width - v.Position().X) / v.Width();
+							RootViewController.View.Alpha = 0.5f < a && v.Position().X <= v.Width() / 2 ? a : 0.5f;
 
 							if (transactionX >= LeftThreshold) HideStatusBar();
 							if (this.Delegate != null)
