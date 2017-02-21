@@ -29,9 +29,11 @@ using UIKit;
 using Foundation;
 using CoreGraphics;
 using CoreAnimation;
+using System.ComponentModel;
 
 namespace FPT.Framework.iOS.Material
 {
+	[Register("PulseView"), DesignTimeVisible(true)]
 	public class PulseView : View
 	{
 
@@ -111,6 +113,10 @@ namespace FPT.Framework.iOS.Material
 		}
 
 		public PulseView() : base()
+		{
+		}
+
+		public PulseView(IntPtr handle) : base(handle)
 		{
 		}
 

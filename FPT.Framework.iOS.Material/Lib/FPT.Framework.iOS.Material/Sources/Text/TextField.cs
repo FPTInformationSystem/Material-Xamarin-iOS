@@ -30,6 +30,7 @@ using CoreAnimation;
 using UIKit;
 using Foundation;
 using ObjCRuntime;
+using System.ComponentModel;
 
 namespace FPT.Framework.iOS.Material
 {
@@ -43,6 +44,7 @@ namespace FPT.Framework.iOS.Material
 		public virtual void DidClear(UITextField textField, string text) { }
 	}
 
+	[Register("TextField"), DesignTimeVisible(true)]
 	public class TextField : UITextField
 	{
 
@@ -460,6 +462,11 @@ namespace FPT.Framework.iOS.Material
 		{
 			RemoveObserver(this, "placeholderLabel.text");
 			RemoveObserver(this, "detailLabel.text");
+		}
+
+		protected TextField(IntPtr handle) : base(handle)
+		{
+			Prepare();
 		}
 
 		public TextField() : this(CGRect.Empty)

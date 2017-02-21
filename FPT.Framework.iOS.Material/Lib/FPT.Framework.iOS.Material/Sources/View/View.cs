@@ -140,6 +140,12 @@ namespace FPT.Framework.iOS.Material
 
 		public View() : this(CGRect.Empty) { }
 
+		public View(IntPtr handle) : base(handle)
+		{
+			ContentsGravityPreset = Gravity.ResizeAspectFill;
+			Prepare();
+		}
+
 		#endregion
 
 		#region FUNCTIONS
