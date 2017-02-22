@@ -94,13 +94,13 @@ namespace FPT.Framework.iOS.Material
 
 		internal UITapGestureRecognizer RightTapGesture { get; private set; }
 
-		public NavigationDrawerControllerDelegate Delegate { get; set; }
-
 		public nfloat LeftThreshold { get; set; } = 64f;
-		private nfloat leftViewThreshold { get; set; }
+		private nfloat leftViewThreshold { get; set; } = 0;
 
 		public nfloat RightThreshold { get; set; } = 64f;
-		private nfloat rightViewThreshold { get; set; }
+		private nfloat rightViewThreshold { get; set; } = 0;
+
+		public NavigationDrawerControllerDelegate Delegate { get; set; }
 
 		public double animationDuration { get; set; } = 0.25;
 
@@ -206,23 +206,23 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		private bool mIsRightTapGestureEnabled = false;
-		public bool IsRightTapGestureEnabled
+		private bool mIsLeftTapGestureEnabled = false;
+		public bool IsLeftTapGestureEnabled
 		{
 			get
 			{
-				return mIsRightTapGestureEnabled;
+				return mIsLeftTapGestureEnabled;
 			}
 			set
 			{
-				mIsRightTapGestureEnabled = value;
+				mIsLeftTapGestureEnabled = value;
 				if (value)
 				{
-					PrepareRightTapGesture();
+					PrepareLeftTapGesture();
 				}
 				else
 				{
-					RemoveRightTapGesture();
+					RemoveLeftTapGesture();
 				}
 			}
 		}
@@ -265,26 +265,28 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
-		private bool mIsLeftTapGestureEnabled = false;
-		public bool IsLeftTapGestureEnabled
+		private bool mIsRightTapGestureEnabled = false;
+		public bool IsRightTapGestureEnabled
 		{
 			get
 			{
-				return mIsLeftTapGestureEnabled;
+				return mIsRightTapGestureEnabled;
 			}
 			set
 			{
-				mIsLeftTapGestureEnabled = value;
+				mIsRightTapGestureEnabled = value;
 				if (value)
 				{
-					PrepareLeftTapGesture();
+					PrepareRightTapGesture();
 				}
 				else
 				{
-					RemoveLeftTapGesture();
+					RemoveRightTapGesture();
 				}
 			}
 		}
+
+
 
 		public bool IsHiddenStatusBarEnabled = true;
 
@@ -629,7 +631,7 @@ namespace FPT.Framework.iOS.Material
 			var v = LeftView;
 			if (v == null) return;
 
-			UserInteractionEnabled = false;
+			UserInteractionEnabled = true;
 			if (Delegate != null)
 			{
 				Delegate.NavigationDrawerWillClose(this, NavigationDrawerPosition.Left);
@@ -646,7 +648,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				var s = this;
 				s.HideView(v);
-				s.ToggleStatusBar();
+				//s.ToggleStatusBar();
 				if (Delegate != null)
 				{
 					s.Delegate.NavigationDrawerDidClose(this, NavigationDrawerPosition.Left);
@@ -660,7 +662,7 @@ namespace FPT.Framework.iOS.Material
 			var v = RightView;
 			if (v == null) return;
 
-			UserInteractionEnabled = false;
+			UserInteractionEnabled = true;
 			if (Delegate != null)
 			{
 				Delegate.NavigationDrawerWillClose(this, NavigationDrawerPosition.Right);
@@ -809,23 +811,27 @@ namespace FPT.Framework.iOS.Material
 		private void PrepareLeftTapGesture()
 		{
 			if (LeftTapGesture != null) return;
-			LeftTapGesture = new UITapGestureRecognizer(this, new Selector("HandleRightViewPanGesture:"));
+			LeftTapGesture = new UITapGestureRecognizer(this, new Selector("HandleLeftViewTapGesture:"));
 			LeftTapGesture.Delegate = this;
-			View.AddGestureRecognizer(LeftPanGesture);
+			LeftTapGesture.CancelsTouchesInView = false;
+			View.AddGestureRecognizer(LeftTapGesture);
 		}
-		private void PrepareRightTapGesture()
-		{
-			if (RightTapGesture != null) return;
-			RightTapGesture = new UITapGestureRecognizer(this, new Selector("HandleLeftViewPanGesture:"));
-			RightTapGesture.Delegate = this;
-			View.AddGestureRecognizer(RightTapGesture);
-		}
+
 		private void PrepareRightPanGesture()
 		{
 			if (RightPanGesture != null) return;
 			RightPanGesture = new UIPanGestureRecognizer(this, new Selector("HandleRightViewPanGesture:"));
 			RightPanGesture.Delegate = this;
 			View.AddGestureRecognizer(RightPanGesture);
+		}
+
+		private void PrepareRightTapGesture()
+		{
+			if (RightTapGesture != null) return;
+			RightTapGesture = new UITapGestureRecognizer(this, new Selector("HandleRightViewTapGesture:"));
+			RightTapGesture.Delegate = this;
+			RightTapGesture.CancelsTouchesInView = false;
+			View.AddGestureRecognizer(RightTapGesture);
 		}
 
 		private void PrepareContentViewController()
@@ -929,14 +935,14 @@ namespace FPT.Framework.iOS.Material
 					case UIGestureRecognizerState.Changed:
 						{
 							var w = v.Width();
-							var transactionX = recognizer.TranslationInView(v).X;
+							var translationX = recognizer.TranslationInView(v).X;
 							var position = v.Position();
-							position.X = OriginalX + transactionX > (w / 2) ? (w / 2) : OriginalX + transactionX;
+							position.X = OriginalX + translationX > (w / 2) ? (w / 2) : OriginalX + translationX;
 							v.SetPosition(position);
 							var a = 1 - v.Position().X / v.Width();
 							RootViewController.View.Alpha = 0.5f < a && v.Position().X <= v.Width() / 2 ? a : 0.5f;
 
-							if (transactionX >= LeftThreshold) HideStatusBar();
+							if (translationX >= LeftThreshold) HideStatusBar();
 							if (this.Delegate != null)
 							{
 								Delegate.NavigationDrawerDidChangePanAt(this, point, NavigationDrawerPosition.Left);
@@ -947,19 +953,20 @@ namespace FPT.Framework.iOS.Material
 					case UIGestureRecognizerState.Cancelled:
 					case UIGestureRecognizerState.Failed:
 						{
-							var p = recognizer.VelocityInView(View);
+							var p = recognizer.VelocityInView(recognizer.View.Superview);
 							var x = p.X >= 1000 || p.X <= -1000 ? p.X : 0;
 							if (this.Delegate != null)
 							{
 								Delegate.NavigationDrawerDidEndPanAt(this, point, NavigationDrawerPosition.Left);
-								if (v.X() <= -LeftViewWidth + leftViewThreshold || x < -1000)
-								{
-									CloseLeftView(x);
-								}
-								else
-								{
-									OpenLeftView(x);
-								}
+							}
+
+							if (v.X() <= -LeftViewWidth + leftViewThreshold || x < -1000)
+							{
+								CloseLeftView(x);
+							}
+							else
+							{
+								OpenLeftView(x);
 							}
 							break;
 						}
@@ -972,7 +979,7 @@ namespace FPT.Framework.iOS.Material
 		[Export("HandleRightViewPanGesture:")]
 		internal void HandleRightViewPanGesture(UIPanGestureRecognizer recognizer)
 		{
-			if (IsRightViewOpened && (IsRightViewOpened || !IsLeftViewOpened && IsPointContainedWithinLeftThreshold(recognizer.LocationInView(View))))
+			if (IsRightViewEnabled && (IsRightViewOpened || !IsLeftViewOpened && IsPointContainedWithinRightThreshold(recognizer.LocationInView(View))))
 			{
 				var v = RightView;
 				var point = recognizer.LocationInView(View);
@@ -993,14 +1000,14 @@ namespace FPT.Framework.iOS.Material
 					case UIGestureRecognizerState.Changed:
 						{
 							var w = v.Width();
-							var transactionX = recognizer.TranslationInView(v).X;
+							var translationX = recognizer.TranslationInView(v).X;
 							var position = v.Position();
-							position.X = OriginalX + transactionX > View.Bounds.Width - (w / 2) ? View.Bounds.Width - (w / 2) : OriginalX + transactionX;
+							position.X = OriginalX + translationX < View.Bounds.Width - (w / 2) ? View.Bounds.Width - (w / 2) : OriginalX + translationX;
 							v.SetPosition(position);
 							var a = 1 - (View.Bounds.Width - v.Position().X) / v.Width();
 							RootViewController.View.Alpha = 0.5f < a && v.Position().X <= v.Width() / 2 ? a : 0.5f;
 
-							if (transactionX >= LeftThreshold) HideStatusBar();
+							if (translationX <= -RightThreshold) HideStatusBar();
 							if (this.Delegate != null)
 							{
 								Delegate.NavigationDrawerDidChangePanAt(this, point, NavigationDrawerPosition.Right);
@@ -1011,19 +1018,19 @@ namespace FPT.Framework.iOS.Material
 					case UIGestureRecognizerState.Cancelled:
 					case UIGestureRecognizerState.Failed:
 						{
-							var p = recognizer.VelocityInView(View);
+							var p = recognizer.VelocityInView(recognizer.View);
 							var x = p.X >= 1000 || p.X <= -1000 ? p.X : 0;
 							if (this.Delegate != null)
 							{
 								Delegate.NavigationDrawerDidEndPanAt(this, point, NavigationDrawerPosition.Right);
-								if (v.X() >= rightViewThreshold || x > 1000)
-								{
-									CloseRightView(x);
-								}
-								else
-								{
-									OpenRightView(x);
-								}
+							}
+							if (v.X() >= rightViewThreshold || x > 1000)
+							{
+								CloseRightView(x);
+							}
+							else
+							{
+								OpenRightView(x);
 							}
 							break;
 						}
@@ -1033,6 +1040,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		[Export("HandleLeftViewTapGesture:")]
 		private void HandleLeftViewTapGesture(UITapGestureRecognizer recognizer)
 		{
 			if (!IsLeftViewOpened) return;
@@ -1048,6 +1056,7 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		[Export("HandleRightViewTapGesture:")]
 		private void HandleRightViewTapGesture(UITapGestureRecognizer recognizer)
 		{
 			if (!IsRightViewOpened) return;
