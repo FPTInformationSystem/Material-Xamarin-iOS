@@ -79,6 +79,12 @@ namespace FPT.Framework.iOS.Material
 		An initializer that initializes the object with a NSCoder object.
 		- Parameter aDecoder: A NSCoder instance.
 		*/
+
+		public RootController(IntPtr handle) : base(handle)
+		{
+			Prepare();
+		}
+
 		public RootController(NSCoder coder) : base(coder)
 		{
 			Prepare();

@@ -294,6 +294,11 @@ namespace FPT.Framework.iOS.Material
 
 		#region CONSTRUCTORS
 
+		public NavigationDrawerController(IntPtr handle) : base(handle)
+		{
+			Prepare();
+		}
+
 		public NavigationDrawerController(NSCoder coder) : base(coder)
 		{
 			
@@ -334,7 +339,7 @@ namespace FPT.Framework.iOS.Material
 		public override void LayoutSubviews()
 		{
 			base.LayoutSubviews();
-			//ToggleStatusBar();
+			ToggleStatusBar();
 
 			var vl = LeftView;
 			if (vl != null)
@@ -570,7 +575,7 @@ namespace FPT.Framework.iOS.Material
 			if (!IsLeftViewEnabled) return;
 			var v = LeftView;
 			if (v == null) return;
-			//HideStatusBar();
+			HideStatusBar();
 			ShowView(v);
 			UserInteractionEnabled = false;
 			if (Delegate != null)
@@ -600,7 +605,7 @@ namespace FPT.Framework.iOS.Material
 			if (!IsRightViewEnabled) return;
 			var v = RightView;
 			if (v == null) return;
-			//HideStatusBar();
+			HideStatusBar();
 			ShowView(v);
 			UserInteractionEnabled = false;
 			if (Delegate != null)
@@ -648,7 +653,7 @@ namespace FPT.Framework.iOS.Material
 			{
 				var s = this;
 				s.HideView(v);
-				//s.ToggleStatusBar();
+				s.ToggleStatusBar();
 				if (Delegate != null)
 				{
 					s.Delegate.NavigationDrawerDidClose(this, NavigationDrawerPosition.Left);
@@ -678,6 +683,8 @@ namespace FPT.Framework.iOS.Material
 			}, () =>
 			{
 				var s = this;
+				s.HideView(v);
+				s.ToggleStatusBar();
 				if (Delegate != null)
 				{
 					s.Delegate.NavigationDrawerDidClose(this, NavigationDrawerPosition.Right);
@@ -732,8 +739,8 @@ namespace FPT.Framework.iOS.Material
 		internal void ShowStatusBar()
 		{
 			var s = this;
-			DispatchQueue.MainQueue.DispatchSync(() =>
-			{
+			//DispatchQueue.MainQueue.DispatchSync(() =>
+			//{
 				var v = Application.KeyWindow;
 				if (v == null) return;
 				v.WindowLevel = UIWindowLevel.Normal;
@@ -741,7 +748,7 @@ namespace FPT.Framework.iOS.Material
 				{
 					s.Delegate.NavigationDrawerStatusBar(navigationDrawerController: s, statusBar: false);
 				}
-			});
+			//});
 		}
 
 		internal void HideStatusBar()
@@ -749,8 +756,8 @@ namespace FPT.Framework.iOS.Material
 			if (!IsHiddenStatusBarEnabled) return;
 
 			var s = this;
-			DispatchQueue.MainQueue.DispatchSync(() =>
-			{
+			//DispatchQueue.MainQueue.DispatchSync(() =>
+			//{
 				var v = Application.KeyWindow;
 				if (v == null) return;
 				v.WindowLevel = UIWindowLevel.StatusBar + 1;
@@ -758,7 +765,7 @@ namespace FPT.Framework.iOS.Material
 				{
 					s.Delegate.NavigationDrawerStatusBar(navigationDrawerController: s, statusBar: true);
 				}
-			});
+			//});
 		}
 
 		internal void ToggleStatusBar()
@@ -898,11 +905,12 @@ namespace FPT.Framework.iOS.Material
 	public partial class NavigationDrawerController : RootController, IUIGestureRecognizerDelegate
 	{
 
-		public bool GestureRecognizer(UIGestureRecognizer gestureRecognizer, UITouch touch)
+		[Export("gestureRecognizer:shouldReceiveTouch:")]
+		public bool ShouldReceiveTouch(UIGestureRecognizer gestureRecognizer, UITouch touch)
 		{
-			if (!IsRightViewOpened && gestureRecognizer == LeftPanGesture && (IsLeftViewOpened|| IsPointContainedWithinLeftThreshold(touch.LocationInView(View))))
+			if (!IsRightViewOpened && gestureRecognizer == LeftPanGesture && (IsLeftViewOpened || IsPointContainedWithinLeftThreshold(touch.LocationInView(View))))
 				return true;
-			if (!IsLeftViewOpened && gestureRecognizer == RightPanGesture && (IsRightViewOpened|| IsPointContainedWithinRightThreshold(touch.LocationInView(View))))
+			if (!IsLeftViewOpened && gestureRecognizer == RightPanGesture && (IsRightViewOpened || IsPointContainedWithinRightThreshold(touch.LocationInView(View))))
 				return true;
 			if (IsLeftViewOpened && gestureRecognizer == LeftTapGesture)
 				return true;
@@ -953,7 +961,7 @@ namespace FPT.Framework.iOS.Material
 					case UIGestureRecognizerState.Cancelled:
 					case UIGestureRecognizerState.Failed:
 						{
-							var p = recognizer.VelocityInView(recognizer.View.Superview);
+							var p = recognizer.VelocityInView(recognizer.View);
 							var x = p.X >= 1000 || p.X <= -1000 ? p.X : 0;
 							if (this.Delegate != null)
 							{
