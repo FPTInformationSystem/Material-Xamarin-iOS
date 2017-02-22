@@ -75,7 +75,6 @@
     <Folder Include="Sources\Divider\" />
     <Folder Include="Sources\Page\" />
     <Folder Include="Sources\SearchBar\" />
-    <Folder Include="Resources\New Folder\" />
     <Folder Include="Sources\Application\" />
     <Folder Include="Sources\Screen\" />
   </ItemGroup>

@@ -312,7 +312,6 @@ namespace FPT.Framework.iOS.Material
 
 		public NavigationDrawerController(UIViewController rootViewContrller, UIViewController leftViewController = null, UIViewController rightViewController = null) : base(rootViewContrller)
 		{
-			//this.RootViewController = rootViewContrller;
 			this.LeftViewController = leftViewController;
 			this.RightViewController = rightViewController;
 			Prepare();
@@ -738,9 +737,9 @@ namespace FPT.Framework.iOS.Material
 
 		internal void ShowStatusBar()
 		{
-			var s = this;
-			//DispatchQueue.MainQueue.DispatchSync(() =>
-			//{
+			DispatchQueue.MainQueue.DispatchAsync(() =>
+			{
+				var s = this;
 				var v = Application.KeyWindow;
 				if (v == null) return;
 				v.WindowLevel = UIWindowLevel.Normal;
@@ -748,16 +747,16 @@ namespace FPT.Framework.iOS.Material
 				{
 					s.Delegate.NavigationDrawerStatusBar(navigationDrawerController: s, statusBar: false);
 				}
-			//});
+			});
 		}
 
 		internal void HideStatusBar()
 		{
 			if (!IsHiddenStatusBarEnabled) return;
 
-			var s = this;
-			//DispatchQueue.MainQueue.DispatchSync(() =>
-			//{
+			DispatchQueue.MainQueue.DispatchAsync(() =>
+			{
+				var s = this;
 				var v = Application.KeyWindow;
 				if (v == null) return;
 				v.WindowLevel = UIWindowLevel.StatusBar + 1;
@@ -765,7 +764,7 @@ namespace FPT.Framework.iOS.Material
 				{
 					s.Delegate.NavigationDrawerStatusBar(navigationDrawerController: s, statusBar: true);
 				}
-			//});
+			});
 		}
 
 		internal void ToggleStatusBar()
@@ -927,7 +926,6 @@ namespace FPT.Framework.iOS.Material
 				var v = LeftView;
 				var point = recognizer.LocationInView(View);
 
-				//Animate the panel
 				switch (recognizer.State)
 				{
 					case UIGestureRecognizerState.Began:
