@@ -29,6 +29,21 @@ namespace NavigationControllerDemo
 
 		#region FUNCTIONS
 
+		public override CoreGraphics.CGSize PreferredContentSize
+		{
+			get
+			{
+				
+				return new CoreGraphics.CGSize(730, 768);
+			}
+		}
+
+		public override void ViewDidAppear(bool animated)
+		{
+			base.ViewDidAppear(animated);
+			this.NavigationController.NavigationBar.LayoutSubviews();
+		}
+
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
@@ -56,7 +71,10 @@ namespace NavigationControllerDemo
 		private void prepareMenuButton()
 		{
 			menuButton = new IconButton(image: Icon.CM.Menu);
-
+			menuButton.TouchUpInside += (sender, e) =>
+			{
+				this.DismissViewController(true, null);
+			};
 
 		}
 
@@ -68,6 +86,16 @@ namespace NavigationControllerDemo
 		private void prepareSearchButton()
 		{
 			searchButton = new IconButton(image: Icon.CM.Search);
+			searchButton.TouchUpInside += (object sender, EventArgs e) =>
+			{
+				var newVC = new AppNavigationController(new RootViewController());
+				newVC.ModalTransitionStyle = UIModalTransitionStyle.CoverVertical;
+				newVC.ModalPresentationStyle = UIModalPresentationStyle.FormSheet;
+				this.PresentViewController(newVC, true, () =>
+				{
+					
+				});
+			};
 		}
 
 		private void prepareNavigationItem()
