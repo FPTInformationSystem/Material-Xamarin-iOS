@@ -106,6 +106,13 @@ namespace FPT.Framework.iOS.Material
 			}
 		}
 
+		public override void ViewWillLayoutSubviews()
+		{
+			base.ViewWillLayoutSubviews();
+			NavigationBar.SetNeedsLayout();
+			NavigationBar.LayoutIfNeeded();
+		}
+
 		/**
 		Detects the gesture recognizer being used. This is necessary when using 
 		NavigationDrawerController. It eliminates the conflict in panning.
@@ -173,6 +180,7 @@ namespace FPT.Framework.iOS.Material
 		public virtual void Prepare()
 		{
 			NavigationBar.SetHeightPreset(HeightPreset.Normal);
+			NavigationBar.SetWidth(View.Width());
 
 			View.ClipsToBounds = true;
 			View.BackgroundColor = Color.White;

@@ -52,7 +52,7 @@ namespace FPT.Framework.iOS.Material
 		{
 			get
 			{
-				return new CGSize(Device.Width, this.Height());
+				return new CGSize(this.Width(), this.Height());
 			}
 		}
 
