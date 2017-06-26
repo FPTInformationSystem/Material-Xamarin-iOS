@@ -556,7 +556,8 @@ namespace FPT.Framework.iOS.Material
 			//Button.TouchDragInside += handleTouchDragInside;
 			//Button.TouchCancel += handleTouchUpOutsideOrCanceled;
 			//Button.TouchUpOutside += handleTouchUpOutsideOrCanceled;
-			Button.AddTarget(this, new Selector("handleTouchUpOutsideOrCanceled:fromSender:ForEvent"), UIControlEvent.TouchCancel | UIControlEvent.TouchUpOutside);
+			Button.AddTarget(this, new Selector("handleTouchUpOutsideOrCanceled:fromSender:ForEvent"), UIControlEvent.TouchCancel);
+			Button.AddTarget(this, new Selector("handleTouchUpOutsideOrCanceled:fromSender:ForEvent"), UIControlEvent.TouchUpOutside);
 			AddSubview(Button);
 		}
 
